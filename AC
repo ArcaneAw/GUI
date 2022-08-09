@@ -1,4 +1,3 @@
-
 function NovaNoti(Title, Text, Icon, Duration)
 	game.StarterGui:SetCore("SendNotification", {
 		Title = Title;
@@ -114,6 +113,11 @@ MainPage.AddDropdown("JOJO SOUNDS", {"IN THE NAME OF GOD I WILL SMITE YOU!", "Pr
 	end
 	function c(wrd)
 		game.ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer(wrd, "All")
+	end
+    if Value == "nasty" then
+		c("so you real nasty, huh?!")
+	else
+		c(Value)
 	end
 
     if Value == "IN THE NAME OF GOD I WILL SMITE YOU!" then
