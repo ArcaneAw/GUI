@@ -37,9 +37,9 @@ function b.OnInvoke(Response)
 	end;
 end;
 game:GetService('StarterGui'):SetCore("SendNotification", {
-	Title = 'Nova Gui';
+	Title = 'JoJo Gui';
 	Text = 'Would You Like To Enable Anti Ban?';
-	Icon = "rbxassetid://9870555100";
+	Icon = "rbxassetid://";
 	Duration = 3.4028235e+38;
 	Callback = b;
 	Button1 = 'Yes!';
@@ -48,7 +48,7 @@ game:GetService('StarterGui'):SetCore("SendNotification", {
 
 
 local UI = loadstring(game:HttpGet("https://raw.githubusercontent.com/bloodball/-back-ups-for-libs/main/twink"))()
-local Library = UI.Load("ACgui")
+local Library = UI.Load("JoJo Gui")
 
 local MainPage = Library.AddPage("Main!")
 local LockPage = Library.AddPage("Lock!")
