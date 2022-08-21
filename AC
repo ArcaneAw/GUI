@@ -1,3 +1,5 @@
+
+
 function NovaNoti(Title, Text, Icon, Duration)
 	game.StarterGui:SetCore("SendNotification", {
 		Title = Title;
@@ -885,7 +887,7 @@ MainPage.AddToggle("Auto Stomp", nil, function(Value)
 	repeat wait() until Value == false
 	Pause()
 end)
-FunPage.AddDropdown("JOJO SOUNDS", {"ZA WARUDO!", "Za Warudo.", "Za Warudo!", "ZA WARUDO..", "you thought you would be able to defeat me?!", "You dare to resist my reality?!", "This is the path to heaven", "I'll teach you the meaning of Life", "How much bread have you eaten?", "You gonna have to die then..", "You puny humans, I shall rule you all!", "Toki wa tomata", "Kono dio da", "This suits me well!", "You fool", "OVA HEAVEN", "Muda Muda", "Reality", "STAR PLATINUM ZA WARUDO!", "Shut up your damn annoying", "You did well on your own", "Shut up, get out of my face", "you will definitely pay...", "Do you understand?", "Shut up! Don't be such a pain, woman!", "Yare Yare Da..", "Good Grief.", "Yare Yare Daze.", "Star Platinum!", "Hm, Not Bad", "Yarou", "What are you walking away for? Scared?", "Hold up", "Nice.. Nice..", "Ally or enemy its your choice", "Stop Running.", "whats wrong?", "yare yare daze..", "JOTAROO", "Do you want a fight? Ill give you a fight", "yare yare..", "Hmph", "Hm", "Haha", "NANI!?", "Come on", "Golden Experience!", "I, Giorno Giovanna have a dream.", "Life beam of Creation.", "A person grows once..", "Requiem..", "WRYY!", "LOADDASH", "r̴̛̛̯̩͔̥͌̌̈́̇̕", "y̵̦͍͍͎͙͚͊̌͂͐́̌̃̿̀͝ͅ", "Killer queen!", "Heart Attack Has No Weakness.", "Killer queen bites the dust!", "Coin!", "OI,OI", "Diavolo Da!", "King Crimson!", "Time erase!", "Epitaph!", "I'll use my Stand to solve the Problem", "This is the taste of a liar!", "What did you just say about my hair?!", "t̶͕̤̱̍̎̒́̕͝", "OH NOOOOOOOO", "ḥ̷̢͈̓̎͘͘̕͜", "You're Gone.", "How many minutes will you last?", "D̴̜͇̟̅̀", "Yes YES!", "Ŗ̴̺̟̘̘́́", "This is a Test.", "Now its time for you.", "HEY HEY HEY!", "D4C, Love Train", "Y̵͍͐͛", "Ĥ̷̡͓͎͉̺̲̰", "💀", "̴̠͝H̴̿", "H҉", "😂", "😭", "😱", "😸", "😺", "😾", "😾😾",}, function(Value)
+FunPage.AddDropdown("JOJO SOUNDS", {"ZA WARUDO!", "Za Warudo.", "Za Warudo!", "ZA WARUDO..", "you thought you would be able to defeat me?!", "You dare to resist my reality?!", "This is the path to heaven", "I'll teach you the meaning of Life", "How much bread have you eaten?", "You gonna have to die then..", "You puny humans, I shall rule you all!", "Toki wa tomata", "Kono dio da", "This suits me well!", "You fool", "OVA HEAVEN", "Muda Muda", "Reality", "STAR PLATINUM ZA WARUDO!", "Shut up your damn annoying", "You did well on your own", "Shut up, get out of my face", "you will definitely pay...", "Do you understand?", "Shut up! Don't be such a pain, woman!", "Yare Yare Da..", "Good Grief.", "Yare Yare Daze.", "Star Platinum!", "Hm, Not Bad", "Yarou", "What are you walking away for? Scared?", "Hold up", "Nice.. Nice..", "Ally or enemy its your choice", "Stop Running.", "whats wrong?", "yare yare daze..", "JOTAROO", "Do you want a fight? Ill give you a fight", "yare yare..", "Hmph", "Hm", "Haha", "NANI!?", "Come on", "Golden Experience!", "I, Giorno Giovanna have a dream.", "Life beam of Creation.", "A person grows once..", "Requiem..", "WRYY!", "LOADDASH", "Killer queen!", "Heart Attack Has No Weakness.", "Killer queen bites the dust!", "Coin!", "OI,OI", "Diavolo Da!", "King Crimson!", "Time erase!", "Epitaph!", "I'll use my Stand to solve the Problem", "This is the taste of a liar!", "What did you just say about my hair?!", "OH NOOOOOOOO", "You're Gone.", "How many minutes will you last?", "Yes YES!", "This is a Test.", "Now its time for you.", "HEY HEY HEY!", "D4C, Love Train", "IN THE NAME OF GOD I WILL SMITE YOU!", "Praise the powers God has granted me!", "Made In Heaven Heaven's Punishment", "OOOAGHHHHHHH!", "I will COMMAND YOU!", "G҉r҉a҉v҉i҉t҉y҉ ҉S҉h҉i҉f҉t҉", "Ṃ̶̆A̷̬̾D̶̦̓E̶͈͆ ̷̥̿I̶͉̐Ń̷̝ ̴̠͝H̴̭̿E̵̞̓A̴̦͂Ṿ̸̾E̶͔̽N̵̲̈́!̶̡̿ ", "This is the end..", "I am prepared", "Dont provoke me", "T҉i҉m҉e҉ ҉A҉c҉c҉e҉l҉e҉r҉a҉t҉e҉!҉", "Are you Prepared?", "Life sentence!", "You little weakling", "I'll break your jaw", "What did you see?", "You are slow!", "W҉ ҉҉n҉҉ ҉D҉I҉ Mode..!", "C҉m҉o҉o҉n҉!҉", "💀", "̴̠͝H̴̿", "H҉", "😂", "😭", "😱", "😸", "😺", "😾", "😾😾",}, function(Value)
 	local LocalPlayer = game:GetService("Players").LocalPlayer
 	local OldChar = LocalPlayer.Character
 	local OriginalKeyUpValue = 0
@@ -1064,10 +1066,6 @@ FunPage.AddDropdown("JOJO SOUNDS", {"ZA WARUDO!", "Za Warudo.", "Za Warudo!", "Z
         p(3378899117)
     elseif Value == "LOADDASH" then
         p(4144456942)
-    elseif Value == "r̴̛̛̯̩͔̥͌̌̈́̇̕" then
-        p(5648739567)
-    elseif Value == "y̵̦͍͍͎͙͚͊̌͂͐́̌̃̿̀͝ͅ" then
-        p(6720681021)
     elseif Value == "Killer queen!" then
         p(5818138638)
     elseif Value == "Heart Attack Has No Weakness." then
@@ -1092,42 +1090,68 @@ FunPage.AddDropdown("JOJO SOUNDS", {"ZA WARUDO!", "Za Warudo.", "Za Warudo!", "Z
         p(5955895179)
     elseif Value == "What did you just say about my hair?!" then
         p(5121712433)
-    elseif Value == "t̶͕̤̱̍̎̒́̕͝" then
-        p(6183180997) 
     elseif Value == "OH NOOOOOOOO" then
         p(171370547)
-    elseif Value == "ḥ̷̢͈̓̎͘͘̕͜" then
-        p(6186430062)
-        wait(1.3)
-        p(6938730438)
     elseif Value == "You're Gone." then
         p(1436242274)
     elseif Value == "How many minutes will you last?" then
         p(159882644)
-    elseif Value == "D̴̜͇̟̅̀" then
-        p(247615928)
     elseif Value == "Yes YES!" then
         p(3378133256)
-    elseif Value == "Ŗ̴̺̟̘̘́́" then
-        p(6186969831)
     elseif Value == "This is a Test." then
         p(6938737351)
     elseif Value == "Now its time for you." then
         p(6183181671)
     elseif Value == "HEY HEY HEY!" then
         p(2652135070)
-    elseif Value == "D4C, Love Train" then
-        p(8387385886)
-    elseif Value == "Y̵͍͐͛" then
-        p(5775230172)
-    elseif Value == "Ĥ̷̡͓͎͉̺̲̰" then
-        p(8319936209)
+    elseif Value == "IN THE NAME OF GOD I WILL SMITE YOU!" then
+        p(5114781956)
+    elseif Value == "Praise the powers God has granted me!" then
+        p(6794304223)
+    elseif Value == "Made In Heaven Heaven's Punishment" then
+        p(7147403074)
+    elseif Value == "OOOAGHHHHHHH!" then
+        p(8393186681)
+    elseif Value == "I will COMMAND YOU!" then
+        p(5790731281)
+    elseif Value == "G҉r҉a҉v҉i҉t҉y҉ ҉S҉h҉i҉f҉t҉" then
+        p(8713037614)
+        wait(2.4)
+        p(7204949322)
+        wait(0.5)
+        p(7071753365)
+    elseif Value == "Ṃ̶̆A̷̬̾D̶̦̓E̶͈͆ ̷̥̿I̶͉̐Ń̷̝ ̴̠͝H̴̭̿E̵̞̓A̴̦͂Ṿ̸̾E̶͔̽N̵̲̈́!̶̡̿ " then
+        p(5059139543)
+    elseif Value == "This is the end.." then
+        p(7330375321)
+    elseif Value == "I am prepared" then
+        p(6786706903)
+    elseif Value == "Dont provoke me" then
+        p(6803379514)
+    elseif Value == "T҉i҉m҉e҉ ҉A҉c҉c҉e҉l҉e҉r҉a҉t҉e҉!҉" then
+        p(6832405226)
+    elseif Value == "Are you Prepared?" then
+        p(5439452093)
+    elseif Value == "Life sentence!" then
+        p(6855953445)
+    elseif Value == "You little weakling" then
+        p(6779382370)
+    elseif Value == "I'll break your jaw" then
+        p(6819664297)
+    elseif Value == "What did you see?" then
+        p(7030579777)
+    elseif Value == "You are slow!" then
+        p(6759040675)
+    elseif Value == "W҉ ҉S҉n҉a҉k҉e҉!҉" then
+        p(6814268159)
+    elseif Value == "M҉Y҉ ҉D҉I҉S҉C҉" then
+        p(3378198575)
+    elseif Value == "Final Mode..!" then
+        p(6938585925)
+    elseif Value == "C҉m҉o҉o҉n҉!҉" then
+        p(7201230880)
     elseif Value == "💀" then
         p(9063709738)
-    elseif Value == "̴̠͝H̴̿" then
-        p(8004825017)
-    elseif Value == "H҉" then
-        p(7776593882)
     elseif Value == "😂" then
         p(8449305114)
     elseif Value == "😭" then
@@ -1442,6 +1466,9 @@ FunPage.AddButton("Dash", function()
 					end
 				end
 			end
+end)
+FunPage.AddButton("DBZ SCRIPT", function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/ArcaneAw/DBZ/main/AC", true))()
 end)
 FunPage.AddButton("TP's [t j x z]", function()
 loadstring(game:HttpGet("https://raw.githubusercontent.com/ArcaneAw/boombox/main/AC", true))()
@@ -1959,125 +1986,97 @@ end)
 FunPage.AddButton("Destroy Face [Fe]", function()
 	game.Players.LocalPlayer.Character.Head.face:Destroy()
 end)
-FunPage.AddDropdown("JOJO SOUNDS2", {"IN THE NAME OF GOD I WILL SMITE YOU!", "Praise the powers God has granted me!", "Made In Heaven Heaven's Punishment", "OOOAGHHHHHHH!", "I will COMMAND YOU!", "G҉r҉a҉v҉i҉t҉y҉ ҉S҉h҉i҉f҉t҉", "Ṃ̶̆A̷̬̾D̶̦̓E̶͈͆ ̷̥̿I̶͉̐Ń̷̝ ̴̠͝H̴̭̿E̵̞̓A̴̦͂Ṿ̸̾E̶͔̽N̵̲̈́!̶̡̿ ", "This is the end..", "I am prepared", "Dont provoke me", "T҉i҉m҉e҉ ҉A҉c҉c҉e҉l҉e҉r҉a҉t҉e҉!҉", "Are you Prepared?", "Life sentence!", "You little weakling", "I'll break your jaw", "What did you see?", "Ţ̸̠̬̠͋̄́̊̊́̇̃̚͝", "0̸̬̼̯̯͇͇͔͂̃̈́̋̈́͑͛̅", "Invasion!", "♡", "You are slow!", "W҉ ҉S҉n҉a҉k҉e҉!҉", "M҉Y҉ ҉D҉I҉S҉C҉", "Final Mode..!", "C҉m҉o҉o҉n҉!҉",}, function(Value)
-	local LocalPlayer = game:GetService("Players").LocalPlayer
-	local OldChar = LocalPlayer.Character
-	local OriginalKeyUpValue = 0
+FunPage.AddDropdown("JOJO SOUNDS2", {"Tesuto!", "Zero!", "Invasion!", "Mandom", "Jotaro Cut G", "Humble!", "̴̠͝H̴̿", "HEHEHEHA", "Right!", "DIE DIE DIE DIE", "Thanks you!", "Rush", "Yata",}, function(Value)
+    local LocalPlayer = game:GetService("Players").LocalPlayer
+    local OldChar = LocalPlayer.Character
+    local OriginalKeyUpValue = 0
 
-	function StopAudio()
-		OldChar.LowerTorso.BOOMBOXSOUND:Stop()
-	end
+    function StopAudio()
+        OldChar.LowerTorso.BOOMBOXSOUND:Stop()
+    end
 
-	function stop(ID, Key)
-		local cor = coroutine.wrap(function()
-			wait(OldChar.LowerTorso.BOOMBOXSOUND.TimeLength-0.1)
-			if OldChar.LowerTorso.BOOMBOXSOUND.SoundId == "rbxassetid://"..ID and OriginalKeyUpValue == Key then
-				StopAudio()
-			end
-		end)
-		cor()
-	end
+    function stop(ID, Key)
+        local cor = coroutine.wrap(function()
+            wait(OldChar.LowerTorso.BOOMBOXSOUND.TimeLength-0.1)
+            if OldChar.LowerTorso.BOOMBOXSOUND.SoundId == "rbxassetid://"..ID and OriginalKeyUpValue == Key then
+                StopAudio()
+            end
+        end)
+        cor()
+    end
 
 
-	function play(ID, STOP, LMAO)
-		if LocalPlayer.Backpack:FindFirstChild("[Boombox]") then
-			local Tool = nil
-			if OldChar:FindFirstChildOfClass("Tool") and LMAO == true then
-				Tool = OldChar:FindFirstChildOfClass("Tool")
-				OldChar:FindFirstChildOfClass("Tool").Parent = LocalPlayer.Backpack
-			end
-			LocalPlayer.Backpack["[Boombox]"].Parent =
-				OldChar
-			game.ReplicatedStorage.MainEvent:FireServer("Boombox", ID)
-			OldChar["[Boombox]"].RequiresHandle = false
-			if OldChar["[Boombox]"]:FindFirstChild("Handle") then
-				OldChar["[Boombox]"].Handle:Destroy()
-			end
-			OldChar["[Boombox]"].Parent =
-				LocalPlayer.Backpack
-			LocalPlayer.PlayerGui.MainScreenGui.BoomboxFrame.Visible = false
-			if Tool ~= true then
-				if Tool then
-					Tool.Parent = OldChar
-				end
-			end
-			if STOP == true then
-				OldChar.LowerTorso:WaitForChild("BOOMBOXSOUND")
-				local cor = coroutine.wrap(function()
-					repeat wait() until OldChar.LowerTorso.BOOMBOXSOUND.SoundId == "rbxassetid://"..ID and OldChar.LowerTorso.BOOMBOXSOUND.TimeLength > 0.01
-					OriginalKeyUpValue = OriginalKeyUpValue+1
-					stop(ID, OriginalKeyUpValue)
-				end)
-				cor()
-			end
-		end
-	end
-	function p(id)
-		play(id, true, true)
-	end
-	function c(wrd)
-		game.ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer(wrd, "All")
-	end
+    function play(ID, STOP, LMAO)
+        if LocalPlayer.Backpack:FindFirstChild("[Boombox]") then
+            local Tool = nil
+            if OldChar:FindFirstChildOfClass("Tool") and LMAO == true then
+                Tool = OldChar:FindFirstChildOfClass("Tool")
+                OldChar:FindFirstChildOfClass("Tool").Parent = LocalPlayer.Backpack
+            end
+            LocalPlayer.Backpack["[Boombox]"].Parent =
+                OldChar
+            game.ReplicatedStorage.MainEvent:FireServer("Boombox", ID)
+            OldChar["[Boombox]"].RequiresHandle = false
+            if OldChar["[Boombox]"]:FindFirstChild("Handle") then
+                OldChar["[Boombox]"].Handle:Destroy()
+            end
+            OldChar["[Boombox]"].Parent =
+                LocalPlayer.Backpack
+            LocalPlayer.PlayerGui.MainScreenGui.BoomboxFrame.Visible = false
+            if Tool ~= true then
+                if Tool then
+                    Tool.Parent = OldChar
+                end
+            end
+            if STOP == true then
+                OldChar.LowerTorso:WaitForChild("BOOMBOXSOUND")
+                local cor = coroutine.wrap(function()
+                    repeat wait() until OldChar.LowerTorso.BOOMBOXSOUND.SoundId == "rbxassetid://"..ID and OldChar.LowerTorso.BOOMBOXSOUND.TimeLength > 0.01
+                    OriginalKeyUpValue = OriginalKeyUpValue+1
+                    stop(ID, OriginalKeyUpValue)
+                end)
+                cor()
+            end
+        end
+    end
+    function p(id)
+        play(id, true, true)
+    end
+    function c(wrd)
+        game.ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer(wrd, "None")
+    end
     if Value == "nasty" then
-		c("so you real nasty, huh?!")
-	else
-		c(Value)
-	end
+        c("so you real nasty, huh?!")
+    else
+        c(Value)
+    end
 
-    if Value == "IN THE NAME OF GOD I WILL SMITE YOU!" then
-        p(5114781956)
-    elseif Value == "Praise the powers God has granted me!" then
-        p(6794304223)
-    elseif Value == "Made In Heaven Heaven's Punishment" then
-        p(7147403074)
-    elseif Value == "OOOAGHHHHHHH!" then
-        p(8393186681)
-    elseif Value == "I will COMMAND YOU!" then
-        p(5790731281)
-    elseif Value == "G҉r҉a҉v҉i҉t҉y҉ ҉S҉h҉i҉f҉t҉" then
-        p(8713037614)
-        wait(2.4)
-        p(7071753365)
-        wait(1)
-        p(7204949322)
-    elseif Value == "Ṃ̶̆A̷̬̾D̶̦̓E̶͈͆ ̷̥̿I̶͉̐Ń̷̝ ̴̠͝H̴̭̿E̵̞̓A̴̦͂Ṿ̸̾E̶͔̽N̵̲̈́!̶̡̿ " then
-        p(5059139543)
-    elseif Value == "This is the end.." then
-        p(7330375321)
-    elseif Value == "I am prepared" then
-        p(6786706903)
-    elseif Value == "Dont provoke me" then
-        p(6803379514)
-    elseif Value == "T҉i҉m҉e҉ ҉A҉c҉c҉e҉l҉e҉r҉a҉t҉e҉!҉" then
-        p(6832405226)
-    elseif Value == "Are you Prepared?" then
-        p(5439452093)
-    elseif Value == "Life sentence!" then
-        p(6855953445)
-    elseif Value == "You little weakling" then
-        p(6779382370)
-    elseif Value == "I'll break your jaw" then
-        p(6819664297)
-    elseif Value == "What did you see?" then
-        p(7030579777)
-    elseif Value == "Ţ̸̠̬̠͋̄́̊̊́̇̃̚͝" then
+    if Value == "Tesuto!" then
         p(6938737351)
-    elseif Value == "0̸̬̼̯̯͇͇͔͂̃̈́̋̈́͑͛̅" then
+    elseif Value == "Zero!" then
         p(7099835652)
     elseif Value == "Invasion!" then
         p(8705300155)
-    elseif Value == "♡" then
+    elseif Value == "Mandom" then
         p(6055840485)
-    elseif Value == "You are slow!" then
-        p(6759040675)
-    elseif Value == "W҉ ҉S҉n҉a҉k҉e҉!҉" then
-        p(6814268159)
-    elseif Value == "M҉Y҉ ҉D҉I҉S҉C҉" then
-        p(3378198575)
-    elseif Value == "Final Mode..!" then
-        p(6938585925)
-    elseif Value == "C҉m҉o҉o҉n҉!҉" then
-        p(7201230880)
+    elseif Value == "Jotaro Cut G" then
+        p(5775230172)
+    elseif Value == "Humble!" then
+        p(8319936209)
+    elseif Value == "̴̠͝H̴̿" then
+        p(8004825017)
+    elseif Value == "HEHEHEHA" then
+        p(7776593882)
+    elseif Value == "Right!" then
+        p(6186969831)
+    elseif Value == "DIE DIE DIE DIE" then
+        p(247615928)
+    elseif Value == "Thanks you!" then
+        p(6183180997) 
+    elseif Value == "Rush" then
+        p(5648739567)
+    elseif Value == "Yata" then
+        p(6720681021)
     end
 end)
 LockPage.AddButton("Trace Lock", function()
