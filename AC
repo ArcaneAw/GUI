@@ -55,6 +55,7 @@ local Library = UI.Load("JoJo Gui")
 local MainPage = Library.AddPage("Main!")
 local LockPage = Library.AddPage("Lock!")
 local FunPage = Library.AddPage("Fun!")
+local TeleportPage = Library.AddPage("Teleports!")
 local AnimationsPage = Library.AddPage("Animations!")
 
 MainPage.AddLabel("Main!")
@@ -1467,9 +1468,6 @@ FunPage.AddButton("Dash", function()
 				end
 			end
 end)
-FunPage.AddButton("DBZ SCRIPT", function()
-loadstring(game:HttpGet("https://raw.githubusercontent.com/ArcaneAw/DBZ/main/AC", true))()
-end)
 FunPage.AddButton("TP's [t j x z]", function()
 loadstring(game:HttpGet("https://raw.githubusercontent.com/ArcaneAw/boombox/main/AC", true))()
 	--[ Actions: t  j  x  z]--
@@ -1571,7 +1569,7 @@ end)
 		local ld = game:GetService('Players').LocalPlayer.Character:FindFirstChildWhichIsA('Humanoid'):LoadAnimation(Swing)
 		ld:Play()
 	 ld:AdjustSpeed(0.6)
-		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame * CFrame.new(0, -18, -20) wait(0.9)
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame * CFrame.new(0, -18, -35) wait(0.9)
 		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame * CFrame.new(0, 110, 0)
 	play(3381874860, true, true)
 
@@ -1614,137 +1612,6 @@ play(153613030, true, true)
 
 			end 
 			end)
-end)
-FunPage.AddButton("DBZ-script", function()
-	if game:GetService('Players').LocalPlayer.Character:FindFirstChild('Animate'):FindFirstChild('idle'):FindFirstChild('Animation2') then
-		game:GetService('Players').LocalPlayer.Character:FindFirstChild('Animate'):FindFirstChild('idle'):FindFirstChild('Animation2'):Destroy();
-	end;
-	
-	local Posing = false;
-	local Key = 0;
-	
-	local Powerlast = Instance.new('Animation', game:GetService('ReplicatedStorage'):FindFirstChild('ClientAnimations'));
-	Powerlast.AnimationId = 'rbxassetid://4841403964';
-	Powerlast.Name = 'Powerlast';
-	
-	function Play(i, v)
-		if game:GetService('Players').LocalPlayer:FindFirstChildOfClass('Backpack'):FindFirstChild('[Boombox]') then
-			local Tool = nil;
-			if game:GetService('Players').LocalPlayer.Character:FindFirstChildOfClass('Tool') and v == true then
-				Tool = game:GetService('Players').LocalPlayer.Character:FindFirstChildOfClass('Tool')
-				game:GetService('Players').LocalPlayer.Character:FindFirstChildOfClass('Tool').Parent = game:GetService('Players').LocalPlayer:FindFirstChildOfClass('Backpack');
-			end;
-			game:GetService('Players').LocalPlayer:FindFirstChildOfClass('Backpack'):FindFirstChild('[Boombox]').Parent = game:GetService('Players').LocalPlayer.Character;
-			game:GetService('ReplicatedStorage'):FindFirstChild('MainEvent'):FireServer('Boombox', i);
-			game:GetService('Players').LocalPlayer.Character:FindFirstChild('[Boombox]').RequiresHandle = false;
-			if game:GetService('Players').LocalPlayer.Character:FindFirstChild('[Boombox]'):FindFirstChild('Handle') then
-				game:GetService('Players').LocalPlayer.Character:FindFirstChild('[Boombox]'):FindFirstChild('Handle'):Destroy();
-			end
-			game:GetService('Players').LocalPlayer.Character:FindFirstChild('[Boombox]').Parent = game:GetService('Players').LocalPlayer:FindFirstChildOfClass('Backpack')
-			if game:GetService('Players').LocalPlayer:FindFirstChildOfClass('PlayerGui'):FindFirstChild('MainScreenGui'):FindFirstChild('BoomboxFrame') then
-				game:GetService('Players').LocalPlayer:FindFirstChildOfClass('PlayerGui'):FindFirstChild('MainScreenGui'):FindFirstChild('BoomboxFrame').Visible = false;
-			end;
-			if Tool ~= true then
-				if Tool then
-					Tool.Parent = game:GetService('Players').LocalPlayer.Character
-				end;
-			end;
-		end;
-	end;
-	
-	game:GetService('UserInputService').InputBegan:Connect(function(v, i)
-		if not i and v.UserInputType == Enum.UserInputType.Keyboard then
-			if v.KeyCode == Enum.KeyCode.Q and Posing == false then
-				Play(5689578119, true);
-				Posing = true;
-				repeat
-					game:GetService('RunService').Heartbeat:Wait()
-					local Pose = game:GetService('Players').LocalPlayer.Character:FindFirstChildWhichIsA('Humanoid'):LoadAnimation(Powerlast)
-					if not Pose.IsPlaying then
-						Pose:Play();
-						Pose.Looped = false;
-						Pose:AdjustSpeed(0.56);
-					end;
-				until Posing == false;
-				game:GetService('ReplicatedStorage'):FindFirstChild('MainEvent'):FireServer('BoomboxStop');
-				for _, v in pairs(game:GetService('Players').LocalPlayer.Character:FindFirstChildWhichIsA('Humanoid'):GetPlayingAnimationTracks()) do
-					if (v.Animation.AnimationId:match('rbxassetid')) then
-						v:Stop();
-					end;
-				end;
-			game.Players.LocalPlayer.Character.BodyEffects.Movement:FindFirstChild("NoWalkSpeed"):Destroy()
-			elseif v.KeyCode == Enum.KeyCode.Q and Posing == true then
-				Posing = false;
-			end;
-		end;
-	end); 
-	
-	local OriginalKeyUpValue = 0
-	function StopAudio()
-		if game:GetService("Players").LocalPlayer.Character.LowerTorso:FindFirstChild("BOOMBOXSOUND") then
-			game:GetService("Players").LocalPlayer.Character.LowerTorso.BOOMBOXSOUND:Stop()
-		end
-	end
-	function stop(ID, Key)
-		local cor = coroutine.wrap(function()
-			wait(game:GetService("Players").LocalPlayer.Character.LowerTorso.BOOMBOXSOUND.TimeLength-0.1)
-			if game:GetService("Players").LocalPlayer.Character.LowerTorso.BOOMBOXSOUND.SoundId == "rbxassetid://"..ID and OriginalKeyUpValue == Key then
-				StopAudio()
-			end
-		end)
-		cor()
-	end
-	function play(ID, STOP, LMAO)
-		if game:GetService("Players").LocalPlayer.Backpack:FindFirstChild("[Boombox]") then
-			local Tool = nil
-			if game:GetService("Players").LocalPlayer.Character:FindFirstChildWhichIsA("Tool") and LMAO == true then
-				Tool = game:GetService("Players").LocalPlayer.Character:FindFirstChildWhichIsA("Tool")
-				game:GetService("Players").LocalPlayer.Character:FindFirstChildWhichIsA("Tool").Parent = game:GetService("Players").LocalPlayer.Backpack
-			end
-			game:GetService("Players").LocalPlayer.Backpack["[Boombox]"].Parent =
-				game:GetService("Players").LocalPlayer.Character
-			game.ReplicatedStorage.MainEvent:FireServer("Boombox", ID)
-			game:GetService("Players").LocalPlayer.Character["[Boombox]"].RequiresHandle = false
-			if game:GetService("Players").LocalPlayer.Character["[Boombox]"]:FindFirstChild("Handle") then
-				game:GetService("Players").LocalPlayer.Character["[Boombox]"].Handle:Destroy()
-			end
-			game:GetService("Players").LocalPlayer.Character["[Boombox]"].Parent =
-				game:GetService("Players").LocalPlayer.Backpack
-			game:GetService("Players").LocalPlayer.PlayerGui.MainScreenGui.BoomboxFrame.Visible = false
-			if Tool ~= true then
-				if Tool then
-					Tool.Parent = game:GetService("Players").LocalPlayer.Character
-				end
-			end
-			if STOP == true then
-				game:GetService("Players").LocalPlayer.Character.LowerTorso:WaitForChild("BOOMBOXSOUND")
-				local cor = coroutine.wrap(function()
-					repeat wait() until game:GetService("Players").LocalPlayer.Character.LowerTorso.BOOMBOXSOUND.SoundId == "rbxassetid://"..ID and game:GetService("Players").LocalPlayer.Character.LowerTorso.BOOMBOXSOUND.TimeLength > 0.01
-					OriginalKeyUpValue = OriginalKeyUpValue+1
-					stop(ID, OriginalKeyUpValue)
-				end)
-				cor()
-			end
-		end
-	end
-		  local Char = game.Players.LocalPlayer.Character local Hum = Char:FindFirstChildOfClass("Humanoid") or Char:FindFirstChildOfClass("AnimationController")
-			while true do wait()
-				for i,v in next, Hum:GetPlayingAnimationTracks() do
-					if v.Animation.AnimationId == "rbxassetid://2788289281" then
-						v:Stop()
-						for i,v in next, Hum:GetPlayingAnimationTracks() do
-							if v.Animation.AnimationId == "rbxassetid://2788292075" then
-								game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame * CFrame.new(0, 0, -20)
-								wait(0.1)
-								play(165970126, true, true)
-								game:GetService('Players').LocalPlayer.Character:FindFirstChild('HumanoidRootPart').Anchored = true;
-								wait(1.5)
-								game:GetService('Players').LocalPlayer.Character:FindFirstChild('HumanoidRootPart').Anchored = false
-							end
-						end
-					end
-				end
-			end   
 end)
 FunPage.AddButton("Modfly", function()
 	loadstring(game:HttpGet('https://raw.githubusercontent.com/ArcaneAw/Shazam/main/AC'))()
@@ -2253,6 +2120,70 @@ LockPage.AddButton("Anti-Lock", function()
 			end
 		end
 	)
+end)
+TeleportPage.AddLabel("Teleports!")
+TeleportPage.AddButton("Bank", function()
+game:service('Players').LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-439.426971, 39.8844566, -284.314697, 0.0415078998, -7.22410007e-08, -0.999138176, 2.76550765e-08, 1, -7.11544175e-08, 0.999138176, -2.46777727e-08, 0.0415078998)
+end)
+TeleportPage.AddButton("Ufo", function()
+game:service('Players').LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(67.8484344, 139.899948, -691.121521, -0.995259404, -1.76701698e-09, 0.0972556546, -3.26128613e-09, 1, -1.52053747e-08, -0.0972556546, -1.54504711e-08, -0.995259404)
+end)
+TeleportPage.AddButton("Admin", function()
+game:service('Players').LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-797.85791, -38.7492142, -887.235474, 0.999730349, -7.12709758e-09, -0.0232208613, 6.83500323e-09, 1, -1.26583242e-08, 0.0232208613, 1.2496197e-08, 0.999730349)
+end)
+TeleportPage.AddButton("Base", function()
+game:service('Players').LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(206, 38, 200015, 1, 0, 0, 0, 1, 0, 0, 0, 1)
+end)
+TeleportPage.AddButton("Casino", function()
+game:service('Players').LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-1003.34637, 50.4999466, -132.05896, 0.989288926, -4.79540008e-09, 0.145970464, 9.15838516e-09, 1, -2.92174764e-08, -0.145970464, 3.0241381e-08, 0.989288926)
+end)
+TeleportPage.AddButton("Playground", function()
+game:service('Players').LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-250.014664, 23.289938, -751.653809, 0.920172155, 2.78747052e-08, 0.391513944, 4.67273065e-09, 1, -8.21795041e-08, -0.391513944, 7.74487319e-08, 0.920172155)
+end)
+TeleportPage.AddButton("Park", function()
+game:service('Players').LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(176.771164, 77.3999786, -420.87738, 0.0123883728, 9.71823226e-08, -0.999923289, -5.0813953e-09, 1, 9.71268221e-08, 0.999923289, 3.87776211e-09, 0.0123883728)
+end)
+TeleportPage.AddButton("Train Station", function()
+game:service('Players').LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(636.074768, 48.8999939, -82.6905289, 0.679642022, -8.72886119e-08, 0.733543992, 6.86951083e-08, 1, 5.53484654e-08, -0.733543992, 1.27737421e-08, 0.679642022)
+end)
+TeleportPage.AddButton("Church", function()
+game:service('Players').LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(206.066635, 53.6436005, -29.8792992, -0.999997914, 1.87892688e-08, 0.00202977867, 1.86558573e-08, 1, -6.57463488e-08, -0.00202977867, -6.5708349e-08, -0.999997914)
+end)
+TeleportPage.AddButton("School", function()
+game:service('Players').LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-584.281494, 22.774992, 338.011566, 0.999818087, 6.71432474e-08, 0.0190725811, -6.63481288e-08, 1, -4.23219255e-08, -0.0190725811, 4.10487964e-08, 0.999818087)
+end)
+TeleportPage.AddButton("Boxing Club", function()
+game:service('Players').LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-252.061798, 23.4704571, -1121.98254, -0.00217426405, 9.289041e-08, 0.999997616, -3.17978497e-08, 1, -9.29597732e-08, -0.999997616, -3.19998925e-08, -0.00217426405)
+end)
+TeleportPage.AddButton("Festival", function()
+game:service('Players').LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(125.339973, 25.7299957, -986.348083, 0.999862015, -7.16465731e-09, 0.0166116636, 7.82542564e-09, 1, -3.97123578e-08, -0.0166116636, 3.98368734e-08, 0.999862015)
+end)
+TeleportPage.AddButton("Skatepark", function()
+game:service('Players').LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-791.182068, 26.8998184, -474.360077, 0.00913943164, 4.89230096e-08, 0.999958217, -7.70081812e-08, 1, -4.82212101e-08, -0.999958217, -7.65642554e-08, 0.00913943164)
+end)
+TeleportPage.AddButton("Patient Room", function()
+game:service('Players').LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-503.044037, 21.8730183, 356.966309, -0.999641657, -3.74671538e-09, -0.0267680362, -3.65402064e-09, 1, -3.51181195e-09, 0.0267680362, -3.41274253e-09, -0.999641657)
+end)
+TeleportPage.AddButton("The Pit", function()
+game:service('Players').LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(170.950653, -41.9520454, 156.426514, 0.0288239829, 2.03819344e-08, 0.999584496, 1.28539677e-08, 1, -2.0761064e-08, -0.999584496, 1.34470435e-08, 0.0288239829)
+end)
+TeleportPage.AddButton("Club", function()
+game:service('Players').LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-265.180176, 48.5247154, -446.372437, 1, -5.47873178e-08, 2.95581905e-14, 5.47873178e-08, 1, -4.31844995e-08, -2.71922276e-14, 4.31844995e-08, 1)
+end)
+TeleportPage.AddButton("Police Spawn", function()
+game:service('Players').LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-265.694336, 21.7979774, -73.9874115, 0.999907434, -1.29954634e-08, -0.0136081325, 1.33829179e-08, 1, 2.83812263e-08, 0.0136081325, -2.85607147e-08, 0.999907434)
+end)
+TeleportPage.AddButton("Uphill", function()
+game:service('Players').LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(481.899628, 48.9704971, -621.072754, -0.999947786, -9.97104621e-08, 0.0102174412, -9.97927714e-08, 1, -7.54643636e-09, -0.0102174412, -8.56566995e-09, -0.999947786)
+end)
+TeleportPage.AddButton("Downhill", function()
+game:service('Players').LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-579.218018, 9.21477795, -736.645752, -0.00882885884, 1.83044371e-08, -0.999961019, -7.78950806e-08, 1, 1.89929015e-08, 0.999961019, 7.80597276e-08, -0.00882885884)
+end)
+TeleportPage.AddButton("DB", function()
+game:service('Players').LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-1043.57678, 22.6499939, -261.464905, -0.999509394, -2.39829134e-08, 0.0313206986, -2.43142075e-08, 1, -1.0196616e-08, -0.0313206986, -1.09531513e-08, -0.999509394)
+end)
+TeleportPage.AddButton("Rev", function()
+game:service('Players').LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-642.726135, 22.6499996, -121.018631, -0.999919355, 1.29558595e-08, -0.0127008185, 1.29430777e-08, 1, 1.08857112e-09, 0.0127008185, 9.24095633e-10, -0.999919355)
 end)
 AnimationsPage.AddLabel("Animations!")
 AnimationsPage.AddButton("Cartoony", function()
