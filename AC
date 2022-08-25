@@ -1182,7 +1182,7 @@ MainPage.AddToggle("Auto Stomp", nil, function(Value)
 	repeat wait() until Value == false
 	Pause()
 end)
-FunPage.AddDropdown("JOJO SOUNDS", {"ZA WARUDO!", "Za Warudo.", "Za Warudo!", "ZA WARUDO..", "you thought you would be able to defeat me?!", "You dare to resist my reality?!", "This is the path to heaven", "I'll teach you the meaning of Life", "How much bread have you eaten?", "You gonna have to die then..", "You puny humans, I shall rule you all!", "Toki wa tomata", "Kono dio da", "This suits me well!", "You fool", "OVA HEAVEN", "Muda Muda", "Reality", "STAR PLATINUM ZA WARUDO!", "Shut up your damn annoying", "You did well on your own", "Shut up, get out of my face", "you will definitely pay...", "Do you understand?", "Shut up! Don't be such a pain, woman!", "Yare Yare Da..", "Good Grief.", "Yare Yare Daze.", "Star Platinum!", "Hm, Not Bad", "Yarou", "What are you walking away for? Scared?", "Hold up", "Nice.. Nice..", "Ally or enemy its your choice", "Stop Running.", "whats wrong?", "yare yare daze..", "JOTAROO", "Do you want a fight? Ill give you a fight", "yare yare..", "Hmph", "Hm", "Haha", "NANI!?", "Come on", "Golden Experience!", "I, Giorno Giovanna have a dream.", "Life beam of Creation.", "A person grows once..", "Requiem..", "WRYY!", "LOADDASH", "Killer queen!", "Heart Attack Has No Weakness.", "Killer queen bites the dust!", "Coin!", "OI,OI", "Diavolo Da!", "King Crimson!", "Time erase!", "Epitaph!", "I'll use my Stand to solve the Problem", "This is the taste of a liar!", "What did you just say about my hair?!", "OH NOOOOOOOO", "You're Gone.", "How many minutes will you last?", "Yes YES!", "This is a Test.", "Now its time for you.", "HEY HEY HEY!", "D4C, Love Train", "IN THE NAME OF GOD I WILL SMITE YOU!", "Praise the powers God has granted me!", "Made In Heaven Heaven's Punishment", "OOOAGHHHHHHH!", "I will COMMAND YOU!", "G҉r҉a҉v҉i҉t҉y҉ ҉S҉h҉i҉f҉t҉", "Ṃ̶̆A̷̬̾D̶̦̓E̶͈͆ ̷̥̿I̶͉̐Ń̷̝ ̴̠͝H̴̭̿E̵̞̓A̴̦͂Ṿ̸̾E̶͔̽N̵̲̈́!̶̡̿ ", "This is the end..", "I am prepared", "Dont provoke me", "T҉i҉m҉e҉ ҉A҉c҉c҉e҉l҉e҉r҉a҉t҉e҉!҉", "Are you Prepared?", "Life sentence!", "You little weakling", "I'll break your jaw", "What did you see?", "You are slow!", "W҉ ҉҉n҉҉ ҉D҉I҉ Mode..!", "C҉m҉o҉o҉n҉!҉", "💀", "̴̠͝H̴̿", "H҉", "😂", "😭", "😱", "😸", "😺", "😾", "😾😾",}, function(Value)
+FunPage.AddDropdown("JOJO SOUNDS", {"ZA WARUDO!", "Za Warudo.", "Za Warudo!", "ZA WARUDO..", "you thought you would be able to defeat me?!", "You dare to resist my reality?!", "This is the path to heaven", "I'll teach you the meaning of Life", "How much bread have you eaten?", "You gonna have to die then..", "You puny humans, I shall rule you all!", "Toki wa tomata", "Kono dio da", "This suits me well!", "You fool", "OVA HEAVEN", "Muda Muda", "Reality", "STAR PLATINUM ZA WARUDO!", "Shut up your damn annoying", "You did well on your own", "Shut up, get out of my face", "you will definitely pay...", "Do you understand?", "Shut up! Don't be such a pain, woman!", "Yare Yare Da..", "Good Grief.", "Yare Yare Daze.", "Star Platinum!", "Hm, Not Bad", "Yarou", "What are you walking away for? Scared?", "Hold up", "Nice.. Nice..", "Ally or enemy its your choice", "Stop Running.", "whats wrong?", "yare yare daze..", "JOTAROO", "Do you want a fight? Ill give you a fight", "yare yare..", "Hmph", "Hm", "Haha", "NANI!?", "Come on", "Golden Experience!", "I, Giorno Giovanna have a dream.", "Life beam of Creation.", "A person grows once..", "Requiem..", "WRYY!", "LOADDASH", "Killer queen!", "Heart Attack Has No Weakness.", "Killer queen bites the dust!", "Coin!", "OI,OI", "Diavolo Da!", "King Crimson!", "Time erase!", "Epitaph!", "I'll use my Stand to solve the Problem", "This is the taste of a liar!", "What did you just say about my hair?!", "OH NOOOOOOOO", "You're Gone.", "How many minutes will you last?", "Yes YES!", "This is a Test.", "Now its time for you.", "HEY HEY HEY!", "D4C, Love Train", "IN THE NAME OF GOD I WILL SMITE YOU!", "Praise the powers God has granted me!", "Made In Heaven Heaven's Punishment", "OOOAGHHHHHHH!", "I will COMMAND YOU!", "G҉r҉a҉v҉i҉t҉y҉ ҉S҉h҉i҉f҉t҉", "Ṃ̶̆A̷̬̾D̶̦̓E̶͈͆ ̷̥̿I̶͉̐Ń̷̝ ̴̠͝H̴̭̿E̵̞̓A̴̦͂Ṿ̸̾E̶͔̽N̵̲̈́!̶̡̿ ", "This is the end..", "I am prepared", "Dont provoke me", "T҉i҉m҉e҉ ҉A҉c҉c҉e҉l҉e҉r҉a҉t҉e҉!҉", "Are you Prepared?", "Life sentence!", "You little weakling", "I'll break your jaw", "What did you see?", "You are slow!", "W҉ ҉҉n҉҉ ҉D҉I҉ Mode..!", "C҉m҉o҉o҉n҉!҉",}, function(Value)
 	local LocalPlayer = game:GetService("Players").LocalPlayer
 	local OldChar = LocalPlayer.Character
 	local OriginalKeyUpValue = 0
@@ -1445,22 +1445,6 @@ FunPage.AddDropdown("JOJO SOUNDS", {"ZA WARUDO!", "Za Warudo.", "Za Warudo!", "Z
         p(6938585925)
     elseif Value == "C҉m҉o҉o҉n҉!҉" then
         p(7201230880)
-    elseif Value == "💀" then
-        p(9063709738)
-    elseif Value == "😂" then
-        p(8449305114)
-    elseif Value == "😭" then
-        p(5886372643)
-    elseif Value == "😱" then
-        p(154157291)
-    elseif Value == "😸" then
-        p(5104257032)
-    elseif Value == "😺" then
-        p(4559380742)
-    elseif Value == "😾" then
-        p(516484997)
-    elseif Value == "😾😾" then
-        p(7128655475)
     end
 end)
 FunPage.AddButton("SuperHuman[Z]", function()
@@ -2147,7 +2131,7 @@ end)
 FunPage.AddButton("Destroy Face [Fe]", function()
 	game.Players.LocalPlayer.Character.Head.face:Destroy()
 end)
-FunPage.AddDropdown("JOJO SOUNDS2", {"Tesuto!", "Zero!", "Invasion!", "Mandom", "Jotaro Cut G", "Humble!", "̴̠͝H̴̿", "HEHEHEHA", "Right!", "DIE DIE DIE DIE", "Thanks you!", "Rush", "Yata",}, function(Value)
+FunPage.AddDropdown("JOJO SOUNDS2", {"Tesuto!", "Zero!", "Invasion!", "Mandom", "Jotaro Cut G", "Humble!", "̴̠͝H̴̿", "HEHEHEHA", "Right!", "DIE DIE DIE DIE", "Thanks you!", "Rush", "Yata", "💀", "😂", "😭", "😱", "😸", "😺", "😾", "😾😾",}, function(Value)
     local LocalPlayer = game:GetService("Players").LocalPlayer
     local OldChar = LocalPlayer.Character
     local OriginalKeyUpValue = 0
@@ -2238,6 +2222,27 @@ FunPage.AddDropdown("JOJO SOUNDS2", {"Tesuto!", "Zero!", "Invasion!", "Mandom", 
         p(5648739567)
     elseif Value == "Yata" then
         p(6720681021)
+	elseif Value == "💀" then
+        p(9063709738)
+    elseif Value == "😂" then
+        p(8449305114)
+		local Swing = Instance.new('Animation');
+		Swing.AnimationId = "rbxassetid://3337966527";
+		local ld = game:GetService('Players').LocalPlayer.Character:FindFirstChildWhichIsA('Humanoid'):LoadAnimation(Swing)
+		ld:Play()
+		ld:AdjustSpeed(1.5)
+    elseif Value == "😭" then
+        p(5886372643)
+    elseif Value == "😱" then
+        p(154157291)
+    elseif Value == "😸" then
+        p(5104257032)
+    elseif Value == "😺" then
+        p(4559380742)
+    elseif Value == "😾" then
+        p(516484997)
+    elseif Value == "😾😾" then
+        p(7128655475)
     end
 end)
 LockPage.AddButton("Trace Lock", function()
