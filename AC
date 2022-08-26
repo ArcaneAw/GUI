@@ -2303,6 +2303,7 @@ LockPage.AddButton("Anti-Lock [z]", function()
 	local KeyCode = 'z'
 	local hip = 2.80
 	local val = -35
+	local hip2 = 2
 	
 	
 	function AA()
@@ -2318,7 +2319,7 @@ LockPage.AddButton("Anti-Lock [z]", function()
 			if Toggled then
 				Toggled = false
 				game.Players.LocalPlayer.Character.Humanoid.HipHeight = hip
-	
+	            game.Players.LocalPlayer.Character.Humanoid.HipHeight = hip2
 			elseif not Toggled then
 				Toggled = true
 	
