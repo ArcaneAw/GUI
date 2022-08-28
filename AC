@@ -1,5 +1,3 @@
-
-
 function NovaNoti(Title, Text, Icon, Duration)
 	game.StarterGui:SetCore("SendNotification", {
 		Title = Title;
@@ -952,35 +950,33 @@ MainPage.AddToggle("Mute All Radios", nil, function(Value)
 	until isloopmute == false
 	Pause()
 end)
-MainPage.AddToggle("Reach", nil, function(Value)
-	reaching = true
-	local player = game.Players.LocalPlayer
-	local function reach(v)
-		if (v.Character.HumanoidRootPart.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Magnitude <= 50 then
-			if game.Players.LocalPlayer.Character:FindFirstChildOfClass("Tool") then
-				if game.Players.LocalPlayer.Character:FindFirstChildOfClass("Tool"):FindFirstChild('Handle') then
-					firetouchinterest(game.Players.LocalPlayer.Character:FindFirstChildOfClass("Tool").Handle, v.Character.UpperTorso, 0)
-				else
-					firetouchinterest(game.Players.LocalPlayer.Character['RightHand'], v.Character.UpperTorso, 0)
-					firetouchinterest(game.Players.LocalPlayer.Character['LeftHand'], v.Character.UpperTorso, 0)
-					firetouchinterest(game.Players.LocalPlayer.Character['RightFoot'], v.Character.UpperTorso, 0)
-					firetouchinterest(game.Players.LocalPlayer.Character['LeftFoot'], v.Character.UpperTorso, 0)
-				end
-			end
-		end
-	end
-	
-	while reaching == true do
-		wait()
-		for i,v in pairs(game.Players:GetChildren()) do
-			local success, err = pcall(function()
-				reach(v)
+MainPage.AddToggle("Reach", nil, function(e)
+        if e == true then
+			game:GetService('RunService'):BindToRenderStep("Reach", 0 , function()
+				local success, err = pcall(function()
+					if game.Players.LocalPlayer.Character.BodyEffects.Attacking.Value == true then
+						for i,v in pairs(game:GetService('Players'):GetChildren()) do
+							if (v.Character.HumanoidRootPart.Position - game.Players.LocalPlayer.Character.LeftHand.Position).Magnitude <= 50 then
+								if game.Players.LocalPlayer.Character:FindFirstChildOfClass("Tool") then
+									if game.Players.LocalPlayer.Character:FindFirstChildOfClass("Tool"):FindFirstChild('Handle') then
+										firetouchinterest(game.Players.LocalPlayer.Character:FindFirstChildOfClass("Tool").Handle, v.Character.UpperTorso, 0)
+									else
+										firetouchinterest(game.Players.LocalPlayer.Character['RightHand'], v.Character.UpperTorso, 0)
+										firetouchinterest(game.Players.LocalPlayer.Character['LeftHand'], v.Character.UpperTorso, 0)
+										firetouchinterest(game.Players.LocalPlayer.Character['RightFoot'], v.Character.UpperTorso, 0)
+										firetouchinterest(game.Players.LocalPlayer.Character['LeftFoot'], v.Character.UpperTorso, 0)
+										firetouchinterest(game.Players.LocalPlayer.Character['RightLowerLeg'], v.Character.UpperTorso, 0)
+										firetouchinterest(game.Players.LocalPlayer.Character['LeftLowerLeg'], v.Character.UpperTorso, 0)
+									end
+								end
+							end
+						end
+					end
+				end)
 			end)
-		end
-	end
-end)
-MainPage.AddButton("Unreach", function()
-	reaching = false
+	    elseif e == false then
+            game:GetService('RunService'):UnbindFromRenderStep("Reach")
+        end
 end)
 MainPage.AddToggle("Stamina", nil, function(Value)
 	local player = game.Players.LocalPlayer
@@ -1010,36 +1006,19 @@ end)
 MainPage.AddButton("Unstamina", function()
 	staminup = false
 end)
-MainPage.AddToggle("Anti Slow", nil, function(Value)
-	nolimit = true
-	local player = game.Players.LocalPlayer
-	local loopFunction = function()
-		local Movement = game:GetService("Workspace").Players:WaitForChild(player.Name).BodyEffects.Movement
-		local SlowDown = Movement:FindFirstChild('NoWalkSpeed') or Movement:FindFirstChild('ReduceWalk') or Movement:FindFirstChild('NoJumping')
-		if SlowDown then
-			SlowDown:Destroy()
-		end
-		local Reloading = player.Character:FindFirstChild('BodyEffects'):FindFirstChild('Reload')
-		if Reloading then
-			if Reloading.Value == true then
-				Reloading.Value = false
-			end
-		end
-	end;
-	local Loop
-	local Start = function()
-		Loop = game:GetService("RunService").Heartbeat:Connect(loopFunction);
-	end;
-	local Pause = function()
-		Loop:Disconnect()
-	end;
-	Start()
-	repeat wait() until nolimit == false
-	Pause()
+MainPage.AddToggle("Anti Slow", nil, function(gh)
+        if gh == true then
+			game:GetService('RunService'):BindToRenderStep("Anti-Slow", 0 , function()
+				if game.Players.LocalPlayer.Character.BodyEffects.Movement:FindFirstChild("NoWalkSpeed") then game.Players.LocalPlayer.Character.BodyEffects.Movement:FindFirstChild("NoWalkSpeed"):Destroy() end
+				if game.Players.LocalPlayer.Character.BodyEffects.Movement:FindFirstChild("ReduceWalk") then game.Players.LocalPlayer.Character.BodyEffects.Movement:FindFirstChild("ReduceWalk"):Destroy() end
+				if game.Players.LocalPlayer.Character.BodyEffects.Movement:FindFirstChild("NoJumping") then game.Players.LocalPlayer.Character.BodyEffects.Movement:FindFirstChild("NoJumping"):Destroy() end
+				if game.Players.LocalPlayer.Character.BodyEffects.Reload.Value == true then game.Players.LocalPlayer.Character.BodyEffects.Reload.Value = false end
+			end)
+	    elseif gh == false then
+            game:GetService('RunService'):UnbindFromRenderStep("Anti-Slow")
+        end
 end)
-MainPage.AddButton("Unantislow", function()
-	nolimit = false
-end)
+
 MainPage.AddToggle("Anti Bag", nil, function(Value)
 	local Loop
 	local loopFunction = function()
@@ -1102,7 +1081,7 @@ MainPage.AddToggle("Auto Block", nil, function(Value)
 	Start()	
 	repeat
 		wait()
-	until Value == false
+	until Found == false
 	Pause()
 end)
 --[[MainPage.AddToggle("Anti Snowball", nil, function(Value)
@@ -1147,40 +1126,50 @@ MainPage.AddToggle("Anti Flashbang", nil, function(Value)
 	repeat wait() until Value == false
 	Pause()
 end)
-MainPage.AddToggle("Anti Stomp", nil, function(Value)
-	if x == true then
-		game:GetService('RunService'):BindToRenderStep("Anti-Stomp", 0 , function()
-			if game.Players.LocalPlayer.Character.Humanoid.Health <= 5 then
-				for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
-					if v:IsA('MeshPart') or v:IsA('Part') then
-						v:Destroy()
+MainPage.AddToggle("Auto-Reload", nil, function(r)
+            if r == true then
+			game:GetService('RunService'):BindToRenderStep("Auto-Reload", 0 , function()
+				if game:GetService("Players").LocalPlayer.Character:FindFirstChildWhichIsA("Tool") then
+					if game:GetService("Players").LocalPlayer.Character:FindFirstChildWhichIsA("Tool"):FindFirstChild("Ammo") then
+						if game:GetService("Players").LocalPlayer.Character:FindFirstChildWhichIsA("Tool"):FindFirstChild("Ammo").Value <= 0 then
+							game:GetService("ReplicatedStorage").MainEvent:FireServer("Reload", game:GetService("Players").LocalPlayer.Character:FindFirstChildWhichIsA("Tool")) 
+							wait(1)
+						end
 					end
 				end
-				for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
-					if v:IsA('Accessory') then
-						v.Handle:Destroy()
-					end
-				end
-			end
-		end)
-	elseif x == false then
-		game:GetService('RunService'):UnbindFromRenderStep("Anti-Stomp")
-	end
+			end)
+	    elseif r == false then
+            game:GetService('RunService'):UnbindFromRenderStep("Auto-Reload")
+        end
 end)
-MainPage.AddToggle("Auto Stomp", nil, function(Value)
-	local Loop
-	local loopFunction = function()
-		game:GetService('ReplicatedStorage').MainEvent:FireServer('Stomp')
-	end;
-	local Start = function()
-		Loop = game:GetService("RunService").Heartbeat:Connect(loopFunction);
-	end;
-	local Pause = function()
-		Loop:Disconnect()
-	end;
-	Start()	
-	repeat wait() until Value == false
-	Pause()
+MainPage.AddToggle("Anti-Stomp", nil, function(x)
+        if x == true then
+			game:GetService('RunService'):BindToRenderStep("Anti-Stomp", 0 , function()
+				if game.Players.LocalPlayer.Character.Humanoid.Health <= 5 then
+					for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+						if v:IsA('MeshPart') or v:IsA('Part') then
+							v:Destroy()
+						end
+					end
+					for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+						if v:IsA('Accessory') then
+							v.Handle:Destroy()
+						end
+					end
+				end
+			end)
+	    elseif x == false then
+            game:GetService('RunService'):UnbindFromRenderStep("Anti-Stomp")
+        end
+end)
+MainPage.AddToggle("Auto-Stomp", nil, function(r)
+        if r == true then
+			game:GetService('RunService'):BindToRenderStep("Auto-Stomp", 0 , function()
+				game:GetService("ReplicatedStorage").MainEvent:FireServer("Stomp")
+			end)
+	    elseif r == false then
+            game:GetService('RunService'):UnbindFromRenderStep("Auto-Stomp")
+        end
 end)
 FunPage.AddDropdown("JOJO SOUNDS", {"ZA WARUDO!", "Za Warudo.", "Za Warudo!", "ZA WARUDO..", "you thought you would be able to defeat me?!", "You dare to resist my reality?!", "This is the path to heaven", "I'll teach you the meaning of Life", "How much bread have you eaten?", "You gonna have to die then..", "You puny humans, I shall rule you all!", "Toki wa tomata", "Kono dio da", "This suits me well!", "You fool", "OVA HEAVEN", "Muda Muda", "Reality", "STAR PLATINUM ZA WARUDO!", "Shut up your damn annoying", "You did well on your own", "Shut up, get out of my face", "you will definitely pay...", "Do you understand?", "Shut up! Don't be such a pain, woman!", "Yare Yare Da..", "Good Grief.", "Yare Yare Daze.", "Star Platinum!", "Hm, Not Bad", "Yarou", "What are you walking away for? Scared?", "Hold up", "Nice.. Nice..", "Ally or enemy its your choice", "Stop Running.", "whats wrong?", "yare yare daze..", "JOTAROO", "Do you want a fight? Ill give you a fight", "yare yare..", "Hmph", "Hm", "Haha", "NANI!?", "Come on", "Golden Experience!", "I, Giorno Giovanna have a dream.", "Life beam of Creation.", "A person grows once..", "Requiem..", "WRYY!", "LOADDASH", "Killer queen!", "Heart Attack Has No Weakness.", "Killer queen bites the dust!", "Coin!", "OI,OI", "Diavolo Da!", "King Crimson!", "Time erase!", "Epitaph!", "I'll use my Stand to solve the Problem", "This is the taste of a liar!", "What did you just say about my hair?!", "OH NOOOOOOOO", "You're Gone.", "How many minutes will you last?", "Yes YES!", "This is a Test.", "Now its time for you.", "HEY HEY HEY!", "D4C, Love Train", "IN THE NAME OF GOD I WILL SMITE YOU!", "Praise the powers God has granted me!", "Made In Heaven Heaven's Punishment", "OOOAGHHHHHHH!", "I will COMMAND YOU!", "G҉r҉a҉v҉i҉t҉y҉ ҉S҉h҉i҉f҉t҉", "Ṃ̶̆A̷̬̾D̶̦̓E̶͈͆ ̷̥̿I̶͉̐Ń̷̝ ̴̠͝H̴̭̿E̵̞̓A̴̦͂Ṿ̸̾E̶͔̽N̵̲̈́!̶̡̿ ", "This is the end..", "I am prepared", "Dont provoke me", "T҉i҉m҉e҉ ҉A҉c҉c҉e҉l҉e҉r҉a҉t҉e҉!҉", "Are you Prepared?", "Life sentence!", "You little weakling", "I'll break your jaw", "What did you see?", "You are slow!", "W҉ ҉҉n҉҉ ҉D҉I҉ Mode..!", "C҉m҉o҉o҉n҉!҉",}, function(Value)
 	local LocalPlayer = game:GetService("Players").LocalPlayer
@@ -1850,7 +1839,6 @@ end)
 		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame * CFrame.new(0, -18, -35) wait(0.9)
 		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame * CFrame.new(0, 110, 0)
 	play(3381874860, true, true)
-
 end
 end)
 
@@ -2268,6 +2256,21 @@ end)
 LockPage.AddButton("Puppyware", function()
 	loadstring(game:HttpGet('https://raw.githubusercontent.com/compwnter/storage/main/aim-assist/puppyware-rewritten.lua'))()
 end)
+LockPage.AddButton("Recoil", function()
+		local player = game.Players.LocalPlayer
+		for i,v in pairs(game:GetService('Workspace'):GetChildren()) do
+			if v:IsA('Camera') then
+				v:Destroy()
+			end
+		end
+		local newcam = Instance.new('Camera')
+		newcam.Parent = game:GetService('Workspace')
+		newcam.Name = 'Camera'
+		newcam.CameraType = 'Custom'
+		newcam.CameraSubject = player.Character:FindFirstChildWhichIsA('Humanoid')
+		newcam.HeadLocked = true
+		newcam.HeadScale = 1 
+end)
 
 LockPage.AddButton("Anti-Lock poor", function()
 	local ant = false
@@ -2279,7 +2282,7 @@ function onKeyPress(inputObject, gameProcessedEvent)
        ant = true
  
      elseif ant == true then
-               game.Players.LocalPlayer.Character.Humanoid.HipHeight = 3.9999995231628
+               game.Players.LocalPlayer.Character.Humanoid.HipHeight = 2
        ant = false
      end
    end
@@ -2303,7 +2306,6 @@ LockPage.AddButton("Anti-Lock [z]", function()
 	local KeyCode = 'z'
 	local hip = 2.80
 	local val = -35
-	local hip2 = 2
 	
 	
 	function AA()
@@ -2319,7 +2321,7 @@ LockPage.AddButton("Anti-Lock [z]", function()
 			if Toggled then
 				Toggled = false
 				game.Players.LocalPlayer.Character.Humanoid.HipHeight = hip
-	            game.Players.LocalPlayer.Character.Humanoid.HipHeight = hip2
+	
 			elseif not Toggled then
 				Toggled = true
 	
