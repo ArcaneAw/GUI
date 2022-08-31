@@ -463,7 +463,7 @@ end)
 MainPage.AddButton("Godblock [ Only Blocks Punches ]", function()
 	game.Players.LocalPlayer.Character.BodyEffects.Defense.CurrentTimeBlock:Destroy()
 end)
-MainPage.AddButton("Silent Stomp", function()
+MainPage.AddButton("Silent-Stomp", function()
 	while wait() do
 		for _, v in next, game:GetService("Players").LocalPlayer.Character:FindFirstChildOfClass("Humanoid"):GetPlayingAnimationTracks() do
 			if (v.Animation.AnimationId:match("rbxassetid://2816431506")) then
@@ -472,7 +472,7 @@ MainPage.AddButton("Silent Stomp", function()
 		end;
 	end
 end)
-MainPage.AddButton("Silent Block", function()
+MainPage.AddButton("Silent-Block", function()
 	while wait() do
 		for _, v in next, game:GetService("Players").LocalPlayer.Character:FindFirstChildOfClass("Humanoid"):GetPlayingAnimationTracks() do
 			if (v.Animation.AnimationId:match("rbxassetid://2788354405")) then
@@ -481,7 +481,7 @@ MainPage.AddButton("Silent Block", function()
 		end;
 	end
 end)
-MainPage.AddButton("Fast Sprint", function()
+MainPage.AddButton("Fast-Sprint", function()
 	local ps = game:GetService("Players")
 	local lp = ps.LocalPlayer
 	local char = lp.Character
@@ -489,7 +489,7 @@ MainPage.AddButton("Fast Sprint", function()
 			SuperSpeed.Name = "FastSprint"
 			SuperSpeed.Parent = char.BodyEffects.Movement
 end)
-MainPage.AddButton("FreeFist[Q]", function()
+MainPage.AddButton("Free-Fist[Q]", function()
 	-- // Variables
 	local localPlayer       = game:GetService("Players").LocalPlayer;
 	local localCharacter    = localPlayer.Character
@@ -549,7 +549,7 @@ MainPage.AddButton("FreeFist[Q]", function()
 		end;
 	end);
 end)
-MainPage.AddButton("Fist Reach", function()
+MainPage.AddButton("Fist-Reach", function()
 	while wait() do
 		wait()
 		local success, err = pcall(function()
@@ -574,16 +574,16 @@ MainPage.AddButton("Fist Reach", function()
 		end)
 	end
 end)
-MainPage.AddButton("ToolReach [Hold Tool]", function()
+MainPage.AddButton("Tool-Reach [Hold Tool]", function()
 	if game.Players.LocalPlayer.Character:FindFirstChildWhichIsA('Tool') then
 		game.Players.LocalPlayer.Character:FindFirstChildWhichIsA('Tool').Handle.Size = Vector3.new(50,50,50)
 		game.Players.LocalPlayer.Character:FindFirstChildWhichIsA('Tool').Handle.Transparency = 1
 	end
 end)
-MainPage.AddButton("Animation Pack", function()
+MainPage.AddButton("Animation-Pack", function()
 	loadstring(game:HttpGet('https://raw.githubusercontent.com/ArcaneAw/animation-pack/main/AC'))()
 end)
-MainPage.AddButton("InvisMask", function()
+MainPage.AddButton("Invis-Mask", function()
 	local d = game.Players.LocalPlayer.Character.HumanoidRootPart.Position;
 	local k = game.Workspace.Ignored.Shop["[Surgeon Mask] - $25"]
 	game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = k.Head.CFrame + Vector3.new(0, 3, 0)
@@ -598,10 +598,21 @@ MainPage.AddButton("InvisMask", function()
 		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(d)
 	end
 end)
-MainPage.AddButton("Mask Names", function()
+MainPage.AddButton("Mask-Names", function()
 	for i,v in pairs(game.Workspace.Players:GetChildren()) do
 		v:FindFirstChildWhichIsA('Humanoid').DisplayDistanceType = 'Subject'
         	end
+end)
+MainPage.AddButton("Display-Names", function()
+    		pcall(function()
+			for i, v in pairs(game:GetService("Players"):GetPlayers()) do
+				if v.Character then
+					if v.Character:FindFirstChild("Humanoid") then
+						v.Character:FindFirstChild("Humanoid").DisplayName = v.Name 
+					end
+				end
+			end
+		end)
 end)
 MainPage.AddButton("Hide-Block", function()
 	local Humanoid = game.Players.LocalPlayer.Character.Humanoid
@@ -1034,7 +1045,7 @@ MainPage.AddToggle("Anti Bag", nil, function(Value)
 	repeat wait() until Value == false
 	Pause()
 end)
-MainPage.AddToggle("Anti AntiGrab", nil, function(Value)
+MainPage.AddToggle("AntiGrab", nil, function(Value)
 	local Loop
 	local loopFunction = function()
 		local GC = game.Players.LocalPlayer.Character:FindFirstChild("GRABBING_CONSTRAINT")
@@ -1714,6 +1725,40 @@ end)
 FunPage.AddButton("Anime Script", function()
 	loadstring(game:HttpGet('https://raw.githubusercontent.com/ArcaneAw/Anime/main/wow'))()
 end)
+FunPage.AddButton("Poses", function()
+        getgenv().PoseSetting = {
+        ['Poses'] = { --/ Enabled = false [To disable]
+            ["Pose1"] = {Enabled = false, Key = "Q"},
+            ["Pose2"] = {Enabled = false, Key = "X"},
+            ["Pose3"] = {Enabled = false, Key = "B"}, --maybe
+            ["Pose4"] = {Enabled = false, Key = "J"}, --maybe
+            ["Pose5"] = {Enabled = false, Key = "U"},
+            ["Pose6"] = {Enabled = false, Key = "T"}, --maybe
+            ["Pose7"] = {Enabled = true, Key = "K"},
+            ["Pose8"] = {Enabled = true, Key = "L"},
+        }
+    }
+    --//-----------------------------------------------------------------------------------------------\\--
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/JOJOGIO/DH-GAMING/main/Pose%20Framework"))()
+    --//-----------------------------------------------------------------------------------------------\\--
+    
+    --//-----------------------------------------------------------------------------------------------\\--
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/ArcaneAw/Voicelines/main/AC"))()
+    --//-----------------------------------------------------------------------------------------------\\--
+    
+    KeybindVoiceline(9125351349, "K")
+    KeybindVoiceline(9125351349, "L")
+    DetectVoiceline(539649706, ":kill!") 
+    DefaultVoiceline(5153845714, "/e sus", "🤨🤨", 0) 
+
+    
+    local mouse = game.Players.LocalPlayer:GetMouse()
+        mouse.KeyDown:connect(function(key)
+            if key == "e" then
+    game:GetService('ReplicatedStorage'):FindFirstChild('MainEvent'):FireServer('BoomboxStop');
+            end
+        end)
+end)
 FunPage.AddButton("Dash", function()
 	loadstring(game:HttpGet("https://raw.githubusercontent.com/ArcaneAw/boombox/main/AC", true))()
 		  local Char = game.Players.LocalPlayer.Character local Hum = Char:FindFirstChildOfClass("Humanoid") or Char:FindFirstChildOfClass("AnimationController")
@@ -1879,22 +1924,25 @@ play(153613030, true, true)
 			end 
 			end)
 end)
+FunPage.AddButton("Wallwalk", function()
+loadstring(game:HttpGetAsync("https://raw.githubusercontent.com/ArcaneAw/WallWalk/main/AC"))()
+end)
 FunPage.AddButton("Modfly", function()
-	loadstring(game:HttpGet('https://raw.githubusercontent.com/ArcaneAw/Shazam/main/AC'))()
+loadstring(game:HttpGet('https://raw.githubusercontent.com/ArcaneAw/Shazam/main/AC'))()
 end)
 FunPage.AddButton("Aura", function()
-	getgenv().AuraSetting = {
-		['Made By JoJo#2494'] = {
-		   ["CHATBIND"] = {ENABLED = true, ON = "/e k", OFF = "/e d"}, --/ Aura chat command.
-			["KEYBIND"] = "Q", --/ Aura keybind.
-			["COLOR"] = "GRAY", --/ Current colors : DEFAULT, RED, BLACK, BLUE, LIME, WHITE, VIOLET, PURPLE, GREEN, CYAN, CRIMSON, GRAY
-			["SOUND"] = {ENABLED = true, ON = 3381874860, OFF = 3373982614, DURING = 9125351349}, --/ Plays the desired SFX when turning on/off/while aura.
-			["POWERS"] = {GRAVITY = true, SPEED = true, PHASING = true},
-			}
-		}
-	--//-------------------------------------------------------------------------------------------------------\\--
-	loadstring(game:HttpGet("https://raw.githubusercontent.com/JOJOGIO/DH-GAMING/main/STAND%20AURA%20FRAMEWORK"))()
-	--//-------------------------------------------------------------------------------------------------------\\--
+getgenv().AuraSetting = {
+    ['Made By JoJo#2222'] = {
+        ["CHATBIND"] = {ENABLED = true, ON = "King Crimson!", OFF = "Desummon!"}, --/ Aura chat command.
+        ["KEYBIND"] = "Q", --/ Aura keybind.
+        ["COLOR"] = "BLUE", --/ Current colors : DEFAULT, RED, BLACK, BLUE, LIME, WHITE, VIOLET, PURPLE, GREEN, CYAN, CRIMSON, GRAY
+        ["SOUND"] = {ENABLED = false, ON = 3381874860, OFF = 3373982614, DURING = 9125351349}, --/ Plays the desired SFX when turning on/off/while aura.
+        ["POWERS"] = {GRAVITY = true, SPEED = true}, --/ More to come..
+        }
+    }
+--//-------------------------------------------------------------------------------------------------------\\--
+loadstring(game:HttpGet("https://raw.githubusercontent.com/JOJOGIO/DH-GAMING/main/Stand%20Aura%20Framework"))()
+--//-------------------------------------------------------------------------------------------------------\\--
 	end)
 FunPage.AddButton("Shazam! [CS]", function()
 	game:GetService("Players").LocalPlayer.Chatted:Connect(function(arg)
@@ -2252,7 +2300,9 @@ end)
 LockPage.AddButton("Universal Fun", function()
 	loadstring(game:HttpGet('https://raw.githubusercontent.com/ArcaneAw/Ufun/main/wow'))()
 end)
-
+LockPage.AddButton("Nyula", function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/nyulachan/nyula/main/nyulauh"))();
+end)
 LockPage.AddButton("Puppyware", function()
 	loadstring(game:HttpGet('https://raw.githubusercontent.com/compwnter/storage/main/aim-assist/puppyware-rewritten.lua'))()
 end)
