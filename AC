@@ -3228,19 +3228,5 @@ end)
 
 
 loadstring(game:HttpGet("https://pastebin.com/raw/nzXicwc1"))()
-
-
-    local fov = coroutine.wrap(function()
-        local Camera = workspace.Camera
-        for i = 1, 20 do
-            game.TweenService:Create(Camera, TweenInfo.new(0.5), {FieldOfView = 8*i}):Play()
-            wait(0.01)
-        end
-        for i = 1, 20 do
-            game.TweenService:Create(Camera, TweenInfo.new(0.5), {FieldOfView = 160-i*4.5}):Play()
-            wait(0.01)
-        end
-    end)
-    fov(
     
     NovaNoti("JoJo Gui", "This GUI might crash your game. So be aware of crashes", 20)
