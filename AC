@@ -21,7 +21,7 @@ loadstring(game:HttpGet("https://pastebin.com/raw/nzXicwc1"))()
 	end;
 end;
 game:GetService('StarterGui'):SetCore("SendNotification", {
-	Title = 'JoJo Gui';
+	Title = 'AC Hub';
 	Text = 'Would You Like To Enable Chatspy';
 	Icon = "rbxassetid://";
 	Duration = 3.4028235e+38;
@@ -32,7 +32,7 @@ game:GetService('StarterGui'):SetCore("SendNotification", {
 
 
 local UI = loadstring(game:HttpGet("https://raw.githubusercontent.com/bloodball/-back-ups-for-libs/main/twink"))()
-local Library = UI.Load("JoJo Gui")
+local Library = UI.Load("AC Hub")
 
 local MainPage = Library.AddPage("Main!")
 local LockPage = Library.AddPage("Lock!")
