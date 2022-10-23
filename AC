@@ -6,7 +6,7 @@ function NovaNoti(Title, Text, Icon, Duration)
 	})
 	local cor = coroutine.wrap(function()
 		local sound = Instance.new("Sound", game.CoreGui)
-		sound.SoundId = "rbxassetid://4590656842"
+		sound.SoundId = "rbxassetid://3442983711"
 		sound:Play()
 		wait(4)
 		sound:Destroy()
