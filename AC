@@ -388,32 +388,7 @@ MainPage.AddButton("Godv3", function()
 	loadstring(game:HttpGet("https://icxy.xyz/NovaGui/NovaGuiGodv3", true))()
 end)
 MainPage.AddButton("Godv5", function()
-	local a = false
-
-function onKeyPress(inputObject, gameProcessedEvent)
-    if inputObject.KeyCode == Enum.KeyCode.J and gameProcessedEvent == false then
-     if a == false then
-       a = true
-game.Players.LocalPlayer.Character.BodyEffects:FindFirstChild('K.O'):Destroy()
-
-
-local Alt = Instance.new("BoolValue")
-Alt.Name = "K.O"
-Alt.Parent = game.Players.LocalPlayer.Character.BodyEffects
-
-     elseif a == true then
-       a = false
-     for i, v in pairs(game.Players.LocalPlayer.Character:GetDescendants()) do
-            if v:IsA("BasePart") then
-                v:Destroy()
-            end
-end
-       
-     end
-   end
-end
- 
-game:GetService("UserInputService").InputBegan:connect(onKeyPress)
+    game.Players.LocalPlayer.Character.BodyEffects:FindFirstChild('K.O'):Destroy()
 end)
 
 MainPage.AddButton("Godblock + Godbullet", function()
@@ -3343,8 +3318,8 @@ end)
 			end
 			return old(self, ...)
 		end)
-		
-	        local Camera = workspace.Camera
+
+        local Camera = workspace.Camera
         for i = 1, 20 do
             game.TweenService:Create(Camera, TweenInfo.new(0.5), {FieldOfView = 8*i}):Play()
             wait(0.01)
@@ -3358,6 +3333,5 @@ end)
 			wait(0.5)
 			game:GetService("TweenService"):Create(workspace.CurrentCamera, TweenInfo.new(0.3), {FieldOfView = 70}):Play()
 
-	
 
     NovaNoti("JoJo Gui", "This GUI might crash your game. So be aware of crashes", 20)
