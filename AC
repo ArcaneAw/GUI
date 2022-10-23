@@ -23,7 +23,7 @@ end;
 game:GetService('StarterGui'):SetCore("SendNotification", {
 	Title = 'AC Hub';
 	Text = 'Would You Like To Enable Chatspy';
-	Icon = "rbxassetid://";
+	Icon = "rbxassetid://10716387808";
 	Duration = 3.4028235e+38;
 	Callback = b;
 	Button1 = 'Yes!';
@@ -543,6 +543,15 @@ MainPage.AddButton("Inf Zoom", function()
 	game.Players.localPlayer.CameraMaxZoomDistance = 1000
 	game.Players.LocalPlayer.CameraMinZoomDistance = 0
 end)
+MainPage.AddButton("No Fog", function()
+    game:GetService("Lighting").FogEnd = 9e9
+    game:GetService("Lighting").FogStart = 9e9
+end)
+MainPage.AddButton("Brightness", function()
+    game:GetService("Lighting").Brightness = 2
+    game:GetService("Lighting").GlobalShadows = false
+    game:GetService("Lighting").ShadowSoftness = 0
+end)
 MainPage.AddButton("Animation-Pack", function()
 	loadstring(game:HttpGet('https://raw.githubusercontent.com/ArcaneAw/animation-pack/main/AC'))()
 end)
@@ -1015,6 +1024,9 @@ elseif State == "Stopsign" then
 end
 end)
 MainPage.AddLabel("Toggles!")
+MainPage.AddSlider("Fov", {Min = 70, Max = 120 , Def = 120}, function(s)
+        workspace.CurrentCamera.FieldOfView = s
+end)
 MainPage.AddToggle("Mute All Radios", nil, function(Value)
 	local isloopmute = false
         isloopmute = not isloopmute
@@ -1532,7 +1544,7 @@ FunPage.AddDropdown("JOJO SOUNDS", {"ZA WARUDO!", "Za Warudo.", "Za Warudo!", "Z
     end
 end)
 FunPage.AddButton("SuperHuman[Z]", function()
-    NovaNoti("JoJo Gui", "Say Shazam!", 10)
+    NovaNoti("AC Hub", "Say Shazam!", 10)
 	superhuman = false
 	plr = game.Players.LocalPlayer
 	mouse = plr:GetMouse()
@@ -1784,7 +1796,7 @@ FunPage.AddButton("Money Bringer", function()
 	end)
 end)
 FunPage.AddButton("Telekinesis", function()
-    NovaNoti("JoJo Gui", "use tool on knocked players", 10)
+    NovaNoti("AC Hub", "use tool on knocked players", 10)
     loadstring(game:HttpGet("https://raw.githubusercontent.com/ArcaneAw/Telekinesis/main/AC"))()
 end)
 FunPage.AddButton("Juggernaut", function()
@@ -1899,7 +1911,7 @@ FunPage.AddButton("Juggernaut", function()
 	Tool()
 end)
 FunPage.AddButton("Titan", function()
-        NovaNoti("JoJo Gui", "For skinny and fat characters", 10)
+        NovaNoti("AC Hub", "For skinny and fat characters", 10)
     function Main(Delay)
     local H = game.Players.LocalPlayer.Character:FindFirstChildWhichIsA('Humanoid')
     local function DeleteOriginal()
@@ -2001,55 +2013,8 @@ Main(.8)
     
 --]]
 end)
-FunPage.AddButton("PP's", function()
-	NovaNoti("JoJo Gui", "Knife-StopSign-Bat-Hammer PP", 10)
-	local Plr = game.Players.LocalPlayer
-	local LastPos = Plr.Character.HumanoidRootPart.CFrame
-	wait(0.1)
-	if Plr.Character:FindFirstChild("[Knife]") or Plr.Backpack:FindFirstChild("[Knife]") then
-		Plr.Character.Humanoid:UnequipTools()
-		wait(0.1)
-		Plr.Character.Humanoid:EquipTool(Plr.Backpack["[Knife]"])
-		Plr.Character.HumanoidRootPart.CFrame = CFrame.new(803.5, 48, -547, 0, 0, -1, 0, 1, 0, 1, 0, 0)
-		Plr.Character["[Knife]"].Handle.Orientation = Vector3.new(0, 180, 0)
-		wait(0.2)
-		Plr.Character["[Knife]"].Handle.Position = Vector3.new(804.3, 47, -547)
-		Plr.Character.HumanoidRootPart.CFrame = LastPos
-	elseif Plr.Character:FindFirstChild("[StopSign]") or Plr.Backpack:FindFirstChild("[StopSign]") then
-		Plr.Character.Humanoid:UnequipTools()
-		wait(0.1)
-		Plr.Character.Humanoid:EquipTool(Plr.Backpack["[StopSign]"])
-		Plr.Character["[StopSign]"].Sign:Destroy()
-		Plr.Character.HumanoidRootPart.CFrame = CFrame.new(803.5, 48, -547, 0, 0, -1, 0, 1, 0, 1, 0, 0)
-		Plr.Character["[StopSign]"].Handle.Orientation = Vector3.new(0, 180, 0)
-		wait(0.2)
-		Plr.Character["[StopSign]"].Handle.Position = Vector3.new(806.5, 47, -547)
-		Plr.Character.HumanoidRootPart.CFrame = LastPos
-	elseif Plr.Character:FindFirstChild("[Bat]") or Plr.Backpack:FindFirstChild("[Bat]") then
-		Plr.Character.Humanoid:UnequipTools()
-		wait(0.1)
-		Plr.Character.Humanoid:EquipTool(Plr.Backpack["[Bat]"])
-		Plr.Character.HumanoidRootPart.CFrame = CFrame.new(803.5, 48, -547, 0, 0, -1, 0, 1, 0, 1, 0, 0)
-		Plr.Character["[Bat]"].Handle.Orientation = Vector3.new(0, 0, 90)
-		Plr.Character["[Bat]"].Handle.Position = Vector3.new(806, 47, -547)
-		Plr.Character.HumanoidRootPart.CFrame = LastPos
-	elseif Plr.Character:FindFirstChild("[SledgeHammer]") or Plr.Backpack:FindFirstChild("[SledgeHammer]") then
-		Plr.Character.Humanoid:UnequipTools()
-		wait(0.1)
-		Plr.Character.Humanoid:EquipTool(Plr.Backpack["[SledgeHammer]"])
-		Plr.Character.HumanoidRootPart.CFrame = CFrame.new(803.5, 48, -547, 0, 0, -1, 0, 1, 0, 1, 0, 0)
-		Plr.Character["[SledgeHammer]"].Part.Orientation = Vector3.new(0, 180, 0)
-		Plr.Character["[SledgeHammer]"].Part.Position = Vector3.new(804, 47, -547)
-		Plr.Character["[SledgeHammer]"].Part.Name = "BALLS"
-		wait(0.1)
-		Plr.Character["[SledgeHammer]"].Part.Orientation = Vector3.new(-90, 90, 180)
-		Plr.Character["[SledgeHammer]"].Part.Position = Vector3.new(806, 47, -547)
-		Plr.Character["[SledgeHammer]"].Part.Name = "SHAFT"
-		Plr.Character.HumanoidRootPart.CFrame = LastPos
-	end	
-end)
 FunPage.AddButton("Anime Script", function()
-    NovaNoti("JoJo Gui", "Keybinds H,Z,I,O, /e erase", 10)
+    NovaNoti("AC Hub", "Keybinds H,Z,I,O, /e erase", 10)
 	loadstring(game:HttpGet('https://raw.githubusercontent.com/ArcaneAw/Anime/main/wow'))()
 end)
 FunPage.AddButton("Poses", function()
@@ -2085,11 +2050,10 @@ FunPage.AddButton("Poses", function()
     game:GetService('ReplicatedStorage'):FindFirstChild('MainEvent'):FireServer('BoomboxStop');
             end
         end)
-            NovaNoti("JoJo Gui", "Keybind is K,L", 5)
+            NovaNoti("AC Hub", "Keybind is K,L", 5)
             wait(5)
-            NovaNoti("JoJo Gui", "Keybind E to disable sounds", 5)
+            NovaNoti("AC Hub", "Keybind E to disable sounds", 5)
             wait(5)
-            NovaNoti("JoJo Gui", "/e sus", 5)
 end)
 FunPage.AddButton("Dash", function()
 	loadstring(game:HttpGet("https://raw.githubusercontent.com/ArcaneAw/boombox/main/AC", true))()
@@ -2439,22 +2403,8 @@ end)
 FunPage.AddButton("Modfly", function()
 loadstring(game:HttpGet('https://raw.githubusercontent.com/ArcaneAw/Shazam/main/AC'))()
 end)
-FunPage.AddButton("Aura", function()
-getgenv().AuraSetting = {
-    ['Made By JoJo#2222'] = {
-        ["CHATBIND"] = {ENABLED = true, ON = "King Crimson!", OFF = "Desummon!"}, --/ Aura chat command.
-        ["KEYBIND"] = "Q", --/ Aura keybind.
-        ["COLOR"] = "BLUE", --/ Current colors : DEFAULT, RED, BLACK, BLUE, LIME, WHITE, VIOLET, PURPLE, GREEN, CYAN, CRIMSON, GRAY
-        ["SOUND"] = {ENABLED = false, ON = 3381874860, OFF = 3373982614, DURING = 9125351349}, --/ Plays the desired SFX when turning on/off/while aura.
-        ["POWERS"] = {GRAVITY = true, SPEED = true}, --/ More to come..
-        }
-    }
---//-------------------------------------------------------------------------------------------------------\\--
-loadstring(game:HttpGet("https://raw.githubusercontent.com/JOJOGIO/DH-GAMING/main/Stand%20Aura%20Framework"))()
---//-------------------------------------------------------------------------------------------------------\\--
-end)
 FunPage.AddButton("Open Admin Door [CS]", function()
-	NovaNoti("JoJo Gui", "Say TUBULAR! to open", 10)
+	NovaNoti("AC Hub", "Say TUBULAR! to open", 10)
 	game:GetService('Players').LocalPlayer.Chatted:Connect(function(v)
 		if v == 'TUBULAR!' then
 			game:GetService('Workspace'):FindFirstChild('MAP'):FindFirstChild('EVIL_SPECIAL'):FindFirstChildWhichIsA('Sound').Volume = math.huge;
@@ -2499,7 +2449,7 @@ FunPage.AddButton("Boneless", function()
 	end)
 end)
 FunPage.AddButton("Taze Animation", function()
-	NovaNoti("JoJo Gui", "Keybind Is B", 10)
+	NovaNoti("AC Hub", "Keybind Is B", 10)
 	local mouse = game.Players.LocalPlayer:GetMouse()
 	mouse.KeyDown:connect(function(key)
 		if key == "b" then
@@ -2533,8 +2483,30 @@ wait(1)
 end
 end)
 
-FunPage.AddButton("No Right Leg", function()
+FunPage.AddButton("Korblox FE", function()
 	game.Players.LocalPlayer.Character.RightUpperLeg:Destroy()
+end)
+FunPage.AddButton("Headless FE", function()
+    		pcall(function() --headless fe
+			game.Players.LocalPlayer.Character.Head.Neck:Destroy()
+			game.Players.LocalPlayer.Character.UpperTorso.NeckAttachment:Destroy()
+			game.Players.LocalPlayer.Character.Humanoid.HealthDisplayDistance = math.huge
+			game.Players.LocalPlayer.Character.Humanoid.NameDisplayDistance = math.huge
+			game.Players.LocalPlayer.Character.Head.Size = Vector3.new(0,0,0)
+			game.Players.LocalPlayer.Character.Head.Massless = true
+			game.Players.LocalPlayer.Character.Head.CanCollide = false
+	
+			heazd = true
+	
+			while heazd == true do 
+				pcall(function()  
+					game.Players.LocalPlayer.Character.Head.NeckRigAttachment.CFrame =  CFrame.new(0, 100000.4736328125, 0)
+					game.Players.LocalPlayer.Character.UpperTorso.NeckRigAttachment.CFrame =  CFrame.new(0, 100000.4736328125, 0)
+					game.Players.LocalPlayer.Character.Head.CFrame = CFrame.new(0, 100000.4736328125, 0)
+				end)
+				wait()
+			end
+		end)
 end)
 FunPage.AddButton("Destroy All Seats", function()
 	for i, v in next, game.Workspace:GetDescendants() do
@@ -3334,4 +3306,4 @@ end)
 			game:GetService("TweenService"):Create(workspace.CurrentCamera, TweenInfo.new(0.3), {FieldOfView = 70}):Play()
 
 
-    NovaNoti("JoJo Gui", "This GUI might crash your game. So be aware of crashes", 20)
+    NovaNoti("AC Hub", "This GUI might crash your game. So be aware of crashes", 20)
