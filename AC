@@ -37,6 +37,8 @@ local Library = UI.Load("AC Hub")
 local MainPage = Library.AddPage("Main!")
 local LockPage = Library.AddPage("Lock!")
 local FunPage = Library.AddPage("Fun!")
+local AutofarmPage = Library.AddPage("Autofarm!")
+local TargetPage = Library.AddPage("Targeting!")
 local TeleportPage = Library.AddPage("Teleports!")
 local AnimationsPage = Library.AddPage("Animations!")
 
@@ -422,6 +424,11 @@ end)
 MainPage.AddButton("Godblock [ Only Blocks Punches ]", function()
 	game.Players.LocalPlayer.Character.BodyEffects.Defense.CurrentTimeBlock:Destroy()
 end)
+MainPage.AddButton("Normal Size", function()
+    game.Players.LocalPlayer.Character.Humanoid.BodyDepthScale:Destroy()
+    game.Players.LocalPlayer.Character.Humanoid.BodyWidthScale:Destroy()
+    game.Players.LocalPlayer.Character.Humanoid.BodyHeightScale:Destroy()
+end)
 MainPage.AddButton("Silent-Stomp", function()
 	while wait() do
 		for _, v in next, game:GetService("Players").LocalPlayer.Character:FindFirstChildOfClass("Humanoid"):GetPlayingAnimationTracks() do
@@ -547,6 +554,9 @@ MainPage.AddButton("No Fog", function()
     game:GetService("Lighting").FogEnd = 9e9
     game:GetService("Lighting").FogStart = 9e9
 end)
+MainPage.AddButton("No Trail", function()
+     game.Players.LocalPlayer.Character.Humanoid:WaitForChild("TrailEffects"):Destroy()
+end)
 MainPage.AddButton("Brightness", function()
     game:GetService("Lighting").Brightness = 2
     game:GetService("Lighting").GlobalShadows = false
@@ -576,15 +586,26 @@ MainPage.AddButton("Mask-Names", function()
         	end
 end)
 MainPage.AddButton("Display-Names", function()
-    		pcall(function()
-			for i, v in pairs(game:GetService("Players"):GetPlayers()) do
-				if v.Character then
-					if v.Character:FindFirstChild("Humanoid") then
-						v.Character:FindFirstChild("Humanoid").DisplayName = v.Name 
-					end
-				end
-			end
-		end)
+                            local Players = game:GetService('Players')
+
+                require(game:GetService('Chat'):WaitForChild("ClientChatModules").ChatSettings).PlayerDisplayNamesEnabled = false
+
+                for i,v in next, Players:GetPlayers() do
+                    v.DisplayName = v.Name
+                    if v and v.Character and v.Character:FindFirstChildOfClass('Humanoid') then
+                        v.Character:FindFirstChildOfClass('Humanoid').DisplayName = v.Name
+                    end
+                    v.CharacterAdded:Connect(function(char)
+                        char:WaitForChild('Humanoid').DisplayName = v.Name
+                    end)
+                end
+
+                Players.PlayerAdded:Connect(function(plr)
+                    plr.DisplayName = plr.Name
+                    plr.CharacterAdded:Connect(function(char)
+                        char:WaitForChild('Humanoid').DisplayName = plr.Name
+                    end)
+                end)
 end)
 MainPage.AddButton("Audio Stealer", function()
 	local ScreenGui = Instance.new("ScreenGui")
@@ -705,6 +726,13 @@ MainPage.AddButton("Refresh", function()
                     player.Character.Name = 'deleted'
                 end
                 DeleteChar()
+end)
+MainPage.AddButton("Force Reset", function()
+        local Plr = game.Players.LocalPlayer
+    local lastpos = Plr.character.HumanoidRootPart.CFrame
+                game.Players.LocalPlayer.Character.Humanoid:Destroy()
+    wait(7)
+    Plr.Character.HumanoidRootPart.CFrame = lastpos
 end)
 MainPage.AddDropdown("Guns", {"Revolver", "DB", "Shotgun", "SMG", "AK-47", "LMG", "Glock", "Silencer", "Rifle", "RPG", "Flamethrower", "Taser",}, function(State)
         if State == "Revolver" then
@@ -1057,6 +1085,37 @@ MainPage.AddToggle("Mute All Radios", nil, function(Value)
 	until isloopmute == false
 	Pause()
 end)
+MainPage.AddToggle("Cashaura", nil, function(ca)
+                if ca == false then
+                cashauraing = true
+                local player = game.Players.LocalPlayer
+                local Loop
+                local Pause = function()
+                    Loop:Disconnect()
+                end;
+                local loopFunction = function()
+                    local UpperTorso = game.Players.LocalPlayer.Character:FindFirstChild('HumanoidRootPart')
+                    if UpperTorso then
+                        for i,v in pairs(game:GetService('Workspace'):WaitForChild('Ignored'):WaitForChild('Drop'):GetChildren()) do
+                            if v:IsA('Part') then
+                                local checkmag = (v.Position - UpperTorso.Position).Magnitude
+                                if checkmag <= 10 then
+                                    fireclickdetector(v:FindFirstChild('ClickDetector'))
+                                end
+                            end
+                        end
+                    end
+                end;
+                local Start = function()
+                    Loop = game:GetService("RunService").Heartbeat:Connect(loopFunction);
+                end;
+                Start()
+                repeat wait() until cashauraing == false
+                Pause()   
+            elseif ca == false then
+                cashauraing = false
+            end
+end)
 MainPage.AddToggle("Reach", nil, function(e)
         if e == true then
 			game:GetService('RunService'):BindToRenderStep("Reach", 0 , function()
@@ -1085,7 +1144,8 @@ MainPage.AddToggle("Reach", nil, function(e)
             game:GetService('RunService'):UnbindFromRenderStep("Reach")
         end
 end)
-MainPage.AddToggle("Stamina", nil, function(Value)
+MainPage.AddToggle("Stamina", nil, function(stam)
+if stam == true then
 	local player = game.Players.LocalPlayer
 	local spacedown = false
 	staminup = true
@@ -1106,12 +1166,12 @@ MainPage.AddToggle("Stamina", nil, function(Value)
 		if key.KeyCode == Enum.KeyCode.Space and not b then
 			if staminup == true then
 				spacedown = false
-			end
-		end
-	end)
-end)
-MainPage.AddButton("Unstamina", function()
-	staminup = false
+			    end
+		    end
+	    end)
+elseif stam == false then
+    	staminup = false
+    end
 end)
 MainPage.AddToggle("Anti Slow", nil, function(gh)
         if gh == true then
@@ -1563,6 +1623,32 @@ FunPage.AddButton("SuperHuman[Z]", function()
 
 	end)
 end)
+FunPage.AddButton("Overdrive Tool", function()
+    	tool = Instance.new("Tool")
+	tool.RequiresHandle = false
+	tool.Name = "OverDrive"
+	tool.Activated:connect(function()
+		local A_1 = game.Players.LocalPlayer.Character.BodyEffects.Movement:FindFirstChild("SuperSpeed")
+		local A_2 = game.Players.LocalPlayer.Character.BodyEffects.Movement:FindFirstChild("HulkJump")
+		if A_1 then
+			game:GetService"Players".LocalPlayer.Character.BodyEffects.Movement.SuperSpeed:Destroy()
+		else
+			local OD2 = Instance.new("IntValue",game:GetService"Players".LocalPlayer.Character.BodyEffects.Movement)
+			OD2.Name = "SuperSpeed"
+		end
+		if A_2 then
+			game:GetService"Players".LocalPlayer.Character.BodyEffects.Movement.HulkJump:Destroy()
+		else
+			local OD1 = Instance.new("IntValue",game:GetService"Players".LocalPlayer.Character.BodyEffects.Movement)
+			OD1.Name = "HulkJump"
+		end
+	end)
+	game.Players.LocalPlayer.PlayerGui.MainScreenGui.Bar.HP.Picture.Life.Visible = true
+game.Players.LocalPlayer.CharacterAdded:Connect(function()
+game.Players.LocalPlayer.PlayerGui:WaitForChild("MainScreenGui"):WaitForChild("Bar"):WaitForChild("HP"):WaitForChild("Picture"):WaitForChild("Life").Visible = true
+end)
+	tool.Parent = game.Players.LocalPlayer.Backpack
+end)
 FunPage.AddButton("Shazam! [CS]", function()
 	game:GetService("Players").LocalPlayer.Chatted:Connect(function(arg)
 		if arg == "Shazam!" then
@@ -1798,6 +1884,302 @@ end)
 FunPage.AddButton("Telekinesis", function()
     NovaNoti("AC Hub", "use tool on knocked players", 10)
     loadstring(game:HttpGet("https://raw.githubusercontent.com/ArcaneAw/Telekinesis/main/AC"))()
+end)
+FunPage.AddButton("Swing", function()
+                    local OriginalKeyUpValue = 0;
+local Cooldown = false;
+
+local Fly = Instance.new('Animation');
+Fly.AnimationId = 'rbxassetid://3541044388';
+
+local Throw = Instance.new('Animation');
+Throw.AnimationId = 'rbxassetid://7009919364';
+
+
+function StopAudio()
+	game:GetService('Players').LocalPlayer.Character:FindFirstChild('LowerTorso'):FindFirstChild('BOOMBOXSOUND'):Stop();
+end;
+
+function Stop(i, v)
+	local w = coroutine.wrap(function()
+		wait(game:GetService('Players').LocalPlayer.Character:FindFirstChild('LowerTorso'):FindFirstChild('BOOMBOXSOUND').TimeLength-0.1)
+		if game:GetService('Players').LocalPlayer.Character:FindFirstChild('LowerTorso'):FindFirstChild('BOOMBOXSOUND').SoundId == 'rbxassetid://'..i and OriginalKeyUpValue == v then
+			StopAudio();
+		end;
+	end);
+	w();
+end;
+
+function Play(i, v, w)
+	if game:GetService('Players').LocalPlayer:FindFirstChildOfClass('Backpack'):FindFirstChild('[Boombox]') then
+		local Tool = nil;
+		if game:GetService('Players').LocalPlayer.Character:FindFirstChildOfClass('Tool') and w == true then
+			Tool = game:GetService('Players').LocalPlayer.Character:FindFirstChildOfClass('Tool')
+			game:GetService('Players').LocalPlayer.Character:FindFirstChildOfClass('Tool').Parent = game:GetService('Players').LocalPlayer:FindFirstChildOfClass('Backpack');
+		end;
+		game:GetService('Players').LocalPlayer:FindFirstChildOfClass('Backpack'):FindFirstChild('[Boombox]').Parent = game:GetService('Players').LocalPlayer.Character;
+		game:GetService('ReplicatedStorage'):FindFirstChild('MainEvent'):FireServer('Boombox', i);
+		game:GetService('Players').LocalPlayer.Character:FindFirstChild('[Boombox]').RequiresHandle = false;
+		if game:GetService('Players').LocalPlayer.Character:FindFirstChild('[Boombox]'):FindFirstChild('Handle') then
+			game:GetService('Players').LocalPlayer.Character:FindFirstChild('[Boombox]'):FindFirstChild('Handle'):Destroy();
+		end
+		game:GetService('Players').LocalPlayer.Character:FindFirstChild('[Boombox]').Parent = game:GetService('Players').LocalPlayer:FindFirstChildOfClass('Backpack')
+		if game:GetService('Players').LocalPlayer:FindFirstChildOfClass('PlayerGui'):FindFirstChild('MainScreenGui'):FindFirstChild('BoomboxFrame') then
+			game:GetService('Players').LocalPlayer:FindFirstChildOfClass('PlayerGui'):FindFirstChild('MainScreenGui'):FindFirstChild('BoomboxFrame').Visible = false;
+		end;
+		if Tool ~= true then
+			if Tool then
+				Tool.Parent = game:GetService('Players').LocalPlayer.Character
+			end;
+		end;
+		if v == true then
+			game:GetService('Players').LocalPlayer.Character:FindFirstChild('LowerTorso'):WaitForChild('BOOMBOXSOUND');
+			local x = coroutine.wrap(function()
+				repeat wait() until game:GetService('Players').LocalPlayer.Character:FindFirstChild('LowerTorso'):FindFirstChild('BOOMBOXSOUND').SoundId == 'rbxassetid://'..i and game:GetService('Players').LocalPlayer.Character:FindFirstChild('LowerTorso'):FindFirstChild('BOOMBOXSOUND').TimeLength > 0.01
+				OriginalKeyUpValue = OriginalKeyUpValue + 1;
+				Stop(i, OriginalKeyUpValue);
+			end);
+			x();
+		end;
+	end;
+end;
+
+function Tool()
+	local Tool = Instance.new('Tool')
+	Tool.Name = 'Swing';
+	Tool.RequiresHandle = false;
+	Tool.Activated:Connect(function()
+		if game:GetService('Players').LocalPlayer:GetMouse().Target and Cooldown == false then
+			Cooldown = false;
+			local Rotation = game:GetService('Players').LocalPlayer.Character:FindFirstChild('HumanoidRootPart').CFrame - game:GetService('Players').LocalPlayer.Character:FindFirstChild('HumanoidRootPart').Position;
+			local Tween = game:GetService('TweenService'):Create(game:GetService('Players').LocalPlayer.Character:FindFirstChild('HumanoidRootPart'), TweenInfo.new(.5, Enum.EasingStyle.Linear), {CFrame = CFrame.new(game:GetService('Players').LocalPlayer:GetMouse().Hit.X, game:GetService('Players').LocalPlayer:GetMouse().Hit.Y + 5, game:GetService('Players').LocalPlayer:GetMouse().Hit.Z) * Rotation})
+			Tween:Play();
+			game:GetService('Players').LocalPlayer.Character:FindFirstChildWhichIsA('Humanoid'):LoadAnimation(Fly):Play();
+			game:GetService('Players').LocalPlayer.Character:FindFirstChildWhichIsA('Humanoid'):LoadAnimation(Throw):Play();
+			Play(7346242221, true, true)
+			Tween.Completed:Wait();
+			for _, v in pairs(game:GetService('Players').LocalPlayer.Character:FindFirstChildWhichIsA('Humanoid'):GetPlayingAnimationTracks()) do
+				if v.Animation.AnimationId == Fly.AnimationId then
+					v:Stop();
+				end;
+			end;
+			Cooldown = false;
+			if not game:GetService('Players').LocalPlayer.Character:FindFirstChild(Tool) then
+				Tool.Parent = game:GetService('Players').LocalPlayer.Character;
+			end;
+		end;
+	end);
+	Tool.Parent = game:GetService('Players').LocalPlayer:FindFirstChildWhichIsA('Backpack');
+end;
+game:GetService('Players').LocalPlayer.Character:WaitForChild('FULLY_LOADED_CHAR');
+wait(1);
+Tool();
+game:GetService('Players').LocalPlayer.CharacterAdded:Connect(function(v)
+	v:WaitForChild('FULLY_LOADED_CHAR');
+	wait(1);
+	Tool();
+end);
+end)
+FunPage.AddButton("Funtools", function()
+                function Tool()
+local LocalPlayer = game:GetService("Players").LocalPlayer
+local Mouse = LocalPlayer:GetMouse()
+local Tool = Instance.new("Tool")
+Tool.RequiresHandle = false
+Tool.Name = "[Deadshot]"
+local OriginalKeyUpValue = 0
+
+local Anim = Instance.new("Animation")
+Anim.AnimationId = "rbxassetid://3380627692"
+
+Tool.Activated:Connect(function()
+    local Character = LocalPlayer.Character
+    local Humanoid = Character:FindFirstChildOfClass("Humanoid")
+    
+    local v = 'DEADSHOT';
+    game:GetService('ReplicatedStorage'):FindFirstChild('DefaultChatSystemChatEvents'):FindFirstChild('SayMessageRequest'):FireServer(v, 'All');
+
+function StopAudio()
+    LocalPlayer.Character.LowerTorso.BOOMBOXSOUND:Stop()
+end
+
+function stop(ID, Key)
+    local cor = coroutine.wrap(function()
+        wait(LocalPlayer.Character.LowerTorso.BOOMBOXSOUND.TimeLength-0.1)
+        if LocalPlayer.Character.LowerTorso.BOOMBOXSOUND.SoundId == "rbxassetid://"..ID and OriginalKeyUpValue == Key then
+            StopAudio()
+        end
+    end)
+    cor()
+end
+
+function play(ID, STOP, LMAO)
+    if LocalPlayer.Backpack:FindFirstChild("[Boombox]") then
+        local Tool = nil
+        if LocalPlayer.Character:FindFirstChildOfClass("Tool") and LMAO == true then
+            Tool = LocalPlayer.Character:FindFirstChildOfClass("Tool")
+            LocalPlayer.Character:FindFirstChildOfClass("Tool").Parent = LocalPlayer.Backpack
+        end
+        LocalPlayer.Backpack["[Boombox]"].Parent =
+            LocalPlayer.Character
+        game.ReplicatedStorage.MainEvent:FireServer("Boombox", ID)
+        LocalPlayer.Character["[Boombox]"].RequiresHandle = false
+        if LocalPlayer.Character["[Boombox]"]:FindFirstChild("Handle") then
+            LocalPlayer.Character["[Boombox]"].Handle:Destroy()
+        end
+        LocalPlayer.Character["[Boombox]"].Parent =
+            LocalPlayer.Backpack
+        LocalPlayer.PlayerGui.MainScreenGui.BoomboxFrame.Visible = false
+        if Tool ~= true then
+            if Tool then
+                Tool.Parent = LocalPlayer.Character
+            end
+        end
+        if STOP == true then
+            LocalPlayer.Character.LowerTorso:WaitForChild("BOOMBOXSOUND")
+            local cor = coroutine.wrap(function()
+                repeat wait() until LocalPlayer.Character.LowerTorso.BOOMBOXSOUND.SoundId == "rbxassetid://"..ID and LocalPlayer.Character.LowerTorso.BOOMBOXSOUND.TimeLength > 0.01
+                OriginalKeyUpValue = OriginalKeyUpValue+1
+                stop(ID, OriginalKeyUpValue)
+            end)
+            cor()
+        end
+    end
+end
+
+    play(7229541025, true, true)
+    Humanoid:LoadAnimation(Anim):Play()
+end)
+Tool.Parent = LocalPlayer.Backpack
+end
+game:GetService('Players').LocalPlayer.Character:WaitForChild('FULLY_LOADED_CHAR');
+wait(1);
+Tool();
+game:GetService('Players').LocalPlayer.CharacterAdded:Connect(function(v)
+	v:WaitForChild('FULLY_LOADED_CHAR');
+	wait(1);
+	Tool();
+end)
+
+function Tool3()
+local LocalPlayer = game:GetService("Players").LocalPlayer
+local Mouse = LocalPlayer:GetMouse()
+local Tool = Instance.new("Tool")
+Tool.RequiresHandle = false
+Tool.Name = "[Rip you in halfF]"
+local OriginalKeyUpValue = 0
+
+local Anim = Instance.new("Animation")
+Anim.AnimationId = "rbxassetid://2788838708"
+
+Tool.Activated:Connect(function()
+    local Character = LocalPlayer.Character
+    local Humanoid = Character:FindFirstChildOfClass("Humanoid")
+    
+    local v = "I'm gonna rip you in half now!";
+    game:GetService('ReplicatedStorage'):FindFirstChild('DefaultChatSystemChatEvents'):FindFirstChild('SayMessageRequest'):FireServer(v, 'All');
+
+function StopAudio()
+    LocalPlayer.Character.LowerTorso.BOOMBOXSOUND:Stop()
+end
+
+function stop(ID, Key)
+    local cor = coroutine.wrap(function()
+        wait(LocalPlayer.Character.LowerTorso.BOOMBOXSOUND.TimeLength-0.1)
+        if LocalPlayer.Character.LowerTorso.BOOMBOXSOUND.SoundId == "rbxassetid://"..ID and OriginalKeyUpValue == Key then
+            StopAudio()
+        end
+    end)
+    cor()
+end
+
+function play(ID, STOP, LMAO)
+    if LocalPlayer.Backpack:FindFirstChild("[Boombox]") then
+        local Tool = nil
+        if LocalPlayer.Character:FindFirstChildOfClass("Tool") and LMAO == true then
+            Tool = LocalPlayer.Character:FindFirstChildOfClass("Tool")
+            LocalPlayer.Character:FindFirstChildOfClass("Tool").Parent = LocalPlayer.Backpack
+        end
+        LocalPlayer.Backpack["[Boombox]"].Parent =
+            LocalPlayer.Character
+        game.ReplicatedStorage.MainEvent:FireServer("Boombox", ID)
+        LocalPlayer.Character["[Boombox]"].RequiresHandle = false
+        if LocalPlayer.Character["[Boombox]"]:FindFirstChild("Handle") then
+            LocalPlayer.Character["[Boombox]"].Handle:Destroy()
+        end
+        LocalPlayer.Character["[Boombox]"].Parent =
+            LocalPlayer.Backpack
+        LocalPlayer.PlayerGui.MainScreenGui.BoomboxFrame.Visible = false
+        if Tool ~= true then
+            if Tool then
+                Tool.Parent = LocalPlayer.Character
+            end
+        end
+        if STOP == true then
+            LocalPlayer.Character.LowerTorso:WaitForChild("BOOMBOXSOUND")
+            local cor = coroutine.wrap(function()
+                repeat wait() until LocalPlayer.Character.LowerTorso.BOOMBOXSOUND.SoundId == "rbxassetid://"..ID and LocalPlayer.Character.LowerTorso.BOOMBOXSOUND.TimeLength > 0.01
+                OriginalKeyUpValue = OriginalKeyUpValue+1
+                stop(ID, OriginalKeyUpValue)
+            end)
+            cor()
+        end
+    end
+end
+
+    play(7148332723, true, true)
+    Humanoid:LoadAnimation(Anim):Play()
+            function rm()
+            for i,v in pairs(Character:GetDescendants()) do
+                if v:IsA("BasePart") or v:IsA("MeshPart") then
+                    if v.Name ~= "Head" then
+                        for i,cav in pairs(v:GetDescendants()) do
+                            if cav:IsA("Attachment") then
+                                if cav:FindFirstChild("OriginalPosition") then
+                                    cav.OriginalPosition:Destroy()
+                                end
+                            end
+                        end
+                        for i,v in pairs(v:GetChildren()) do
+                            if v.Name == "OriginalSize" then
+                                v:Destroy()
+                            end
+                        end
+                        if v:FindFirstChild("AvatarPartScaleType") then
+                            v:FindFirstChild("AvatarPartScaleType"):Destroy()
+                        end
+                    end
+                end
+            end
+        end
+
+        Humanoid:LoadAnimation(Anim):Play()
+    rm()
+    Humanoid:FindFirstChild("HeadScale"):Destroy()
+    wait(1)
+
+    rm()
+    Humanoid:FindFirstChild("BodyTypeScale"):Destroy()
+    wait(1)
+
+    rm()
+    Humanoid:FindFirstChild("BodyWidthScale"):Destroy()
+    wait(1)
+
+    rm()
+    Humanoid:FindFirstChild("BodyDepthScale"):Destroy()
+    wait(1)
+end)
+Tool.Parent = LocalPlayer.Backpack
+end
+game:GetService('Players').LocalPlayer.Character:WaitForChild('FULLY_LOADED_CHAR');
+wait(1);
+Tool3();
+game:GetService('Players').LocalPlayer.CharacterAdded:Connect(function(v)
+	v:WaitForChild('FULLY_LOADED_CHAR');
+	wait(1);
+	Tool3();
+end)
 end)
 FunPage.AddButton("Juggernaut", function()
 	local LocalPlayer = game:GetService("Players").LocalPlayer
@@ -2075,6 +2457,25 @@ FunPage.AddButton("Dash", function()
 					end
 				end
 			end
+			
+local a = "[Default Moveset] - $0"
+local b = game.Workspace.Ignored.Shop[a]
+local c = game:GetService "Players".LocalPlayer.Character.HumanoidRootPart.Position
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = b.Head.CFrame + Vector3.new(0, 3, 0)
+wait(0.25)
+fireclickdetector(game.Workspace.Ignored.Shop[a].ClickDetector)
+fireclickdetector(game.Workspace.Ignored.Shop[a].ClickDetector)
+game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(c)
+local e = true
+if e then
+    game.Players.LocalPlayer.Backpack["[Default Moveset]"].Default.BrickColor = BrickColor.new(255, 531, 0)
+end
+
+local Player = game:GetService("Players").LocalPlayer
+local Wallet = Player.Backpack:FindFirstChild("[Default Moveset]")
+
+Wallet.Parent = Player.Character
+wait(0.25)
 end)
 FunPage.AddButton("TP's [t j x z]", function()
 loadstring(game:HttpGet("https://raw.githubusercontent.com/ArcaneAw/boombox/main/AC", true))()
@@ -2220,6 +2621,96 @@ play(153613030, true, true)
 			end 
 			end)
 end)
+FunPage.AddToggle("Ball", nil, function(baller)
+    if baller == true then
+
+local character = game.Players.LocalPlayer.Character
+local ball = character.HumanoidRootPart
+local humanoid = character:WaitForChild("Humanoid")
+local lolz = false
+local Camera = workspace.CurrentCamera
+
+local UserInputService = game:GetService("UserInputService")
+                lolz = true
+		local RunService = game:GetService("RunService")
+                
+                local SPEED_MULTIPLIER = 30
+                local JUMP_POWER = 60
+                local JUMP_GAP = 0.3
+                
+                local character = game.Players.LocalPlayer.Character
+                
+
+ball.Shape = Enum.PartType.Ball
+ball.Size = Vector3.new(5,5,5)
+local humanoid = character:WaitForChild("Humanoid")
+
+                for i,v in ipairs(character:GetDescendants()) do
+                   if v:IsA("BasePart") then
+                       v.CanCollide = false
+                   end
+                end
+                local params = RaycastParams.new()
+                params.FilterType = Enum.RaycastFilterType.Blacklist
+                params.FilterDescendantsInstances = {character}
+                
+                local tc = RunService.RenderStepped:Connect(function(delta)
+                   if lolz == true then
+		ball.CanCollide = true
+                   humanoid.PlatformStand = true
+                if UserInputService:GetFocusedTextBox() then return end
+                if UserInputService:IsKeyDown("W") then
+                ball.RotVelocity = Camera.CFrame.RightVector * delta * SPEED_MULTIPLIER
+                end
+                if UserInputService:IsKeyDown("A") then
+                ball.RotVelocity = Camera.CFrame.LookVector * delta * SPEED_MULTIPLIER
+                end
+                if UserInputService:IsKeyDown("S") then
+                ball.RotVelocity = Camera.CFrame.RightVector * delta * SPEED_MULTIPLIER
+                end
+                if UserInputService:IsKeyDown("D") then
+                ball.RotVelocity = Camera.CFrame.LookVector * delta * SPEED_MULTIPLIER
+                end
+                ball.RotVelocity = ball.RotVelocity - Vector3.new(0,ball.RotVelocity.Y/50,0)
+		end
+                end)
+                if lolz == true then
+                UserInputService.JumpRequest:Connect(function()
+                local result = workspace:Raycast(
+                ball.Position,
+                Vector3.new(
+                0,
+                -((ball.Size.Y/2)+JUMP_GAP),
+                0
+                ),
+                params
+                )
+                if result then
+                ball.Velocity = ball.Velocity + Vector3.new(0,JUMP_POWER,0)
+                end
+                end)
+                
+                Camera.CameraSubject = ball
+                humanoid.Died:Connect(function() tc:Disconnect() end)
+                end
+        elseif baller == false then
+	                    local Plr = game.Players.LocalPlayer
+    local lastpos = Plr.character.HumanoidRootPart.CFrame
+    
+                    local player = game.Players.LocalPlayer
+                local function DeleteChar()
+                    for i,v in pairs(player.Character:GetChildren()) do
+                        if v:IsA('MeshPart') or v:IsA('Part') or v:IsA('Accessory') then
+                            v:Destroy()
+                        end
+                    end
+                    player.Character.Name = 'deleted'
+                end
+                DeleteChar()
+wait(7)
+    Plr.Character.HumanoidRootPart.CFrame = lastpos
+    end
+end)
 FunPage.AddButton("Bikefly [q-e]", function()
 	local speed = 20
 local old
@@ -2302,6 +2793,9 @@ while game.RunService.Stepped:wait() do
         speed = speed - 1
     end
 end
+end)
+FunPage.AddButton("Bounce", function()
+    game:GetService('Players').LocalPlayer.Character:FindFirstChildOfClass('Humanoid').RootPart.Velocity = Vector3.new(0,600,0)
 end)
 FunPage.AddButton("Rocket Ride", function()
 -- SETTINGS --
@@ -2396,6 +2890,283 @@ game.Workspace.Ignored.ChildAdded:connect(function(child)
         movers = nil
     end
 end)
+end)
+FunPage.AddButton("Wolverine!", function()
+	NovaNoti("AC Hub", "Must have 3 knifes for this to work!","rbxassetid://10716387808", 10)
+	local OriginalKeyUpValue = 0
+	local LocalPlayer = game:GetService("Players").LocalPlayer
+
+	local OldChar = LocalPlayer.Character
+
+	function StopAudio()
+		OldChar.LowerTorso.BOOMBOXSOUND:Stop()
+	end
+
+	function stop(ID, Key)
+		local cor = coroutine.wrap(function()
+			wait(OldChar.LowerTorso.BOOMBOXSOUND.TimeLength-0.1)
+			if OldChar.LowerTorso.BOOMBOXSOUND.SoundId == "rbxassetid://"..ID and OriginalKeyUpValue == Key then
+				StopAudio()
+			end
+		end)
+		cor()
+	end
+
+
+	function play(ID, STOP, LMAO)
+		if LocalPlayer.Backpack:FindFirstChild("[Boombox]") then
+			local Tool = nil
+			if OldChar:FindFirstChildOfClass("Tool") and LMAO == true then
+				Tool = OldChar:FindFirstChildOfClass("Tool")
+				OldChar:FindFirstChildOfClass("Tool").Parent = LocalPlayer.Backpack
+			end
+			LocalPlayer.Backpack["[Boombox]"].Parent =
+				OldChar
+			game.ReplicatedStorage.MainEvent:FireServer("Boombox", ID)
+			OldChar["[Boombox]"].RequiresHandle = false
+			if OldChar["[Boombox]"]:FindFirstChild("Handle") then
+				OldChar["[Boombox]"].Handle:Destroy()
+			end
+			OldChar["[Boombox]"].Parent =
+				LocalPlayer.Backpack
+			LocalPlayer.PlayerGui.MainScreenGui.BoomboxFrame.Visible = false
+			if Tool ~= true then
+				if Tool then
+					Tool.Parent = OldChar
+				end
+			end
+			if STOP == true then
+				OldChar.LowerTorso:WaitForChild("BOOMBOXSOUND")
+				local cor = coroutine.wrap(function()
+					repeat wait() until OldChar.LowerTorso.BOOMBOXSOUND.SoundId == "rbxassetid://"..ID and OldChar.LowerTorso.BOOMBOXSOUND.TimeLength > 0.01
+					OriginalKeyUpValue = OriginalKeyUpValue+1
+					stop(ID, OriginalKeyUpValue)
+				end)
+				cor()
+			end
+		end
+	end
+
+	local Player = game:GetService("Players").LocalPlayer
+	local Character = Player.Character
+	local Root = Character.HumanoidRootPart 
+	local ply = game.Players.LocalPlayer
+	local chr = ply.Character
+
+
+	local Tool = Instance.new('Tool')
+	Tool.Parent = game.Players.LocalPlayer.Backpack
+	Tool.Name = "Wolverine"
+	Tool.RequiresHandle = false
+
+
+	local WVHandle = Instance.new('Tool')
+	WVHandle.Parent = game.Players.LocalPlayer.Backpack
+	WVHandle.Name = "-"
+	WVHandle.RequiresHandle = false
+
+	function GetKnives()
+		local Target = game.Workspace.Ignored.Shop['[Knife] - $150']
+		local Tool = Instance.new('Tool')
+		Tool.Parent = game.Players.LocalPlayer.Backpack
+		Tool.Name = "Collect Knives"
+		Tool.RequiresHandle = false
+
+
+		Tool.Activated:Connect(function()
+
+			for i,v in pairs(game.Workspace.Ignored.ItemsDrop:GetDescendants()) do
+				if v.Name == "[Knife]" then
+					game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.Parent.CFrame
+					break
+				end
+			end
+		end)
+	end
+	GetKnives()
+
+	plr = game.Players.LocalPlayer
+
+	hum = plr.Character.HumanoidRootPart
+
+	mouse = plr:GetMouse()
+	local loopenabled = false
+
+	-- tool here
+
+	Tool.Activated:Connect(function() 
+
+		WVHandle.Parent = game.Players.LocalPlayer.Character
+
+		wait(0.1)
+
+		Tool.Parent = game:GetService('Players').LocalPlayer.Backpack
+
+		play(2769472393, true, true)
+		wait(0.1)
+		local Char = game.Players.LocalPlayer.Character
+		local Hum = Char:FindFirstChildOfClass("Humanoid") or Char:FindFirstChildOfClass("AnimationController")
+		local Anim = Instance.new("Animation")
+
+		wait(1)
+		local count = 0 
+		for i,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
+			if v.Name == '[Knife]' then
+				count = count + 1
+				if count == 1 then
+					v.GripForward = Vector3.new(-0.999, 0.038, -0.019)
+					v.GripPos = Vector3.new(0.134, -0.006, -0.27)
+					v.GripRight = Vector3.new(0.021, 0.06, -0.998)
+					v.GripUp = Vector3.new(0.037, 0.997, 0.06)
+				elseif count == 2 then
+					v.GripForward = Vector3.new(-0.999, 0.038, -0.019)
+					v.GripPos = Vector3.new(0.128, -0.037, -0.008)
+					v.GripRight = Vector3.new(0.021, 0.06, -0.998)
+					v.GripUp = Vector3.new(0.037, 0.997, 0.06)
+				else
+					v.GripForward = Vector3.new(-0.999, 0.038, -0.019)
+					v.GripPos = Vector3.new(0.12, -0.072, 0.23)
+					v.GripRight = Vector3.new(0.021, 0.06, -0.998)
+					v.GripUp = Vector3.new(0.037, 0.997, 0.06)
+				end
+				v.Parent = game.Players.LocalPlayer.Character
+			end
+		end
+
+		local FastSprint = Instance.new("IntValue",ply.Character.BodyEffects.Movement);FastSprint.Name = "FastSprint"
+		local HulkJump = Instance.new("IntValue",ply.Character.BodyEffects.Movement);HulkJump.Name = "HighJump"
+
+		Anim.AnimationId = "rbxassetid://7861306542"
+		function WolvAnim()
+			local XD = game.Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid"):LoadAnimation(Anim)
+			XD:Play()
+			XD.TimePosition = 0.40
+			XD.Looped = false
+			XD:AdjustSpeed(1.8)
+		end
+		if loopenabled == false then
+			loopenabled = true
+			while true do
+				wait()
+				if game.Players.LocalPlayer.Character.BodyEffects.Movement:FindFirstChild("NoWalkSpeed") then game.Players.LocalPlayer.Character.BodyEffects.Movement:FindFirstChild("NoWalkSpeed"):Destroy() end
+				if game.Players.LocalPlayer.Character.BodyEffects.Movement:FindFirstChild("ReduceWalk") then game.Players.LocalPlayer.Character.BodyEffects.Movement:FindFirstChild("ReduceWalk"):Destroy() end
+				if game.Players.LocalPlayer.Character.BodyEffects.Movement:FindFirstChild("NoJumping") then game.Players.LocalPlayer.Character.BodyEffects.Movement:FindFirstChild("NoJumping"):Destroy() end
+				if game.Players.LocalPlayer.Character.BodyEffects.Reload.Value == true then game.Players.LocalPlayer.Character.BodyEffects.Reload.Value = false end
+
+				if game.Players.LocalPlayer.Backpack:FindFirstChild('-') then
+					for i,v in pairs(game.Players.LocalPlayer.Character.BodyEffects.Movement:GetChildren()) do
+						if v.Name == "FastSprint" then v:Destroy()
+						elseif v.Name == "HighJump" then v:Destroy()
+							play(2769472667, true, true)
+						end
+					end
+				end        
+
+				for i,v in next, Hum:GetPlayingAnimationTracks() do
+					if v.Animation.AnimationId == "rbxassetid://3033700364" then
+						v:Stop();
+						wait(.1)
+						WolvAnim()
+					end
+				end
+			end
+		end
+	end)
+end)
+FunPage.AddButton("SpiderMan", function()
+	NovaNoti("AC Hub", "Q To Enable","rbxassetid://10716387808", 10)
+	local OriginalKeyUpValue = 0;
+	local Cooldown = false;
+
+	function AddVelocity(Vel, Char)
+		Char.HumanoidRootPart.Velocity = Char.HumanoidRootPart.Velocity+Vel
+	end
+
+	local Grapple = Instance.new('Animation');
+	Grapple.AnimationId = 'rbxassetid://3135389157';
+
+	local Swing = Instance.new('Animation');
+	Swing.AnimationId = 'rbxassetid://3135793091';
+
+	local Glide = Instance.new("Animation")
+	Glide.AnimationId = 'rbxassetid://3136090876';
+
+	function StopAudio()
+		game:GetService('Players').LocalPlayer.Character:FindFirstChild('LowerTorso'):FindFirstChild('BOOMBOXSOUND'):Stop();
+	end;
+
+	function Stop(i, v)
+		local w = coroutine.wrap(function()
+			wait(game:GetService('Players').LocalPlayer.Character:FindFirstChild('LowerTorso'):FindFirstChild('BOOMBOXSOUND').TimeLength-0.1)
+			if game:GetService('Players').LocalPlayer.Character:FindFirstChild('LowerTorso'):FindFirstChild('BOOMBOXSOUND').SoundId == 'rbxassetid://'..i and OriginalKeyUpValue == v then
+				StopAudio();
+			end;
+		end);
+		w();
+	end;
+
+	function Play(i, v, w)
+		if game:GetService('Players').LocalPlayer:FindFirstChildOfClass('Backpack'):FindFirstChild('[Boombox]') then
+			local Tool = nil;
+			if game:GetService('Players').LocalPlayer.Character:FindFirstChildOfClass('Tool') and w == true then
+				Tool = game:GetService('Players').LocalPlayer.Character:FindFirstChildOfClass('Tool')
+				game:GetService('Players').LocalPlayer.Character:FindFirstChildOfClass('Tool').Parent = game:GetService('Players').LocalPlayer:FindFirstChildOfClass('Backpack');
+			end;
+			game:GetService('Players').LocalPlayer:FindFirstChildOfClass('Backpack'):FindFirstChild('[Boombox]').Parent = game:GetService('Players').LocalPlayer.Character;
+			game:GetService('ReplicatedStorage'):FindFirstChild('MainEvent'):FireServer('Boombox', i);
+			game:GetService('Players').LocalPlayer.Character:FindFirstChild('[Boombox]').RequiresHandle = false;
+			if game:GetService('Players').LocalPlayer.Character:FindFirstChild('[Boombox]'):FindFirstChild('Handle') then
+				game:GetService('Players').LocalPlayer.Character:FindFirstChild('[Boombox]'):FindFirstChild('Handle'):Destroy();
+			end
+			game:GetService('Players').LocalPlayer.Character:FindFirstChild('[Boombox]').Parent = game:GetService('Players').LocalPlayer:FindFirstChildOfClass('Backpack')
+			if game:GetService('Players').LocalPlayer:FindFirstChildOfClass('PlayerGui'):FindFirstChild('MainScreenGui'):FindFirstChild('BoomboxFrame') then
+				game:GetService('Players').LocalPlayer:FindFirstChildOfClass('PlayerGui'):FindFirstChild('MainScreenGui'):FindFirstChild('BoomboxFrame').Visible = false;
+			end;
+			if Tool ~= true then
+				if Tool then
+					Tool.Parent = game:GetService('Players').LocalPlayer.Character
+				end;
+			end;
+			if v == true then
+				game:GetService('Players').LocalPlayer.Character:FindFirstChild('LowerTorso'):WaitForChild('BOOMBOXSOUND');
+				local x = coroutine.wrap(function()
+					repeat wait() until game:GetService('Players').LocalPlayer.Character:FindFirstChild('LowerTorso'):FindFirstChild('BOOMBOXSOUND').SoundId == 'rbxassetid://'..i and game:GetService('Players').LocalPlayer.Character:FindFirstChild('LowerTorso'):FindFirstChild('BOOMBOXSOUND').TimeLength > 0.01
+					OriginalKeyUpValue = OriginalKeyUpValue + 1;
+					Stop(i, OriginalKeyUpValue);
+				end);
+				x();
+			end;
+		end;
+	end;
+	local plr = game.Players.LocalPlayer
+	mouse = plr:GetMouse()
+	mouse.KeyDown:connect(function(key)
+		if key == "q" then
+			if game:GetService('Players').LocalPlayer:GetMouse().Target and Cooldown == false then
+				Cooldown = true;
+				game:GetService('Players').LocalPlayer.Character:FindFirstChildWhichIsA('Humanoid'):LoadAnimation(Grapple):Play();
+				Play(151733071, true, true)
+				wait(0.25)
+				local Rotation = game:GetService('Players').LocalPlayer.Character:FindFirstChild('HumanoidRootPart').CFrame - game:GetService('Players').LocalPlayer.Character:FindFirstChild('HumanoidRootPart').Position;
+				local Tween = game:GetService('TweenService'):Create(game:GetService('Players').LocalPlayer.Character:FindFirstChild('HumanoidRootPart'), TweenInfo.new(1, Enum.EasingStyle.Linear), {CFrame = CFrame.new(game:GetService('Players').LocalPlayer:GetMouse().Hit.X, game:GetService('Players').LocalPlayer:GetMouse().Hit.Y + 5, game:GetService('Players').LocalPlayer:GetMouse().Hit.Z) * Rotation})
+				Tween:Play();
+				game:GetService('Players').LocalPlayer.Character:FindFirstChildWhichIsA('Humanoid'):LoadAnimation(Swing):Play();
+				Tween.Completed:Wait();
+				for _, v in pairs(game:GetService('Players').LocalPlayer.Character:FindFirstChildWhichIsA('Humanoid'):GetPlayingAnimationTracks()) do
+					if v.Animation.AnimationId == Swing.AnimationId then
+						v:Stop();
+						wait(0.01)
+						game:GetService('Players').LocalPlayer.Character:FindFirstChildWhichIsA('Humanoid'):LoadAnimation(Glide):Play();
+						wait(.1)
+					end;
+				end;
+				Cooldown = false;
+				if not game:GetService('Players').LocalPlayer.Character:FindFirstChild(Tool) then
+					Tool.Parent = game:GetService('Players').LocalPlayer.Character;
+				end;
+			end;
+		end
+	end)
 end)
 FunPage.AddButton("Wallwalk", function()
 loadstring(game:HttpGetAsync("https://raw.githubusercontent.com/ArcaneAw/WallWalk/main/AC"))()
@@ -2942,6 +3713,547 @@ LockPage.AddButton("Anti-aim [p]", function()
 		end
 	end)
 end)
+AutofarmPage.AddLabel("Autofarm!")
+AutofarmPage.AddButton("Fist Autofarm!", function()
+	function toTarget(d, C, D)
+		local E = game:service"TweenService"
+		local F = TweenInfo.new((C - d).Magnitude / 170, Enum.EasingStyle.Quad)
+		local G = tick()
+		local H, I = pcall(function()
+			local H = E:Create(game.Players.LocalPlayer.Character["HumanoidRootPart"], F, {
+				CFrame = D
+			})
+			H:Play()
+		end)
+		if not H then
+			return I
+		end
+	end;
+	local function J(K, L)
+		local M = (K.Position - L.Position).magnitude;
+		if M <= 50 then
+			fireclickdetector(L:FindFirstChild("ClickDetector"), 4)
+			return M
+		end
+	end;
+	while wait() do
+		for N, O in pairs(game.Workspace.Ignored.Drop:GetChildren()) do
+			if (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - O.Position).Magnitude <= 50 then
+				local P = O;
+				J(game.Players.LocalPlayer.Character.HumanoidRootPart, O)
+				wait()
+			end
+		end;
+		if not game.Players.LocalPlayer.Character:FindFirstChild("Combat") then
+			local tool = game.Players.LocalPlayer.Backpack:FindFirstChild("Combat")
+			tool.Parent = game.Players.LocalPlayer.Character
+		end;
+		wait()
+		for s, Q in pairs(game.Workspace.Cashiers:GetChildren()) do
+			wait()
+			if Q:FindFirstChild("Humanoid") then
+				if Q.Humanoid.Health > 0 then
+					wait()
+					if Q.Name ~= "CASHIER5" then
+						Q.Wedge.Orientation = Vector3.new(0, 90, 0)
+						Q.Wedge.Size = Vector3.new(4, 4, 4)
+						Q.Wedge.CanCollide = false
+					end;
+					if Q.Name == "CASHIER5" then
+						Q.Wedge.Orientation = Vector3.new(0, 180, 0)
+						Q.Wedge.Size = Vector3.new(4, 4, 4)
+						Q.Wedge.CanCollide = false
+					end;
+					wait()
+					poss = Q.Wedge.Position - Vector3.new(0, 0, 0)
+					posc = Q.Wedge.CFrame - Vector3.new(-2.5, 0, 0)
+					toTarget(game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position, poss, posc)
+					repeat
+						wait()
+					until (game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position - poss).Magnitude < 50 or Q.Humanoid.Health <= 0;
+					repeat
+						if not game.Players.LocalPlayer.Character:FindFirstChild("Combat") then
+							local tool = game.Players.LocalPlayer.Backpack:FindFirstChild("Combat")
+							tool.Parent = game.Players.LocalPlayer.Character
+						end;
+						toTarget(game:GetService("Players").LocalPlayer.Character:WaitForChild("HumanoidRootPart").Position, poss, posc)
+						wait(.2)
+						game:GetService("VirtualUser"):Button1Down(Vector2.new())
+					until Q.Humanoid.Health <= 0;
+					wait(.2)
+					for R = 5, 50 do
+						wait()
+						for N, O in pairs(game.Workspace.Ignored.Drop:GetChildren()) do
+							if (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - O.Position).Magnitude <= 50 then
+								if O:IsA("Part") then
+									local P = O;
+									J(game.Players.LocalPlayer.Character.HumanoidRootPart, O)
+									wait()
+								end
+							end
+						end
+					end
+				end
+			end
+		end
+	end
+end)
+AutofarmPage.AddButton("P90 Autofarm!", function()
+	repeat
+		wait()
+	until game:IsLoaded()
+	game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(465.91626, 48.0685081, -622.589539)
+	fireclickdetector(game:GetService("Workspace").Ignored.Shop["[P90] - $1000"].ClickDetector)
+	wait(1)
+	fireclickdetector(game:GetService("Workspace").Ignored.Shop["[P90] - $1000"].ClickDetector)
+	wait(1)
+	fireclickdetector(game:GetService("Workspace").Ignored.Shop["[P90] - $1000"].ClickDetector)
+
+	if workspace.Players[game.Players.LocalPlayer.Name]:FindFirstChild("[P90]") then
+		workspace.Players[game.Players.LocalPlayer.Name]:FindFirstChild("[P90]").Name = "[P900]"
+	else
+		game.Players.LocalPlayer.Backpack["[P90]"].Parent = workspace.Players[game.Players.LocalPlayer.Name]
+		game.workspace.Players[game.Players.LocalPlayer.Name]:FindFirstChild("[P90]").Name = "[P900]"
+	end
+
+	function Buy()
+		fireclickdetector(workspace.Ignored.Shop["120 [P90 Ammo] - $60"].ClickDetector)
+	end
+
+	local timer = 0
+	local ATM = "nil"
+	local GetAmmoOrReload = false
+	local Cash = false
+
+	function GetCash()
+		for i, v in pairs(workspace.Ignored.Drop:GetChildren()) do
+			if
+				v.Name == "MoneyDrop" and
+				(workspace.Players[game.Players.LocalPlayer.Name].HumanoidRootPart.Position - v.Position).Magnitude < 12
+			then
+				Cash = true
+				fireclickdetector(v.ClickDetector)
+				wait(1)
+				Cash = false
+			end
+		end
+	end
+
+	function getATM()
+		for i, v in pairs(workspace.Cashiers:GetChildren()) do
+			if v:WaitForChild("Humanoid").Health > 0 then
+				local cf = v.Head.CFrame
+				local lv = cf.lookVector
+				game.workspace.Players[game.Players.LocalPlayer.Name].HumanoidRootPart.CFrame =
+					cf + (lv * Vector3.new(0, 0, -3))
+				game.ReplicatedStorage.MainEvent:FireServer("UpdateMousePos", v.Head.Position)
+				return v
+			end
+		end
+	end
+
+	ATM = getATM()
+
+	function reload(name, gun)
+		local A_1 = "Reload"
+		local A_2 = game:GetService("Workspace").Players[name][gun]
+		local Event = game:GetService("ReplicatedStorage").MainEvent
+		Event:FireServer(A_1, A_2)
+	end
+
+	game:GetService("RunService").Heartbeat:Connect(function()
+		GetCash()
+		game.Players.LocalPlayer.Character.Humanoid:ChangeState(11)
+		if timer == 0 and Cash == false then
+			if game.Players.LocalPlayer.DataFolder.Inventory["[P90]"].Value == "0" and GetAmmoOrReload == false then
+				timer = 10
+				GetAmmoOrReload = true
+				local part = workspace.Ignored.Shop["120 [P90 Ammo] - $60"].Head
+				game.workspace.Players[game.Players.LocalPlayer.Name].HumanoidRootPart.CFrame =
+					CFrame.new(part.CFrame.X, part.CFrame.Y + 4, part.CFrame.Z)
+				game.workspace.Players[game.Players.LocalPlayer.Name]["[P900]"].Parent =
+					game.Players.LocalPlayer.Backpack
+				wait(2)
+				for i = 1, 10 do
+					game.workspace.Players[game.Players.LocalPlayer.Name].HumanoidRootPart.CFrame =
+						CFrame.new(
+							part.CFrame.X + math.random(1, 2),
+							part.CFrame.Y + math.random(1, 2),
+							part.CFrame.Z + math.random(1, 2)
+						)
+					print "e"
+					Buy()
+					wait(1)
+				end
+				game.Players.LocalPlayer.Backpack["[P900]"].Parent =
+					game.workspace.Players[game.Players.LocalPlayer.Name]
+				timer = 0
+				GetAmmoOrReload = false
+				local cf = ATM.Head.CFrame
+				local lv = cf.lookVector
+				game.workspace.Players[game.Players.LocalPlayer.Name].HumanoidRootPart.CFrame =
+					cf + (lv * Vector3.new(0, 0, -3))
+			end
+			if
+				game.workspace.Players[game.Players.LocalPlayer.Name]:WaitForChild("[P900]").Ammo.Value == 0 and
+				GetAmmoOrReload == false
+			then
+				GetAmmoOrReload = true
+				reload(game.Players.LocalPlayer.Name, "[P900]")
+				wait(2)
+				GetAmmoOrReload = false
+			else
+				for i, v in pairs(workspace.Cashiers:GetChildren()) do
+					if v:WaitForChild("Humanoid").Health > 0 then
+						if GetAmmoOrReload == false then
+							if ATM.Humanoid.Health > 0 then
+								game:GetService("VirtualUser"):Button1Down(Vector2.new(0, 0, 0))
+								local cf = ATM.Head.CFrame
+								local lv = cf.lookVector
+								game.workspace.Players[game.Players.LocalPlayer.Name].HumanoidRootPart.CFrame =
+									cf + (lv * Vector3.new(0, 0, -3))
+							end
+						end
+					end
+				end
+			end
+			for i, v in pairs(workspace.Cashiers:GetChildren()) do
+				if v:WaitForChild("Humanoid").Health > 0 then
+					if ATM.Humanoid.Health < 0 and GetAmmoOrReload == false then
+						timer = 10
+						wait(0.1)
+						if GetAmmoOrReload == false then
+							local cf = ATM.Head.CFrame
+							local lv = cf.lookVector
+							game.workspace.Players[game.Players.LocalPlayer.Name].HumanoidRootPart.CFrame =
+								cf + (lv * Vector3.new(0, 0, -3))
+
+							ATM = getATM()
+						end
+						timer = 0
+					end
+				end
+			end
+		end
+	end)
+end)
+AutofarmPage.AddButton("Shotgun Autofarm!", function()
+	if game.Players.LocalPlayer.Character.Animate:FindFirstChild("idle") then
+		game.Players.LocalPlayer.Character.Animate.idle:Destroy()
+	end
+	local me = game:service'Players'.LocalPlayer
+	local plr = game.Players.LocalPlayer
+	local savedarmourpos = plr.Character.HumanoidRootPart.Position
+	local toolname = "[Shotgun] - $1250"
+	plr.Character.HumanoidRootPart.CFrame = CFrame.new(game.Workspace.Ignored.Shop[toolname].Head.Position)
+	wait(.1)
+	fireclickdetector(game.Workspace.Ignored.Shop[toolname].ClickDetector)
+	wait(.1)
+	fireclickdetector(game.Workspace.Ignored.Shop[toolname].ClickDetector)
+	wait(.1)
+	fireclickdetector(game.Workspace.Ignored.Shop[toolname].ClickDetector)
+	wait(.1)
+	fireclickdetector(game.Workspace.Ignored.Shop[toolname].ClickDetector)
+	wait(.1)
+	fireclickdetector(game.Workspace.Ignored.Shop[toolname].ClickDetector)
+	wait(.1)
+	fireclickdetector(game.Workspace.Ignored.Shop[toolname].ClickDetector)
+	wait(.1)
+	me.Character.Humanoid:EquipTool(me.Backpack:FindFirstChild("[Shotgun]"))
+	wait(0.001)
+	plr.Character.HumanoidRootPart.CFrame = CFrame.new(savedarmourpos)
+	plr.Character.HumanoidRootPart.CFrame = CFrame.new(savedarmourpos)
+	function bypass()
+		local oh1 = CFrame.new(-346.434296, 52.5954704, 446.756989)
+		local oh2 = game:GetService("Players")
+		local oh3 = oh2.LocalPlayer.Character.HumanoidRootPart
+
+
+		oh3.CFrame = oh1
+		wait(1.5)
+	end
+	repeat
+		wait()
+	until game:IsLoaded()
+
+	if workspace.Players[game.Players.LocalPlayer.Name]:FindFirstChild("[Shotgun]") then
+		workspace.Players[game.Players.LocalPlayer.Name]:FindFirstChild("[Shotgun]").Name = "[Drxco]"
+
+		function Buy()
+			fireclickdetector(workspace.Ignored.Shop["20 [Shotgun Ammo] - $60"].ClickDetector)
+			fireclickdetector(workspace.Ignored.Shop["20 [Shotgun Ammo] - $60"].ClickDetector)
+		end
+
+		local ATM = "nil"
+		local idk = false
+		local dineros = false
+		local lol = 0
+
+		function GetATM()
+			bypass()
+			for i, v in pairs(workspace.Cashiers:GetChildren()) do
+				if v:WaitForChild("Humanoid").Health > 0 then
+					local cf = v.Open.CFrame
+					local lv = cf.lookVector
+					game.workspace.Players[game.Players.LocalPlayer.Name].HumanoidRootPart.CFrame = cf + (lv * Vector3.new(0, 0, -2))
+					game.ReplicatedStorage.MainEvent:FireServer("UpdateMousePos", v.Open.Position)
+					return v
+				end
+			end
+		end
+
+		function GETMONEY()
+			for i, v in pairs(workspace.Ignored.Drop:GetChildren()) do
+				if v.Name == "MoneyDrop" and (workspace.Players[game.Players.LocalPlayer.Name].HumanoidRootPart.Position - v.Position).Magnitude < 25
+				then
+					dineros = true
+					fireclickdetector(v.ClickDetector)
+					wait(0.7)
+					dineros = false
+				end
+			end
+		end
+
+		ATM = GetATM()
+
+		function reload(name, gun)
+			local XD1 = "Reload"
+			local XD2 = game:GetService("Workspace").Players[name][gun]
+			local Event = game:GetService("ReplicatedStorage").MainEvent
+			Event:FireServer(XD1, XD2)
+		end
+		game:GetService("RunService").Heartbeat:Connect(function()
+			GETMONEY()
+			game.Players.LocalPlayer.Character.Humanoid:ChangeState(11)
+			if lol == 0 and dineros == false then
+				if game.Players.LocalPlayer.DataFolder.Inventory["[Shotgun]"].Value == "0" and idk == false then
+					lol = 10
+					idk = true
+					local part = workspace.Ignored.Shop["20 [Shotgun Ammo] - $60"].Head
+					game.workspace.Players[game.Players.LocalPlayer.Name].HumanoidRootPart.CFrame =
+						CFrame.new(part.CFrame.X, part.CFrame.Y + 4, part.CFrame.Z)
+					game.workspace.Players[game.Players.LocalPlayer.Name]["[Drxco]"].Parent =
+						game.Players.LocalPlayer.Backpack
+					wait(2)
+					for i = 1, 10 do
+						game.workspace.Players[game.Players.LocalPlayer.Name].HumanoidRootPart.CFrame =
+							CFrame.new(
+								part.CFrame.X + math.random(1, 2),
+								part.CFrame.Y + math.random(1, 2),
+								part.CFrame.Z + math.random(1, 2)
+							)
+						Buy()
+						wait(0.5)
+					end
+					game.Players.LocalPlayer.Backpack["[Drxco]"].Parent =
+						game.workspace.Players[game.Players.LocalPlayer.Name]
+					lol = 0
+					idk = false
+					local cf = ATM.Open.CFrame
+					local lv = cf.lookVector
+					game.workspace.Players[game.Players.LocalPlayer.Name].HumanoidRootPart.CFrame =
+						cf + (lv * Vector3.new(0, 0, -2))
+				end
+				if
+					game.workspace.Players[game.Players.LocalPlayer.Name]:WaitForChild("[Drxco]").Ammo.Value == 4 and
+					idk == false
+				then
+					idk = true
+					reload(game.Players.LocalPlayer.Name, "[Drxco]")
+					wait(0.5)
+					idk = false
+				else
+					for i, v in pairs(workspace.Cashiers:GetChildren()) do
+						if v:WaitForChild("Humanoid").Health > 0 then
+							if idk == false then
+								if ATM.Humanoid.Health > 0 then
+									game:GetService("VirtualUser"):Button1Down(Vector2.new(0, 0, 0))
+									local cf = ATM.Open.CFrame
+									local lv = cf.lookVector
+									game.workspace.Players[game.Players.LocalPlayer.Name].HumanoidRootPart.CFrame =
+										cf + (lv * Vector3.new(0, 0, -2))
+								end
+							end
+						end
+					end
+				end
+				for i, v in pairs(workspace.Cashiers:GetChildren()) do
+					if v:WaitForChild("Humanoid").Health > 0 then
+						if ATM.Humanoid.Health < 0 and idk == false then
+							lol = 10
+							wait(0.1)
+							if idk == false then
+								local cf = ATM.Open.CFrame
+								local lv = cf.lookVector
+								game.workspace.Players[game.Players.LocalPlayer.Name].HumanoidRootPart.CFrame =
+									cf + (lv * Vector3.new(0, 0, -2))
+
+								ATM = GetATM()
+							end
+							lol = 0
+						end
+					end
+				end
+			end
+		end)
+	end
+end)
+AutofarmPage.AddToggle("Hospital Farm", nil, function(Value)
+	repeat
+		wait()
+		local d = Vector3.new(116.81, 22.8002, -478.199)
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(d)
+		local X;
+		for Y, Z in pairs(game.Workspace.Ignored.HospitalJob:GetChildren()) do
+			wait()
+			if Z then
+				if Z:IsA("Model") then
+					if Z.Name == "Can I get the Green bottle" then
+						X = "Green"
+					end;
+					if Z.Name == "Can I get the Red bottle" then
+						X = "Red"
+					end;
+					if Z.Name == "Can I get the Blue bottle" then
+						X = "Blue"
+					end;
+					print(X)
+					print(Z)
+					fireclickdetector(game.Workspace.Ignored.HospitalJob:FindFirstChild(X):FindFirstChild("ClickDetector"), 4)
+					fireclickdetector(Z:FindFirstChild("ClickDetector"), 4)
+					wait(3)
+				end
+			end
+		end
+	until not Value
+end)
+AutofarmPage.AddToggle("Auto Box", nil, function(Value)
+	function ToShoes(d, C, D)
+		local E = game:service"TweenService"
+		local F = TweenInfo.new((C - d).Magnitude / 50, Enum.EasingStyle.Quad)
+		local G = tick()
+		local H, I = pcall(function()
+			local H = E:Create(game.Players.LocalPlayer.Character["HumanoidRootPart"], F, {
+				CFrame = D
+			})
+			H:Play()
+		end)
+		if not H then
+			return I
+		end
+	end;
+	repeat
+		wait()
+		if not game.Players.LocalPlayer.Character:FindFirstChild("Combat") then
+			local tool = game.Players.LocalPlayer.Backpack:FindFirstChild("Combat")
+			tool.Parent = game.Players.LocalPlayer.Character
+		end;
+		for V, W in pairs(game.Workspace.MAP.Map.ArenaBOX:GetChildren()) do
+			wait()
+			warn(W)
+			if W.Name == "PunchingBagInGame" then
+				wait()
+				posMx = W:FindFirstChild("pretty ransom").Position - Vector3.new(0, 0, 0)
+				poscMx = W:FindFirstChild("pretty ransom").CFrame - Vector3.new(3, 0, 0)
+				ToShoes(game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position, posMx, poscMx)
+				repeat
+					if not game.Players.LocalPlayer.Character:FindFirstChild("Combat") then
+						local tool = game.Players.LocalPlayer.Backpack:FindFirstChild("Combat")
+						tool.Parent = game.Players.LocalPlayer.Character
+					end;
+					ToShoes(game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position, posMx, poscMx)
+					wait(.5)
+					game:GetService("VirtualUser"):ClickButton1(Vector2.new())
+				until not Value
+			end
+		end
+	until not Value
+end)
+AutofarmPage.AddToggle("Shoefarm", nil, function(Value)
+	function ToShoes(d, C, D)
+		local E = game:service"TweenService"
+		local F = TweenInfo.new((C - d).Magnitude / 50, Enum.EasingStyle.Quad)
+		local G = tick()
+		local H, I = pcall(function()
+			local H = E:Create(game.Players.LocalPlayer.Character["HumanoidRootPart"], F, {
+				CFrame = D
+			})
+			H:Play()
+		end)
+		if not H then
+			return I
+		end
+	end;
+	local function J(K, L)
+		local M = (K.Position - L.Position).magnitude;
+		if M <= 50 then
+			fireclickdetector(L:FindFirstChild("ClickDetector"), 4)
+			return M
+		end
+	end;
+	repeat
+		for N, O in pairs(game.Workspace.Ignored.Drop:GetChildren()) do
+			if (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - O.Position).Magnitude <= 50 then
+				local P = O;
+				J(game.Players.LocalPlayer.Character.HumanoidRootPart, O)
+				wait()
+			end
+		end;
+		wait()
+		for S, T in pairs(game.Workspace.Ignored.Drop:GetChildren()) do
+			wait()
+			if T:IsA("MeshPart") then
+				if T:FindFirstChild("ClickDetector") then
+					if game.Players.LocalPlayer.Character.BodyEffects.ShoesCollect.Value < 4 then
+						T.Orientation = Vector3.new(0, 0, 0)
+						wait()
+						posM = T.Position - Vector3.new(0, 0, 0)
+						poscM = T.CFrame - Vector3.new(0, -10, 0)
+						ToShoes(game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position, posM, poscM)
+						repeat
+							wait()
+							wait()
+						until (game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position - posM).Magnitude < 50 or not Value
+					else
+						wait()
+						local U = game.Workspace.Ignored["Clean the shoes on the floor and come to me for cash"].Head;
+						posMV = U.Position - Vector3.new(0, 0, 0)
+						poscMV = U.CFrame - Vector3.new(0, -2, 0)
+						ToShoes(game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position, posMV, poscMV)
+						wait(.3)
+						if (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - U.Position).Magnitude <= 25 then
+							fireclickdetector(U.Parent.ClickDetector)
+							wait()
+						end
+					end
+				end
+			end
+		end
+	until not Value
+end)
+AutofarmPage.AddToggle("Auto Weight", nil, function(Value)
+	repeat
+		wait()
+		if not game.Players.LocalPlayer.Character:FindFirstChild("[HeavyWeights]") then
+			wait()
+			local k = game.Workspace.Ignored.Shop["[HeavyWeights] - $250"]
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = k.Head.CFrame + Vector3.new(0, 3, 0)
+			if (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - k.Head.Position).Magnitude <= 50 then
+				wait(.8)
+				fireclickdetector(k:FindFirstChild("ClickDetector"), 4)
+			end
+		end;
+		if not game.Players.LocalPlayer.Character:FindFirstChild("[HeavyWeights]") then
+			tool = game.Players.LocalPlayer.Backpack:WaitForChild("[HeavyWeights]")
+			tool.Parent = game.Players.LocalPlayer.Character
+		end;
+		game:GetService("VirtualUser"):ClickButton1(Vector2.new())
+		local d = Vector3.new(-1006.99, -51.1542, -1014.33)
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(d)
+	until not Value
+end)
+AutofarmPage.AddLabel("Target!")
+
 TeleportPage.AddLabel("Teleports!")
 TeleportPage.AddButton("Bank", function()
 game:service('Players').LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-439.426971, 39.8844566, -284.314697, 0.0415078998, -7.22410007e-08, -0.999138176, 2.76550765e-08, 1, -7.11544175e-08, 0.999138176, -2.46777727e-08, 0.0415078998)
@@ -3312,4 +4624,4 @@ end)
 			game:GetService("TweenService"):Create(workspace.CurrentCamera, TweenInfo.new(0.3), {FieldOfView = 70}):Play()
 
 
-    NovaNoti("AC Hub", "This GUI might crash your game. So be aware of crashes", 20)
+    NovaNoti("AC Hub", "If you execute too large scripts you will crash", 15)
