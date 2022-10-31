@@ -389,6 +389,98 @@ MainPage.AddButton("Godv3", function()
 	
 	loadstring(game:HttpGet("https://icxy.xyz/NovaGui/NovaGuiGodv3", true))()
 end)
+MainPage.AddButton("Godv4", function()
+                        local player = game.Players.LocalPlayer
+                local function DeleteChar()
+                    for i,v in pairs(player.Character:GetChildren()) do
+                        if v:IsA('MeshPart') or v:IsA('Part') or v:IsA('Accessory') then
+                            v:Destroy()
+                        end
+                    end
+                    player.Character.Name = 'deleted'
+                end
+                DeleteChar()
+    wait(3)
+    OWNER = game:GetService("Players").LocalPlayer
+    RS = game:GetService("RunService")
+    TS = game:GetService("TweenService")
+        local newCharacter =  game.Workspace:WaitForChild(OWNER.Name)
+        local spoofFolder = Instance.new('Folder');
+        spoofFolder.Name = 'FULLY_LOADED_CHAR';
+        spoofFolder.Parent = newCharacter;
+        newCharacter:WaitForChild('RagdollConstraints'):Destroy();
+        local spoofValue = Instance.new('BoolValue', newCharacter);
+        spoofValue.Name = 'RagdollConstraints';         
+        OWNER.Character.BodyEffects.Defense:Destroy()
+        Defense = Instance.new("IntValue", OWNER.Character.BodyEffects)
+        Defense.Name = "Defense"
+        Defense.Value = 101
+        OWNER.Character:WaitForChild('BodyEffects').Armor:Destroy()
+        OWNER.Character:WaitForChild('BodyEffects')["BreakingParts"]:Destroy()
+        local Clone1 = Instance.new("IntValue")
+        local Clone2 = Instance.new("Folder")
+        Clone1.Name = "Armor"
+        Clone1.Value = 101
+        Clone1.Parent = OWNER.Character.BodyEffects
+        Clone2.Name = "BreakingParts"
+        Clone2.Parent = OWNER.Character.BodyEffects
+
+	  local ps = game:GetService("Players")
+        local lp = ps.LocalPlayer
+        local char = lp.Character
+                local SuperSpeed = Instance.new("IntValue")
+                SuperSpeed.Name = "FastSprint"
+                SuperSpeed.Parent = char.BodyEffects.Movement
+        nolimit = true
+                local player = game.Players.LocalPlayer
+                local loopFunction = function()
+                    local Movement = game:GetService("Workspace").Players:WaitForChild(player.Name).BodyEffects.Movement
+                    local SlowDown = Movement:FindFirstChild('NoWalkSpeed') or Movement:FindFirstChild('ReduceWalk') or Movement:FindFirstChild('NoJumping')
+                    if SlowDown then
+                        SlowDown:Destroy()
+                    end
+                    local Reloading = player.Character:FindFirstChild('BodyEffects'):FindFirstChild('Reload')
+                    if Reloading then
+                        if Reloading.Value == true then
+                            Reloading.Value = false
+                        end
+                    end
+                end;
+                local Loop
+                local Start = function()
+                    Loop = game:GetService("RunService").Heartbeat:Connect(loopFunction);
+                end;
+                local Pause = function()
+                    Loop:Disconnect()
+                end;
+                Start()
+                repeat wait() until nolimit == false
+                Pause()
+                
+        local player = game.Players.LocalPlayer
+			local spacedown = false
+			staminup = true
+			game:GetService('UserInputService').InputBegan:Connect(function(key,b)
+				if key.KeyCode == Enum.KeyCode.Space and not b then
+					if staminup == true then
+						spacedown = true
+						while spacedown == true do
+							wait()
+							player.Character:FindFirstChildWhichIsA('Humanoid').JumpPower = 50
+							player.Character:FindFirstChildWhichIsA('Humanoid').Jump = true
+							player.Character:FindFirstChildWhichIsA('Humanoid').JumpPower = 50
+						end
+					end
+				end
+			end)
+			game:GetService('UserInputService').InputEnded:Connect(function(key,b)
+				if key.KeyCode == Enum.KeyCode.Space and not b then
+					if staminup == true then
+						spacedown = false
+					end
+				end
+			end)
+end)
 MainPage.AddButton("Godv5", function()
     game.Players.LocalPlayer.Character.BodyEffects:FindFirstChild('K.O'):Destroy()
 end)
@@ -446,6 +538,158 @@ MainPage.AddButton("Silent-Block", function()
 			end;
 		end;
 	end
+end)
+MainPage.AddButton("Silent-Punch", function()
+local Char = game.Players.LocalPlayer.Character local Hum = Char:FindFirstChildOfClass("Humanoid") or Char:FindFirstChildOfClass("AnimationController")
+			while true do wait()
+				for i,v in next, Hum:GetPlayingAnimationTracks() do
+					if v.Animation.AnimationId == "rbxassetid://2788289281" then
+                    local animtrack = game.Players.LocalPlayer.Character.Humanoid:GetPlayingAnimationTracks()
+                        for i, track in pairs (animtrack) do
+                        track:Stop()
+                    end
+						for i,v in next, Hum:GetPlayingAnimationTracks() do
+							if v.Animation.AnimationId == "rbxassetid://2788292075" then
+							end
+						end
+					end
+				end
+			end
+			
+			         local Char = game.Players.LocalPlayer.Character local Hum = Char:FindFirstChildOfClass("Humanoid") or Char:FindFirstChildOfClass("AnimationController")
+                        while true do wait()
+                            for i,v in next, Hum:GetPlayingAnimationTracks() do
+                                if v.Animation.AnimationId == "rbxassetid://2788309317" then
+                                        game.Players.LocalPlayer.Character.Animate.Disabled = false
+                                        local animtrack = game.Players.LocalPlayer.Character.Humanoid:GetPlayingAnimationTracks()
+                                            for i, track in pairs (animtrack) do
+                                            track:Stop()
+                                        end
+                                        for i,v in next, Hum:GetPlayingAnimationTracks() do
+                                            if v.Animation.AnimationId == "rbxassetid://2788309982" then
+                                        end
+                                    end
+                                end
+                            end
+                        end 
+                        
+                    local Char = game.Players.LocalPlayer.Character local Hum = Char:FindFirstChildOfClass("Humanoid") or Char:FindFirstChildOfClass("AnimationController")
+                        while true do wait()
+                            for i,v in next, Hum:GetPlayingAnimationTracks() do
+                                if v.Animation.AnimationId == "rbxassetid://2788311138" then
+                                        game.Players.LocalPlayer.Character.Animate.Disabled = false
+                                        local animtrack = game.Players.LocalPlayer.Character.Humanoid:GetPlayingAnimationTracks()
+                                            for i, track in pairs (animtrack) do
+                                            track:Stop()
+                                        end
+                                        for i,v in next, Hum:GetPlayingAnimationTracks() do
+                                            if v.Animation.AnimationId == "rbxassetid://2788292075" then
+                                        end
+                                    end
+                                end
+                            end
+                        end
+                    local Char = game.Players.LocalPlayer.Character local Hum = Char:FindFirstChildOfClass("Humanoid") or Char:FindFirstChildOfClass("AnimationController")
+                        while true do wait()
+                            for i,v in next, Hum:GetPlayingAnimationTracks() do
+                                if v.Animation.AnimationId == "rbxassetid://3354696735" then
+                                        game.Players.LocalPlayer.Character.Animate.Disabled = false
+                                        local animtrack = game.Players.LocalPlayer.Character.Humanoid:GetPlayingAnimationTracks()
+                                            for i, track in pairs (animtrack) do
+                                            track:Stop()
+                                        end
+                                        for i,v in next, Hum:GetPlayingAnimationTracks() do
+                                            if v.Animation.AnimationId == "rbxassetid://2788292075" then
+                                        end
+                                    end
+                                end
+                            end
+                        end
+                    
+                    local Char = game.Players.LocalPlayer.Character local Hum = Char:FindFirstChildOfClass("Humanoid") or Char:FindFirstChildOfClass("AnimationController")
+                        while true do wait()
+                            for i,v in next, Hum:GetPlayingAnimationTracks() do
+                                if v.Animation.AnimationId == "rbxassetid://2788308661" then
+                                        game.Players.LocalPlayer.Character.Animate.Disabled = false
+                                        local animtrack = game.Players.LocalPlayer.Character.Humanoid:GetPlayingAnimationTracks()
+                                            for i, track in pairs (animtrack) do
+                                            track:Stop()
+                                        end
+                                        for i,v in next, Hum:GetPlayingAnimationTracks() do
+                                            if v.Animation.AnimationId == "rbxassetid://2788292075" then
+                                        end
+                                    end
+                                end
+                            end
+                        end   
+
+                    local Char = game.Players.LocalPlayer.Character local Hum = Char:FindFirstChildOfClass("Humanoid") or Char:FindFirstChildOfClass("AnimationController")
+                        while true do wait()
+                            for i,v in next, Hum:GetPlayingAnimationTracks() do
+                                if v.Animation.AnimationId == "rbxassetid://2788306916" then
+                                        game.Players.LocalPlayer.Character.Animate.Disabled = false
+                                        local animtrack = game.Players.LocalPlayer.Character.Humanoid:GetPlayingAnimationTracks()
+                                            for i, track in pairs (animtrack) do
+                                            track:Stop()
+                                        end
+                                        for i,v in next, Hum:GetPlayingAnimationTracks() do
+                                            if v.Animation.AnimationId == "rbxassetid://2788292075" then
+                                        end
+                                    end
+                                end
+                            end
+                        end   
+        
+                    local Char = game.Players.LocalPlayer.Character local Hum = Char:FindFirstChildOfClass("Humanoid") or Char:FindFirstChildOfClass("AnimationController")
+                        while true do wait()
+                            for i,v in next, Hum:GetPlayingAnimationTracks() do
+                                if v.Animation.AnimationId == "rbxassetid://2788305271" then
+                                        game.Players.LocalPlayer.Character.Animate.Disabled = false
+                                        local animtrack = game.Players.LocalPlayer.Character.Humanoid:GetPlayingAnimationTracks()
+                                            for i, track in pairs (animtrack) do
+                                            track:Stop()
+                                        end
+                                        for i,v in next, Hum:GetPlayingAnimationTracks() do
+                                            if v.Animation.AnimationId == "rbxassetid://2788292075" then
+                                        end
+                                    end
+                                end
+                            end
+                        end   
+                        
+                    local Char = game.Players.LocalPlayer.Character local Hum = Char:FindFirstChildOfClass("Humanoid") or Char:FindFirstChildOfClass("AnimationController")
+                        while true do wait()
+                            for i,v in next, Hum:GetPlayingAnimationTracks() do
+                                if v.Animation.AnimationId == "rbxassetid://2788290270" then
+                                        game.Players.LocalPlayer.Character.Animate.Disabled = false
+                                        local animtrack = game.Players.LocalPlayer.Character.Humanoid:GetPlayingAnimationTracks()
+                                            for i, track in pairs (animtrack) do
+                                            track:Stop()
+                                        end
+                                        for i,v in next, Hum:GetPlayingAnimationTracks() do
+                                            if v.Animation.AnimationId == "rbxassetid://2788292075" then
+                                        end
+                                    end
+                                end
+                            end
+                        end   
+                        
+                    local Char = game.Players.LocalPlayer.Character local Hum = Char:FindFirstChildOfClass("Humanoid") or Char:FindFirstChildOfClass("AnimationController")
+                        while true do wait()
+                            for i,v in next, Hum:GetPlayingAnimationTracks() do
+                                if v.Animation.AnimationId == "rbxassetid://2788307715" then
+                                        game.Players.LocalPlayer.Character.Animate.Disabled = false
+                                    local animtrack = game.Players.LocalPlayer.Character.Humanoid:GetPlayingAnimationTracks()
+                                        for i, track in pairs (animtrack) do
+                                        track:Stop()
+                                    end
+                                    for i,v in next, Hum:GetPlayingAnimationTracks() do
+                                            if v.Animation.AnimationId == "rbxassetid://2788292075" then
+                                        end
+                                    end
+                                end
+                            end
+                        end
 end)
 MainPage.AddButton("Fast-Sprint", function()
 	local ps = game:GetService("Players")
@@ -993,7 +1237,7 @@ MainPage.AddDropdown("Ammo", {"Revolver", "DB", "Shotgun", "SMG", "AK-47", "LMG"
             plr.Character.HumanoidRootPart.CFrame = CFrame.new(savedsilencerpos)
         end
 end)
-MainPage.AddDropdown("Melee", {"Knife", "Bat", "Shovel", "Pitchfork", "Stopsign",}, function(State)
+MainPage.AddDropdown("Melee", {"Knife", "Bat", "Shovel", "Pitchfork", "Stopsign", "Sledgehammer",}, function(State)
 if State == "Knife" then
 	local plr = game:GetService "Players".LocalPlayer
 	local k = game.Workspace.Ignored.Shop["[Knife] - $150"]
@@ -1046,6 +1290,17 @@ elseif State == "Stopsign" then
 	wait(0.2)
 	fireclickdetector(game.Workspace.Ignored.Shop["[StopSign] - $300"].ClickDetector)
 	fireclickdetector(game.Workspace.Ignored.Shop["[StopSign] - $300"].ClickDetector)
+
+	plr.Character.HumanoidRootPart.CFrame = CFrame.new(savedsilencerpos)
+	plr.Character.HumanoidRootPart.CFrame = CFrame.new(savedsilencerpos)
+elseif State == "Sledgehammer" then
+	local plr = game:GetService "Players".LocalPlayer
+	local k = game.Workspace.Ignored.Shop["[SledgeHammer] - $350"]
+	local savedsilencerpos = plr.Character.HumanoidRootPart.Position
+	game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = k.Head.CFrame + Vector3.new(0, 3, 0)
+	wait(0.2)
+	fireclickdetector(game.Workspace.Ignored.Shop["[SledgeHammer] - $350"].ClickDetector)
+	fireclickdetector(game.Workspace.Ignored.Shop["[SledgeHammer] - $350"].ClickDetector)
 
 	plr.Character.HumanoidRootPart.CFrame = CFrame.new(savedsilencerpos)
 	plr.Character.HumanoidRootPart.CFrame = CFrame.new(savedsilencerpos)
@@ -1886,7 +2141,7 @@ FunPage.AddButton("Telekinesis", function()
     loadstring(game:HttpGet("https://raw.githubusercontent.com/ArcaneAw/Telekinesis/main/AC"))()
 end)
 FunPage.AddButton("Swing", function()
-                    local OriginalKeyUpValue = 0;
+                  local OriginalKeyUpValue = 0;
 local Cooldown = false;
 
 local Fly = Instance.new('Animation');
@@ -1944,6 +2199,14 @@ function Play(i, v, w)
 	end;
 end;
 
+function Requip()
+local Plr = game.Players.LocalPlayer 
+Plr.Character.Humanoid:UnequipTools()
+wait(0.1)
+Plr.Character.Humanoid:EquipTool(Plr.Backpack.Swing)
+wait(0.1)
+end
+
 function Tool()
 	local Tool = Instance.new('Tool')
 	Tool.Name = 'Swing';
@@ -1963,6 +2226,7 @@ function Tool()
 					v:Stop();
 				end;
 			end;
+			Requip()
 			Cooldown = false;
 			if not game:GetService('Players').LocalPlayer.Character:FindFirstChild(Tool) then
 				Tool.Parent = game:GetService('Players').LocalPlayer.Character;
@@ -2630,6 +2894,13 @@ local humanoid = character:WaitForChild("Humanoid")
 local lolz = false
 local Camera = workspace.CurrentCamera
 
+
+local mouse = game.Players.LocalPlayer:GetMouse()
+    mouse.KeyDown:connect(function(key)
+        if key == "u" then
+game:GetService('Players').LocalPlayer.Character:FindFirstChildOfClass('Humanoid').RootPart.Velocity = Vector3.new(140,0,0)
+        end
+    end)
 local UserInputService = game:GetService("UserInputService")
                 lolz = true
 		local RunService = game:GetService("RunService")
@@ -4252,7 +4523,10 @@ AutofarmPage.AddToggle("Auto Weight", nil, function(Value)
 		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(d)
 	until not Value
 end)
-AutofarmPage.AddLabel("Target!")
+TargetPage.AddLabel("Target!")
+TargetPage.AddToggle("view / unview", nil, function(viewing)
+
+end)
 
 TeleportPage.AddLabel("Teleports!")
 TeleportPage.AddButton("Bank", function()
@@ -4590,6 +4864,7 @@ Animate.swim.Swim.AnimationId = "http://www.roblox.com/asset/?id=0"
 game.Players.LocalPlayer.Character.Humanoid.Jump = true
 end)
 
+
 --anti cheat
 		assert(getrawmetatable)
 		gmt = getrawmetatable(game)
@@ -4622,6 +4897,8 @@ end)
             game:GetService("TweenService"):Create(workspace.CurrentCamera, TweenInfo.new(0.2), {FieldOfView = 145}):Play()
 			wait(0.5)
 			game:GetService("TweenService"):Create(workspace.CurrentCamera, TweenInfo.new(0.3), {FieldOfView = 70}):Play()
-
-
+wait(1)
     NovaNoti("AC Hub", "If you execute too large scripts you will crash", 15)
+wait(1)
+loadstring(game:HttpGet("https://pastebin.com/raw/Kg5J2xkj", true))()
+
