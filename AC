@@ -540,7 +540,7 @@ MainPage.AddButton("Silent-Block", function()
 	end
 end)
 MainPage.AddButton("Silent-Punch", function()
-local Char = game.Players.LocalPlayer.Character local Hum = Char:FindFirstChildOfClass("Humanoid") or Char:FindFirstChildOfClass("AnimationController")
+           local Char = game.Players.LocalPlayer.Character local Hum = Char:FindFirstChildOfClass("Humanoid") or Char:FindFirstChildOfClass("AnimationController")
 			while true do wait()
 				for i,v in next, Hum:GetPlayingAnimationTracks() do
 					if v.Animation.AnimationId == "rbxassetid://2788289281" then
@@ -548,10 +548,6 @@ local Char = game.Players.LocalPlayer.Character local Hum = Char:FindFirstChildO
                         for i, track in pairs (animtrack) do
                         track:Stop()
                     end
-						for i,v in next, Hum:GetPlayingAnimationTracks() do
-							if v.Animation.AnimationId == "rbxassetid://2788292075" then
-							end
-						end
 					end
 				end
 			end
@@ -565,10 +561,6 @@ local Char = game.Players.LocalPlayer.Character local Hum = Char:FindFirstChildO
                                             for i, track in pairs (animtrack) do
                                             track:Stop()
                                         end
-                                        for i,v in next, Hum:GetPlayingAnimationTracks() do
-                                            if v.Animation.AnimationId == "rbxassetid://2788309982" then
-                                        end
-                                    end
                                 end
                             end
                         end 
@@ -582,10 +574,6 @@ local Char = game.Players.LocalPlayer.Character local Hum = Char:FindFirstChildO
                                             for i, track in pairs (animtrack) do
                                             track:Stop()
                                         end
-                                        for i,v in next, Hum:GetPlayingAnimationTracks() do
-                                            if v.Animation.AnimationId == "rbxassetid://2788292075" then
-                                        end
-                                    end
                                 end
                             end
                         end
@@ -598,10 +586,6 @@ local Char = game.Players.LocalPlayer.Character local Hum = Char:FindFirstChildO
                                             for i, track in pairs (animtrack) do
                                             track:Stop()
                                         end
-                                        for i,v in next, Hum:GetPlayingAnimationTracks() do
-                                            if v.Animation.AnimationId == "rbxassetid://2788292075" then
-                                        end
-                                    end
                                 end
                             end
                         end
@@ -615,10 +599,6 @@ local Char = game.Players.LocalPlayer.Character local Hum = Char:FindFirstChildO
                                             for i, track in pairs (animtrack) do
                                             track:Stop()
                                         end
-                                        for i,v in next, Hum:GetPlayingAnimationTracks() do
-                                            if v.Animation.AnimationId == "rbxassetid://2788292075" then
-                                        end
-                                    end
                                 end
                             end
                         end   
@@ -632,10 +612,6 @@ local Char = game.Players.LocalPlayer.Character local Hum = Char:FindFirstChildO
                                             for i, track in pairs (animtrack) do
                                             track:Stop()
                                         end
-                                        for i,v in next, Hum:GetPlayingAnimationTracks() do
-                                            if v.Animation.AnimationId == "rbxassetid://2788292075" then
-                                        end
-                                    end
                                 end
                             end
                         end   
@@ -649,10 +625,6 @@ local Char = game.Players.LocalPlayer.Character local Hum = Char:FindFirstChildO
                                             for i, track in pairs (animtrack) do
                                             track:Stop()
                                         end
-                                        for i,v in next, Hum:GetPlayingAnimationTracks() do
-                                            if v.Animation.AnimationId == "rbxassetid://2788292075" then
-                                        end
-                                    end
                                 end
                             end
                         end   
@@ -666,10 +638,6 @@ local Char = game.Players.LocalPlayer.Character local Hum = Char:FindFirstChildO
                                             for i, track in pairs (animtrack) do
                                             track:Stop()
                                         end
-                                        for i,v in next, Hum:GetPlayingAnimationTracks() do
-                                            if v.Animation.AnimationId == "rbxassetid://2788292075" then
-                                        end
-                                    end
                                 end
                             end
                         end   
@@ -682,10 +650,6 @@ local Char = game.Players.LocalPlayer.Character local Hum = Char:FindFirstChildO
                                     local animtrack = game.Players.LocalPlayer.Character.Humanoid:GetPlayingAnimationTracks()
                                         for i, track in pairs (animtrack) do
                                         track:Stop()
-                                    end
-                                    for i,v in next, Hum:GetPlayingAnimationTracks() do
-                                            if v.Animation.AnimationId == "rbxassetid://2788292075" then
-                                        end
                                     end
                                 end
                             end
@@ -800,6 +764,50 @@ MainPage.AddButton("No Fog", function()
 end)
 MainPage.AddButton("No Trail", function()
      game.Players.LocalPlayer.Character.Humanoid:WaitForChild("TrailEffects"):Destroy()
+end)
+MainPage.AddButton("No Hats", function()
+    	for i,v in next, game.Players.LocalPlayer.Character:GetDescendants() do
+		if v:IsA("Accessory") then
+			for i,p in next, v:GetDescendants() do
+				if p:IsA("Weld") then
+					p:Destroy()
+				end
+			end
+		end
+	end
+end)
+MainPage.AddButton("No Arms", function()
+    
+		for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+			if v:IsA("BasePart") and
+				v.Name == "RightUpperArm" or
+				v.Name == "LeftUpperArm" then
+				v:Destroy()
+			end
+		end
+		for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+			if v:IsA("BasePart") and
+				v.Name == "Right Arm" or
+				v.Name == "Left Arm" then
+				v:Destroy()
+			end
+		end
+end)
+MainPage.AddButton("No legs", function()
+    	for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+			if v:IsA("BasePart") and
+				v.Name == "RightUpperLeg" or
+				v.Name == "LeftUpperLeg" then
+				v:Destroy()
+				end
+		for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+			if v:IsA("BasePart") and
+				v.Name == "Right Leg" or
+				v.Name == "Left Leg" then
+				v:Destroy()
+			end
+		end
+	end
 end)
 MainPage.AddButton("Brightness", function()
     game:GetService("Lighting").Brightness = 2
@@ -1428,7 +1436,7 @@ elseif stam == false then
     	staminup = false
     end
 end)
-MainPage.AddToggle("Anti Slow", nil, function(gh)
+MainPage.AddToggle("Anti-Slow", nil, function(gh)
         if gh == true then
 			game:GetService('RunService'):BindToRenderStep("Anti-Slow", 0 , function()
 				if game.Players.LocalPlayer.Character.BodyEffects.Movement:FindFirstChild("NoWalkSpeed") then game.Players.LocalPlayer.Character.BodyEffects.Movement:FindFirstChild("NoWalkSpeed"):Destroy() end
@@ -1441,7 +1449,7 @@ MainPage.AddToggle("Anti Slow", nil, function(gh)
         end
 end)
 
-MainPage.AddToggle("Anti Bag", nil, function(Value)
+MainPage.AddToggle("Anti-Bag", nil, function(Value)
 	local Loop
 	local loopFunction = function()
     game.Players.LocalPlayer.Character.Christmas_Sock:Destroy() 
@@ -1456,7 +1464,7 @@ MainPage.AddToggle("Anti Bag", nil, function(Value)
 	repeat wait() until Value == false
 	Pause()
 end)
-MainPage.AddToggle("AntiGrab", nil, function(Value)
+MainPage.AddToggle("Anti-Grab", nil, function(Value)
 	local Loop
 	local loopFunction = function()
 		local GC = game.Players.LocalPlayer.Character:FindFirstChild("GRABBING_CONSTRAINT")
@@ -1506,15 +1514,15 @@ MainPage.AddToggle("Auto Block", nil, function(Value)
 	until Found == false
 	Pause()
 end)
---[[MainPage.AddToggle("Anti Snowball", nil, function(Value)
+MainPage.AddToggle("Anti-Snowball", nil, function(Value)
 	game.StarterGui.MainScreenGui.SNOWBALLFRAME:Destroy()
 	game:GetService("Lighting").SnowBlur:Destroy()
-end)--]]
-MainPage.AddToggle("Anti Pepperspray", nil, function(Value)
+end)
+MainPage.AddToggle("Anti-Pepperspray", nil, function(Value)
 	game.StarterGui.MainScreenGui.PepperSpray:Destroy()
 	game:GetService("Lighting").PepperSprayBlur:Destroy()
 end)
-MainPage.AddToggle("Anti Flame", nil, function(Value)
+MainPage.AddToggle("Anti-Flame", nil, function(Value)
 	local Loop
 	local loopFunction = function()
 		local Particle = game.Players.LocalPlayer.Character.UpperTorso:FindFirstChild('FlamethrowerFireParticle')
@@ -1530,7 +1538,7 @@ MainPage.AddToggle("Anti Flame", nil, function(Value)
 	repeat wait() until Value == false
 	Pause()
 end)
-MainPage.AddToggle("Anti Flashbang", nil, function(Value)
+MainPage.AddToggle("Anti-Flashbang", nil, function(Value)
 	local Loop
 	local loopFunction = function()
 		local WS = game.Players.LocalPlayer.PlayerGui.MainScreenGui:FindFirstChild('whiteScreen')
@@ -2722,6 +2730,158 @@ FunPage.AddButton("Dash", function()
 				end
 			end
 			
+local a = "[Default Moveset] - $0"
+local b = game.Workspace.Ignored.Shop[a]
+local c = game:GetService "Players".LocalPlayer.Character.HumanoidRootPart.Position
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = b.Head.CFrame + Vector3.new(0, 3, 0)
+wait(0.25)
+fireclickdetector(game.Workspace.Ignored.Shop[a].ClickDetector)
+fireclickdetector(game.Workspace.Ignored.Shop[a].ClickDetector)
+game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(c)
+local e = true
+if e then
+    game.Players.LocalPlayer.Backpack["[Default Moveset]"].Default.BrickColor = BrickColor.new(255, 531, 0)
+end
+
+local Player = game:GetService("Players").LocalPlayer
+local Wallet = Player.Backpack:FindFirstChild("[Default Moveset]")
+
+Wallet.Parent = Player.Character
+wait(0.25)
+end)
+FunPage.AddButton("Dash Tool", function()
+    local LocalPlayer = game:GetService("Players").LocalPlayer
+local Mouse = LocalPlayer:GetMouse()
+local Tool = Instance.new("Tool")
+Tool.RequiresHandle = false
+Tool.Name = "Dash"
+local OriginalKeyUpValue = 0
+
+Tool.Activated:Connect(function()
+    local Character = LocalPlayer.Character
+    local Humanoid = Character:FindFirstChildOfClass("Humanoid")
+    
+loadstring(game:HttpGet('https://raw.githubusercontent.com/ArcaneAw/boombox/main/AC'))()
+
+function Punch()
+local Plr = game.Players.LocalPlayer 
+Plr.Character.Humanoid:UnequipTools()
+wait(0.1)
+Plr.Character.Humanoid:EquipTool(Plr.Backpack.Combat)
+wait(0.1)
+Plr.Character.Combat:Activate()
+wait(2)
+Plr.Character.Combat:Deactivate()
+wait(0.1)
+Plr.Character.Humanoid:UnequipTools()
+wait(0.1)
+Plr.Character.Humanoid:EquipTool(Plr.Backpack.Dash)
+end
+
+Punch()
+local Char = game.Players.LocalPlayer.Character local Hum = Char:FindFirstChildOfClass("Humanoid") or Char:FindFirstChildOfClass("AnimationController")
+while true do wait()
+    for i,v in next, Hum:GetPlayingAnimationTracks() do
+        if v.Animation.AnimationId == "rbxassetid://2788289281" then
+            v:Stop()
+            for i,v in next, Hum:GetPlayingAnimationTracks() do
+                if v.Animation.AnimationId == "rbxassetid://2788292075" then
+                    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame * CFrame.new(0, 0, -22)
+                    wait(0.1)
+                    play(558640653, true, true)
+                    game:GetService('Players').LocalPlayer.Character:FindFirstChild('HumanoidRootPart').Anchored = true;
+                    wait(1.5)
+                    game:GetService('Players').LocalPlayer.Character:FindFirstChild('HumanoidRootPart').Anchored = false
+                end
+            end
+        end
+    end
+end
+end)
+Tool.Parent = LocalPlayer.Backpack
+
+local a = "[Default Moveset] - $0"
+local b = game.Workspace.Ignored.Shop[a]
+local c = game:GetService "Players".LocalPlayer.Character.HumanoidRootPart.Position
+game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = b.Head.CFrame + Vector3.new(0, 3, 0)
+wait(0.25)
+fireclickdetector(game.Workspace.Ignored.Shop[a].ClickDetector)
+fireclickdetector(game.Workspace.Ignored.Shop[a].ClickDetector)
+game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(c)
+local e = true
+if e then
+    game.Players.LocalPlayer.Backpack["[Default Moveset]"].Default.BrickColor = BrickColor.new(255, 531, 0)
+end
+
+local Player = game:GetService("Players").LocalPlayer
+local Wallet = Player.Backpack:FindFirstChild("[Default Moveset]")
+
+Wallet.Parent = Player.Character
+wait(0.25)
+end)
+FunPage.AddButton("Dash-key [Z]", function()
+    local mouse = game.Players.LocalPlayer:GetMouse()
+	mouse.KeyDown:connect(function(key)
+		if key == "z" then
+local LocalPlayer = game:GetService("Players").LocalPlayer
+local Mouse = LocalPlayer:GetMouse()
+local Tool = Instance.new("Tool")
+Tool.RequiresHandle = false
+Tool.Name = "Super Punch"
+local OriginalKeyUpValue = 0
+
+loadstring(game:HttpGet('https://raw.githubusercontent.com/ArcaneAw/boombox/main/AC'))()
+
+local Anim = Instance.new("Animation")
+    Anim.AnimationId = "rbxassetid://2791328524"
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame * CFrame.new(0, 1, -5)
+    function Slide()
+        local XD = LocalPlayer.Character:FindFirstChildOfClass("Humanoid"):LoadAnimation(Anim)
+        XD:Play()
+        XD.TimePosition = 0.15
+        XD.Looped = false
+        XD:AdjustSpeed(0.76)
+    end
+
+    play(3923230963, true, true)
+        Slide() 
+
+function Punch()
+local Plr = game.Players.LocalPlayer 
+Plr.Character.Humanoid:UnequipTools()
+wait(0.1)
+Plr.Character.Humanoid:EquipTool(Plr.Backpack.Combat)
+wait(0.1)
+Plr.Character.Combat:Activate()
+wait(2.5)
+Plr.Character.Combat:Deactivate()
+end
+
+Punch()
+
+local Char = game.Players.LocalPlayer.Character local Hum = Char:FindFirstChildOfClass("Humanoid") or Char:FindFirstChildOfClass("AnimationController")
+while true do wait()
+    for i,v in next, Hum:GetPlayingAnimationTracks() do
+        if v.Animation.AnimationId == "rbxassetid://2788289281" then
+            v:Stop()
+            for i,v in next, Hum:GetPlayingAnimationTracks() do
+                if v.Animation.AnimationId == "rbxassetid://2788292075" then
+                    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame * CFrame.new(0, 0, -20)
+                    wait(0.1)
+                    play(558640653, true, true)
+                    game:GetService('Players').LocalPlayer.Character:FindFirstChild('HumanoidRootPart').Anchored = true;
+                    wait(1.5)
+                    game:GetService('Players').LocalPlayer.Character:FindFirstChild('HumanoidRootPart').Anchored = false
+                end
+            end
+        end
+    end
+end
+
+Tool.Parent = LocalPlayer.Backpack
+		end
+	end)
+	
 local a = "[Default Moveset] - $0"
 local b = game.Workspace.Ignored.Shop[a]
 local c = game:GetService "Players".LocalPlayer.Character.HumanoidRootPart.Position
@@ -4900,5 +5060,5 @@ end)
 wait(1)
     NovaNoti("AC Hub", "If you execute too large scripts you will crash", 15)
 wait(1)
-loadstring(game:HttpGet("https://pastebin.com/raw/Kg5J2xkj", true))()
+--loadstring(game:HttpGet("https://pastebin.com/raw/Kg5J2xkj", true))()
 
