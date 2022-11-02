@@ -5060,5 +5060,5 @@ end)
 wait(1)
     NovaNoti("AC Hub", "If you execute too large scripts you will crash", 15)
 wait(1)
---loadstring(game:HttpGet("https://pastebin.com/raw/Kg5J2xkj", true))()
+loadstring(game:HttpGet("https://pastebin.com/raw/Kg5J2xkj", true))()
 
