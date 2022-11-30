@@ -1315,38 +1315,35 @@ elseif State == "Sledgehammer" then
 end
 end)
 MainPage.AddLabel("Toggles!")
-MainPage.AddSlider("Fov", {Min = 70, Max = 120 , Def = 120}, function(s)
+MainPage.AddSlider("Fov", {Min = 70, Max = 120 , Def = 70}, function(s)
         workspace.CurrentCamera.FieldOfView = s
 end)
-MainPage.AddToggle("Mute All Radios", nil, function(Value)
-	local isloopmute = false
+    local isloopmute = false
         isloopmute = not isloopmute
-        coroutine.wrap(function()
-            while isloopmute do
-                wait()
-                for _, v in pairs(game:GetService('Players'):GetPlayers()) do
-                    if v.Name ~= game:GetService('Players').LocalPlayer.Name then
-                        pcall(function()
-                            if v.Character:FindFirstChild('LowerTorso'):FindFirstChild('BOOMBOXSOUND').Playing then
-                                v.Character:FindFirstChild('LowerTorso'):FindFirstChild('BOOMBOXSOUND'):Stop();
-                            end;
-                        end);
-                    end;
-                end;
+            local Start = function()
+                Loop = game:GetService("RunService").Heartbeat:Connect(loopFunction);
             end;
-        end)();
-	local Start = function()
-		Loop = game:GetService("RunService").Heartbeat:Connect(loopFunction);
-	end;
-	Start()
-	local Pause = function()
-		Loop:Disconnect()
-	end;
-	Start()	
-	repeat
-		wait()
-	until isloopmute == false
-	Pause()
+            local Pause = function()
+                Loop:Disconnect()
+            end;
+MainPage.AddButton("Mute All Radios", function()
+                    while isloopmute do
+                        wait()
+                        for _, v in pairs(game:GetService('Players'):GetPlayers()) do
+                            if v.Name ~= game:GetService('Players').LocalPlayer.Name then
+                                pcall(function()
+                                    if v.Character:FindFirstChild('LowerTorso'):FindFirstChild('BOOMBOXSOUND').Playing then
+                                        v.Character:FindFirstChild('LowerTorso'):FindFirstChild('BOOMBOXSOUND'):Stop();
+                                    end;
+                                end);
+                            end;
+                        end;
+                    end;
+                Start()
+end)
+MainPage.AddButton("Unmute", function()
+    isloopmute = false
+    Pause()
 end)
 MainPage.AddToggle("X-ray", nil, function(x)
         if x == true then
@@ -1368,7 +1365,7 @@ elseif x == false then
 end
 end)
 MainPage.AddToggle("Cashaura", nil, function(ca)
-                if ca == false then
+            if ca == true then
                 cashauraing = true
                 local player = game.Players.LocalPlayer
                 local Loop
@@ -1502,6 +1499,8 @@ MainPage.AddToggle("Anti-Grab", nil, function(Value)
 	Start()	
 	repeat wait() until Value == false
 	Pause()
+	wait()
+	Pause()
 end)
 MainPage.AddToggle("Auto Block", nil, function(Value)
 	local Loop
@@ -1532,14 +1531,25 @@ MainPage.AddToggle("Auto Block", nil, function(Value)
 		wait()
 	until Found == false
 	Pause()
+	Found = false
 end)
 MainPage.AddToggle("Anti-Snowball", nil, function(Value)
+if Value == true then
 	game.StarterGui.MainScreenGui.SNOWBALLFRAME:Destroy()
 	game:GetService("Lighting").SnowBlur:Destroy()
+elseif Value == false then
+    game.StarterGui.MainScreenGui.SNOWBALLFRAME:Add()
+	game:GetService("Lighting").SnowBlur:Add()
+end
 end)
 MainPage.AddToggle("Anti-Pepperspray", nil, function(Value)
+if Value == true then
 	game.StarterGui.MainScreenGui.PepperSpray:Destroy()
 	game:GetService("Lighting").PepperSprayBlur:Destroy()
+elseif Value == false then
+	game.StarterGui.MainScreenGui.PepperSpray:Add()
+	game:GetService("Lighting").PepperSprayBlur:Add()
+end
 end)
 MainPage.AddToggle("Anti-Flame", nil, function(Value)
 	local Loop
@@ -3952,24 +3962,69 @@ FunPage.AddButton("Money Gravity [FE]", function()
 		end
 	end)
 end)
-LockPage.AddButton("Trace Lock", function()
+LockPage.AddButton("Cframe", function()
+	        repeat
+        wait()
+    until game:IsLoaded()
+    local L_134_ = game:service('Players')
+    local L_135_ = L_134_.LocalPlayer
+    repeat
+        wait()
+    until L_135_.Character
+    local L_136_ = game:service('UserInputService')
+    local L_137_ = game:service('RunService')
+    getgenv().Multiplier = 0.5
+    local L_138_ = true
+    local L_139_
+    L_136_.InputBegan:connect(function(L_140_arg0)
+        if L_140_arg0.KeyCode == Enum.KeyCode.LeftBracket then
+            Multiplier = Multiplier + 0.01
+            print(Multiplier)
+            wait(0.2)
+            while L_136_:IsKeyDown(Enum.KeyCode.LeftBracket) do
+                wait()
+                Multiplier = Multiplier + 0.01
+                print(Multiplier)
+            end
+        end
+        if L_140_arg0.KeyCode == Enum.KeyCode.RightBracket then
+            Multiplier = Multiplier - 0.01
+            print(Multiplier)
+            wait(0.2)
+            while L_136_:IsKeyDown(Enum.KeyCode.RightBracket) do
+                wait()
+                Multiplier = Multiplier - 0.01
+                print(Multiplier)
+            end
+        end
+        if L_140_arg0.KeyCode == Enum.KeyCode.Z then
+            L_138_ = not L_138_
+            if L_138_ == true then
+                repeat
+                    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame + game.Players.LocalPlayer.Character.Humanoid.MoveDirection * Multiplier
+                    game:GetService("RunService").Stepped:wait()
+                until L_138_ == false
+            end
+        end
+    end)
+end)
+LockPage.AddSlider("CframeCT", {Min = 0, Max = 5 , Def = 2}, function(s)
+        getgenv().Multiplier = s
+end)
+LockPage.AddButton("Trace-Lock", function()
 	loadstring(game:HttpGet('https://raw.githubusercontent.com/ArcaneAw/TraceLock/main/AC'))()
 end)
 
-LockPage.AddButton("Cam Lock", function()
+LockPage.AddButton("Cam-Lock", function()
 	loadstring(game:HttpGet('https://raw.githubusercontent.com/ArcaneAw/Camlock/main/AC'))()
 end)
 
-LockPage.AddButton("Box Lock", function()
+LockPage.AddButton("Box-Lock", function()
 	loadstring(game:HttpGet('https://raw.githubusercontent.com/ArcaneAw/Boxlock/main/AC'))()
 end)
 
-LockPage.AddButton("Right Click Lock", function()
+LockPage.AddButton("RightClick-Lock", function()
 	loadstring(game:HttpGet('https://raw.githubusercontent.com/ArcaneAw/RightClick/main/AC'))()
-end)
-
-LockPage.AddButton("Universal Fun", function()
-	loadstring(game:HttpGet('https://raw.githubusercontent.com/ArcaneAw/Ufun/main/wow'))()
 end)
 LockPage.AddButton("Nyula", function()
     loadstring(game:HttpGet("https://raw.githubusercontent.com/nyulachan/nyula/main/nyulauh"))();
@@ -3992,37 +4047,104 @@ LockPage.AddButton("Recoil", function()
 		newcam.HeadLocked = true
 		newcam.HeadScale = 1 
 end)
+LockPage.AddButton("Resolver-Underground", function()
+    getgenv().VelocityChanger = true
+getgenv().Velocity = Vector3.new(200,0,200)
 
-LockPage.AddButton("Anti-Lock poor", function()
-	local ant = false
- 
-function onKeyPress(inputObject, gameProcessedEvent)
-    if inputObject.KeyCode == Enum.KeyCode.H and gameProcessedEvent == false then
-     if ant == false then
-         game.Players.LocalPlayer.Character.Humanoid.HipHeight = 1.8
-       ant = true
- 
-     elseif ant == true then
-               game.Players.LocalPlayer.Character.Humanoid.HipHeight = 2
-       ant = false
-     end
+
+--// main scapt | realkscapter... omg
+local Players     = game:GetService("Players")
+local RunService  = game:GetService("RunService")
+
+local LocalPlayer = Players.LocalPlayer
+local Character   = LocalPlayer.Character
+local RootPart    = Character:FindFirstChild("HumanoidRootPart")
+
+local Heartbeat, RStepped, Stepped = RunService.Heartbeat, RunService.RenderStepped, RunService.Stepped
+
+LocalPlayer.CharacterAdded:Connect(function(NewCharacter)
+   Character = NewCharacter
+end)
+
+local RVelocity, YVelocity = nil, 0.1
+
+while true do
+   if VelocityChanger then
+       --// this a dumb check asnilsadsa
+       if (not RootPart) or (not RootPart.Parent) or (not RootPart.Parent.Parent) then
+           warn("weird ahh died")
+           RootPart = Character:FindFirstChild("HumanoidRootPart")
+       else
+           RVelocity = RootPart.Velocity
+   
+           RootPart.Velocity = type(Velocity) == "vector" and Velocity or Velocity(RVelocity)
+       
+           RStepped:wait()
+       
+           RootPart.Velocity = RVelocity
+       end
    end
+   
+   Heartbeat:wait()
+end 
+end)
+LockPage.AddButton("Anti-Lock Sky", function()
+    getgenv().Sky = true 
+getgenv().SkyAmount = 825
+
+game:GetService("RunService").heartbeat:Connect(function()
+    if getgenv().Sky ~= false then 
+    local vel = game.Players.LocalPlayer.Character.HumanoidRootPart.Velocity
+    game.Players.LocalPlayer.Character.HumanoidRootPart.Velocity = Vector3.new(0,      getgenv().SkyAmount,0) 
+    game:GetService("RunService").RenderStepped:Wait()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.Velocity = vel
+    end 
+end)
+end)
+LockPage.AddButton("Anti-Lock Underground", function()
+    getgenv().Underground = true 
+getgenv().UndergroundAmount = 825
+
+game:GetService("RunService").heartbeat:Connect(function()
+    if getgenv().Underground ~= false then 
+    local vel = game.Players.LocalPlayer.Character.HumanoidRootPart.Velocity
+    game.Players.LocalPlayer.Character.HumanoidRootPart.Velocity = Vector3.new(0,-         getgenv().UndergroundAmount,0) 
+    game:GetService("RunService").RenderStepped:Wait()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.Velocity = vel
+    end 
+end)
+end)
+LockPage.AddButton("Anti-Lock [x]", function()
+local Toggled = false
+local KeyCode = 'x'
+
+
+function AA()
+    local oldVelocity = game.Players.LocalPlayer.Character.HumanoidRootPart.Velocity
+    game.Players.LocalPlayer.Character.HumanoidRootPart.Velocity = Vector3.new(oldVelocity.X, -70, oldVelocity.Z)
+    game.Players.LocalPlayer.Character.HumanoidRootPart.Velocity = Vector3.new(oldVelocity.X, oldVelocity.Y, oldVelocity.Z)
+    game.Players.LocalPlayer.Character.HumanoidRootPart.Velocity = Vector3.new(oldVelocity.X, -70, oldVelocity.Z)
+    game.Players.LocalPlayer.Character.Humanoid.HipHeight = 4.14
 end
- 
-game:GetService("UserInputService").InputBegan:connect(onKeyPress)
-game.RunService.RenderStepped:connect(function()
-    if ant == true then
-    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame * CFrame.new(0,-0.3,0)
-        
 
-         game.Players.LocalPlayer.Character.Humanoid:ChangeState("RunningNoPhysics")
-else
-             game.Players.LocalPlayer.Character.Humanoid:ChangeState(nil)
+game:GetService('UserInputService').InputBegan:Connect(function(Key)
+    if Key.KeyCode == Enum.KeyCode[KeyCode:upper()] and not game:GetService('UserInputService'):GetFocusedTextBox() then
+        if Toggled then
+            Toggled = false
+            game.Players.LocalPlayer.Character.Humanoid.HipHeight = 1.85
 
+        elseif not Toggled then
+            Toggled = true
+
+            while Toggled do
+                AA()
+                task.wait()
+            end
+        end
     end
+end) 
 end)
-end)
-LockPage.AddButton("Anti-Lock [z]", function()
+LockPage.AddButton("Anti-Lock [z]", function()--anti lock toggle
 	local Toggled = true
 	local KeyCode = 'z'
 	local hip = 2.80
@@ -4054,7 +4176,7 @@ LockPage.AddButton("Anti-Lock [z]", function()
 		end
 	end)
 end)
-LockPage.AddButton("Lock + Antilock [q]", function()
+LockPage.AddButton("VA-Lock", function()--goes above player and locks onto
 	local CurrentCamera = game.Workspace.CurrentCamera
 	local Mouse = game.Players.LocalPlayer:GetMouse()
 	local Plr
@@ -4104,7 +4226,7 @@ LockPage.AddButton("Lock + Antilock [q]", function()
 	end
 	end)
 end)
-LockPage.AddButton("Anti-aim [p]", function()
+LockPage.AddButton("BP-Lock", function() --goes behind player
 	local CurrentCamera = game.Workspace.CurrentCamera
 	local Mouse = game.Players.LocalPlayer:GetMouse()
 	local Plr
@@ -5062,4 +5184,4 @@ end)
 wait(1)
     NovaNoti("AC Hub", "If you execute too large scripts you will crash", 15)
 wait(1)
---loadstring(game:HttpGet("https://pastebin.com/raw/KUKGESti", true))()
+--loadstring(game:HttpGet("https://pastebin.com/raw/Kg5J2xkj", true))()
