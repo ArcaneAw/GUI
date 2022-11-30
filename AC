@@ -4807,10 +4807,7 @@ AutofarmPage.AddToggle("Auto Weight", nil, function(Value)
 		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(d)
 	until not Value
 end)
-TargetPage.AddLabel("Target!")
-TargetPage.AddToggle("view / unview", nil, function(viewing)
-
-end)
+TargetPage.AddLabel("Soon!")
 
 TeleportPage.AddLabel("Teleports!")
 TeleportPage.AddButton("Bank", function()
