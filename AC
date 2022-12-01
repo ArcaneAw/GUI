@@ -1314,7 +1314,7 @@ elseif State == "Sledgehammer" then
 	plr.Character.HumanoidRootPart.CFrame = CFrame.new(savedsilencerpos)
 end
 end)
-MainPage.AddLabel("Toggles!")
+MainPage.AddLabel("Misc's!")
 MainPage.AddSlider("Fov", {Min = 70, Max = 120 , Def = 70}, function(s)
         workspace.CurrentCamera.FieldOfView = s
 end)
@@ -1327,6 +1327,7 @@ end)
                 Loop:Disconnect()
             end;
 MainPage.AddButton("Mute All Radios", function()
+    isloopmute = true
                     while isloopmute do
                         wait()
                         for _, v in pairs(game:GetService('Players'):GetPlayers()) do
@@ -1345,6 +1346,22 @@ MainPage.AddButton("Unmute", function()
     isloopmute = false
     Pause()
 end)
+MainPage.AddButton("Anti-Snowball", function()
+game.Workspace.Ignored.SnowBlock:Destroy()
+end)
+MainPage.AddButton("Anti-Pepperspray", function()
+	game.StarterGui.MainScreenGui.PepperSpray:Destroy()
+	game:GetService("Lighting").PepperSprayBlur:Destroy()
+end)
+MainPage.AddButton("Anti-Flame", function()
+		local Particle = game.Players.LocalPlayer.Character.UpperTorso:FindFirstChild('FlamethrowerFireParticle')
+		Particle:Destroy()
+end)
+MainPage.AddButton("Anti-Flashbang", function()
+		local WS = game.Players.LocalPlayer.PlayerGui.MainScreenGui:FindFirstChild('whiteScreen')
+			WS:Destroy()
+end)
+MainPage.AddLabel("Toggles!")
 MainPage.AddToggle("X-ray", nil, function(x)
         if x == true then
         pcall(function()
@@ -1462,6 +1479,7 @@ MainPage.AddToggle("Anti-Slow", nil, function(gh)
 			end)
 	    elseif gh == false then
             game:GetService('RunService'):UnbindFromRenderStep("Anti-Slow")
+            game.Players.LocalPlayer.Character.BodyEffects.Reload.Value = true
         end
 end)
 
@@ -1479,6 +1497,7 @@ MainPage.AddToggle("Anti-Bag", nil, function(Value)
 	Start()	
 	repeat wait() until Value == false
 	Pause()
+	game.Players.LocalPlayer.Character.Christmas_Sock:Clone()
 end)
 MainPage.AddToggle("Anti-Grab", nil, function(Value)
 	local Loop
@@ -1499,8 +1518,7 @@ MainPage.AddToggle("Anti-Grab", nil, function(Value)
 	Start()	
 	repeat wait() until Value == false
 	Pause()
-	wait()
-	Pause()
+    GC:Clone()
 end)
 MainPage.AddToggle("Auto Block", nil, function(Value)
 	local Loop
@@ -1532,58 +1550,6 @@ MainPage.AddToggle("Auto Block", nil, function(Value)
 	until Found == false
 	Pause()
 	Found = false
-end)
-MainPage.AddToggle("Anti-Snowball", nil, function(Value)
-if Value == true then
-	game.StarterGui.MainScreenGui.SNOWBALLFRAME:Destroy()
-	game:GetService("Lighting").SnowBlur:Destroy()
-elseif Value == false then
-    game.StarterGui.MainScreenGui.SNOWBALLFRAME:Add()
-	game:GetService("Lighting").SnowBlur:Add()
-end
-end)
-MainPage.AddToggle("Anti-Pepperspray", nil, function(Value)
-if Value == true then
-	game.StarterGui.MainScreenGui.PepperSpray:Destroy()
-	game:GetService("Lighting").PepperSprayBlur:Destroy()
-elseif Value == false then
-	game.StarterGui.MainScreenGui.PepperSpray:Add()
-	game:GetService("Lighting").PepperSprayBlur:Add()
-end
-end)
-MainPage.AddToggle("Anti-Flame", nil, function(Value)
-	local Loop
-	local loopFunction = function()
-		local Particle = game.Players.LocalPlayer.Character.UpperTorso:FindFirstChild('FlamethrowerFireParticle')
-		if Particle then Particle:Destroy() end
-	end;
-	local Start = function()
-		Loop = game:GetService("RunService").Heartbeat:Connect(loopFunction);
-	end;
-	local Pause = function()
-		Loop:Disconnect()
-	end;
-	Start()	
-	repeat wait() until Value == false
-	Pause()
-end)
-MainPage.AddToggle("Anti-Flashbang", nil, function(Value)
-	local Loop
-	local loopFunction = function()
-		local WS = game.Players.LocalPlayer.PlayerGui.MainScreenGui:FindFirstChild('whiteScreen')
-		if WS then
-			WS:Destroy()
-		end
-	end;
-	local Start = function()
-		Loop = game:GetService("RunService").Heartbeat:Connect(loopFunction);
-	end;
-	local Pause = function()
-		Loop:Disconnect()
-	end;
-	Start()	
-	repeat wait() until Value == false
-	Pause()
 end)
 MainPage.AddToggle("Auto-Reload", nil, function(r)
             if r == true then
@@ -4176,7 +4142,7 @@ LockPage.AddButton("Anti-Lock [z]", function()--anti lock toggle
 		end
 	end)
 end)
-LockPage.AddButton("VA-Lock", function()--goes above player and locks onto
+LockPage.AddButton("VA-Lock [Q]", function()--goes above player and locks onto
 	local CurrentCamera = game.Workspace.CurrentCamera
 	local Mouse = game.Players.LocalPlayer:GetMouse()
 	local Plr
@@ -4226,7 +4192,7 @@ LockPage.AddButton("VA-Lock", function()--goes above player and locks onto
 	end
 	end)
 end)
-LockPage.AddButton("BP-Lock", function() --goes behind player
+LockPage.AddButton("BP-Lock [T]", function() --goes behind player
 	local CurrentCamera = game.Workspace.CurrentCamera
 	local Mouse = game.Players.LocalPlayer:GetMouse()
 	local Plr
@@ -4252,7 +4218,7 @@ LockPage.AddButton("BP-Lock", function() --goes behind player
 	end
 	
 	Mouse.KeyDown:Connect(function(KeyPressed)
-		if KeyPressed ~= "p" then return end
+		if KeyPressed ~= "t" then return end
 		if Enabled then
 			Enabled = false
 		else
@@ -4807,7 +4773,10 @@ AutofarmPage.AddToggle("Auto Weight", nil, function(Value)
 		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(d)
 	until not Value
 end)
-TargetPage.AddLabel("Soon!")
+TargetPage.AddLabel("Target!")
+TargetPage.AddToggle("view / unview", nil, function(viewing)
+
+end)
 
 TeleportPage.AddLabel("Teleports!")
 TeleportPage.AddButton("Bank", function()
