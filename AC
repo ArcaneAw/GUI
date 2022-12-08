@@ -204,6 +204,19 @@ MainPage.AddToggle("Fly V1", nil, function(Value)
 		workspace.Core:Destroy()
 	end
 end)
+MainPage.AddToggle("Noclip", nil, function(Value)
+            if Value == true then
+                NoclipLoop = game:GetService("RunService").Stepped:Connect(function()
+                    for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+                        if v:IsA("BasePart") and v.CanCollide == true then
+                            v.CanCollide = false
+                        end
+                    end
+                end)
+            elseif Value == false and NoclipLoop then
+                NoclipLoop:Disconnect()
+            end
+end)
 MainPage.AddButton("Godv1", function()
 	local localPlayer = game:GetService('Players').LocalPlayer;
 	local localCharacter = localPlayer.Character;
@@ -4224,12 +4237,9 @@ LockPage.AddButton("Recoil", function()
 		newcam.HeadLocked = true
 		newcam.HeadScale = 1 
 end)
-LockPage.AddButton("Resolver-Underground", function()
-    getgenv().VelocityChanger = true
+getgenv().VelocityChanger = true
 getgenv().Velocity = Vector3.new(200,0,200)
-
-
---// main scapt | realkscapter... omg
+LockPage.AddButton("Resolver-Underground", function()
 local Players     = game:GetService("Players")
 local RunService  = game:GetService("RunService")
 
@@ -4265,10 +4275,9 @@ while true do
    Heartbeat:wait()
 end 
 end)
+getgenv().Sky = true 
+getgenv().SkyAmount = 225
 LockPage.AddButton("Anti-Lock Sky", function()
-    getgenv().Sky = true 
-getgenv().SkyAmount = 825
-
 game:GetService("RunService").heartbeat:Connect(function()
     if getgenv().Sky ~= false then 
     local vel = game.Players.LocalPlayer.Character.HumanoidRootPart.Velocity
@@ -4278,10 +4287,9 @@ game:GetService("RunService").heartbeat:Connect(function()
     end 
 end)
 end)
+getgenv().Underground = true 
+getgenv().UndergroundAmount = 225
 LockPage.AddButton("Anti-Lock Underground", function()
-    getgenv().Underground = true 
-getgenv().UndergroundAmount = 825
-
 game:GetService("RunService").heartbeat:Connect(function()
     if getgenv().Underground ~= false then 
     local vel = game.Players.LocalPlayer.Character.HumanoidRootPart.Velocity
@@ -4987,6 +4995,21 @@ end)
 TargetPage.AddLabel("Soon!")
 
 TeleportPage.AddLabel("Teleports!")
+TeleportPage.AddToggle("TP-around", nil, function(TP2)
+TP = true
+
+if TP2 == true then
+game["Run Service"].Heartbeat:Connect(function()
+    if TP == true then
+game:service('Players').LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(math.random(200, 500), math.random(200, 500), math.random(200, 500))
+game:GetService('Players').LocalPlayer.Character:FindFirstChildOfClass('Humanoid').RootPart.Velocity = Vector3.new(0,0,0)
+    end
+end)
+elseif TP2 == false then
+    TP = false
+    game:service('Players').LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-439.426971, 39.8844566, -284.314697, 0.0415078998, -7.22410007e-08, -0.999138176, 2.76550765e-08, 1, -7.11544175e-08, 0.999138176, -2.46777727e-08, 0.0415078998)
+end
+end)
 TeleportPage.AddButton("Rejoin", function()
     game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId, game.JobId)
 end)
