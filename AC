@@ -5461,6 +5461,9 @@ AutofarmPage.AddToggle("Auto Weight", nil, function(Value)
 end)
 
 TargetPage.AddLabel("Soon!")
+TargetPage.AddButton("Target Gui", function()
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/GS21Official/DH-VictimMenu-Script/main/Dh%20VictimMenu%3A%20Script"))()
+end)
 AutoBuyPage.AddLabel("AutoBuy!")
 AutoBuyPage.AddDropdown("Guns", {"Revolver", "DB", "Shotgun", "SMG", "AK-47", "LMG", "Glock", "Silencer", "Rifle", "RPG", "Flamethrower", "Taser",}, function(State)
         if State == "Revolver" then
