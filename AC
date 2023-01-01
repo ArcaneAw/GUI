@@ -1384,15 +1384,15 @@ MainPage.AddButton("Animation-Pack", function()
 end)
 MainPage.AddButton("Invis-Mask", function()
 	local d = game.Players.LocalPlayer.Character.HumanoidRootPart.Position;
-	local k = game.Workspace.Ignored.Shop["[Surgeon Mask] - $25"]
+	local k = game.Workspace.Ignored.Shop["[Surgeon Mask] - $26"]
 	game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = k.Head.CFrame + Vector3.new(0, 3, 0)
 	if (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - k.Head.Position).Magnitude <= 50 then
 		wait(.8)
 		fireclickdetector(k:FindFirstChild("ClickDetector"), 4)
-		toolf = game.Players.LocalPlayer.Backpack:WaitForChild("Mask")
+		toolf = game.Players.LocalPlayer.Backpack:WaitForChild("[Mask]")
 		toolf.Parent = game.Players.LocalPlayer.Character;
 		wait()
-		game.Players.LocalPlayer.Character:WaitForChild("Mask"):Activate()
+		game.Players.LocalPlayer.Character:WaitForChild("[Mask]"):Activate()
 		game.Players.LocalPlayer.Character:WaitForChild("In-gameMask"):WaitForChild("Handle"):Destroy()
 		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(d)
 	end
@@ -3203,6 +3203,52 @@ game:GetService("UserInputService").InputBegan:connect(function(i, XD2)
     end
 end)
 end)
+FunPage.AddButton("Dio-Throw", function()
+    local Mouse = game:GetService("Players").LocalPlayer:GetMouse()
+Mouse.KeyDown:connect(function()
+    if not game:GetService("UserInputService"):IsKeyDown(Enum.KeyCode["Z"]) and game:GetService("Players").LocalPlayer.Backpack:FindFirstChild("[Knife]") then return end
+    
+    x = game:GetService("Players").LocalPlayer
+    z = x.Backpack["[Knife]"]
+    z.GripRight = Vector3.new(0,0,0)
+    z.GripRight = Vector3.new(0,0,-1)
+    finished = false
+    
+    local Throw = Instance.new('Animation', game:GetService("Workspace"))
+    Throw.AnimationId = 'rbxassetid://3096047107'
+    Throwing = game:GetService("Players").LocalPlayer.Character:FindFirstChildWhichIsA("Humanoid"):LoadAnimation(Throw)
+    
+    z.Parent = x.Character
+    Throwing:Play()
+    Throwing:AdjustSpeed(0.06)
+    play(5121745384, true, true)
+    wait(0.5)
+    Throwing:AdjustSpeed(0.6)
+    coroutine.wrap(function()
+        wait(0.525)
+        play(2553982955, true, true)
+    end)()
+    wait(0.425)
+    
+    
+    coroutine.wrap(function()
+        wait(1)
+        finished = true
+    end)()
+    
+    while true do
+        if finished == true then break end
+        z.Parent = x.Backpack
+        z.GripPos = z.GripPos + Vector3.new(0.45,0.08,0.05)
+        z.Parent = x.Character
+        game["RunService"].Stepped:Wait()
+    end
+    
+    z.Parent = x.Backpack
+    z.GripPos = Vector3.new(0,0,0)
+    Throw:Destroy()
+end)
+end)
 FunPage.AddButton("Bullet-Deflect", function()
     local Player = game.Players.LocalPlayer
 
@@ -3392,6 +3438,38 @@ game.Workspace.Ignored.DescendantAdded:Connect(function(Ray)
         end
     end
 end)
+end)
+FunPage.AddButton("Cranberry minecraft effect", function()
+    function Tool1()
+local Tool = Instance.new("Tool")
+Tool.RequiresHandle = false
+Tool.ToolTip = "Cranberry"
+Tool.TextureId = "rbxassetid://2820938481"
+Tool.Name = "CBD"
+
+loadstring(game:HttpGet("https://raw.githubusercontent.com/ArcaneAw/boombox/main/AC", true))()
+
+Tool.Activated:Connect(function()
+    local Character = game:GetService("Players").LocalPlayer.Character
+    local Humanoid = Character:FindFirstChildOfClass("Humanoid")
+    local Plr = game.Players.LocalPlayer
+        Plr.Character.Humanoid:UnequipTools()
+        wait(0.1)
+        Plr.Character.Humanoid:EquipTool(Plr.Backpack["[Cranberry]"])
+        Plr.Character["[Cranberry]"]:Activate()
+        play(3637899507, true, true)
+        wait(0.3)
+        play(3637899507, true, true)
+        wait(0.3)
+        play(3637899507, true, true)
+        wait(0.3)
+        play(3637899507, true, true)
+        Plr.Character["[Cranberry]"]:Deactivate()
+        Plr.Character.Humanoid:EquipTool(Plr.Backpack.CBD)
+end)
+Tool.Parent = game:GetService("Players").LocalPlayer.Backpack
+end
+Tool1()
 end)
 FunPage.AddButton("Dash", function()
 	loadstring(game:HttpGet("https://raw.githubusercontent.com/ArcaneAw/boombox/main/AC", true))()
@@ -4267,10 +4345,14 @@ FunPage.AddButton("SpiderMan", function()
 	end)
 end)
 FunPage.AddButton("Wallwalk", function()
-loadstring(game:HttpGetAsync("https://raw.githubusercontent.com/ArcaneAw/WallWalk/main/AC"))()
+    loadstring(game:HttpGetAsync("https://raw.githubusercontent.com/ArcaneAw/WallWalk/main/AC"))()
 end)
 FunPage.AddButton("Modfly", function()
-loadstring(game:HttpGet('https://raw.githubusercontent.com/ArcaneAw/Shazam/main/AC'))()
+    loadstring(game:HttpGet('https://raw.githubusercontent.com/ArcaneAw/Shazam/main/AC'))()
+    Tool4()
+end)
+FunPage.AddButton("Admin-Fly", function()
+    loadstring(game:HttpGet('https://raw.githubusercontent.com/ArcaneAw/Modfly/main/AC'))()
 end)
 FunPage.AddButton("Open Admin Door [CS]", function()
 	NovaNoti("AC Hub", "Say TUBULAR! to open", 10)
@@ -5468,7 +5550,7 @@ AutoBuyPage.AddLabel("AutoBuy!")
 AutoBuyPage.AddDropdown("Guns", {"Revolver", "DB", "Shotgun", "SMG", "AK-47", "LMG", "Glock", "Silencer", "Rifle", "RPG", "Flamethrower", "Taser",}, function(State)
         if State == "Revolver" then
             plr = game:GetService "Players".LocalPlayer
-            local gunName = "[Revolver] - $1300"
+            local gunName = "[Revolver] - $1339"
             local k = game.Workspace.Ignored.Shop[gunName]
             local savedsilencerpos = plr.Character.HumanoidRootPart.Position
             game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = k.Head.CFrame + Vector3.new(0, 3, 0)
@@ -5479,122 +5561,122 @@ AutoBuyPage.AddDropdown("Guns", {"Revolver", "DB", "Shotgun", "SMG", "AK-47", "L
             plr.Character.HumanoidRootPart.CFrame = CFrame.new(savedsilencerpos)
         elseif State == "DB" then
             plr = game:GetService "Players".LocalPlayer
-            local k = game.Workspace.Ignored.Shop["[Double-Barrel SG] - $1400"]
+            local k = game.Workspace.Ignored.Shop["[Double-Barrel SG] - $1442"]
             local savedsilencerpos = plr.Character.HumanoidRootPart.Position
             game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = k.Head.CFrame + Vector3.new(0, 3, 0)
             wait(0.2)
-            fireclickdetector(game.Workspace.Ignored.Shop["[Double-Barrel SG] - $1400"].ClickDetector)
-            fireclickdetector(game.Workspace.Ignored.Shop["[Double-Barrel SG] - $1400"].ClickDetector)
+            fireclickdetector(game.Workspace.Ignored.Shop["[Double-Barrel SG] - $1442"].ClickDetector)
+            fireclickdetector(game.Workspace.Ignored.Shop["[Double-Barrel SG] - $1442"].ClickDetector)
 
             plr.Character.HumanoidRootPart.CFrame = CFrame.new(savedsilencerpos)
             plr.Character.HumanoidRootPart.CFrame = CFrame.new(savedsilencerpos)
         elseif State == "Shotgun" then
             plr = game:GetService "Players".LocalPlayer
-            local k = game.Workspace.Ignored.Shop["[Shotgun] - $1250"]
+            local k = game.Workspace.Ignored.Shop["[Shotgun] - $1288"]
             local savedsilencerpos = plr.Character.HumanoidRootPart.Position
             game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = k.Head.CFrame + Vector3.new(0, 3, 0)
             wait(0.2)
-            fireclickdetector(game.Workspace.Ignored.Shop["[Shotgun] - $1250"].ClickDetector)
-            fireclickdetector(game.Workspace.Ignored.Shop["[Shotgun] - $1250"].ClickDetector)
+            fireclickdetector(game.Workspace.Ignored.Shop["[Shotgun] - $1288"].ClickDetector)
+            fireclickdetector(game.Workspace.Ignored.Shop["[Shotgun] - $1288"].ClickDetector)
 
             plr.Character.HumanoidRootPart.CFrame = CFrame.new(savedsilencerpos)
             plr.Character.HumanoidRootPart.CFrame = CFrame.new(savedsilencerpos)
         elseif State == "SMG" then
             plr = game:GetService "Players".LocalPlayer
-            local k = game.Workspace.Ignored.Shop["[SMG] - $750"]
+            local k = game.Workspace.Ignored.Shop["[SMG] - $773"]
             local savedsilencerpos = plr.Character.HumanoidRootPart.Position
             game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = k.Head.CFrame + Vector3.new(0, 3, 0)
             wait(0.2)
-            fireclickdetector(game.Workspace.Ignored.Shop["[SMG] - $750"].ClickDetector)
-            fireclickdetector(game.Workspace.Ignored.Shop["[SMG] - $750"].ClickDetector)
+            fireclickdetector(game.Workspace.Ignored.Shop["[SMG] - $773"].ClickDetector)
+            fireclickdetector(game.Workspace.Ignored.Shop["[SMG] - $773"].ClickDetector)
 
             plr.Character.HumanoidRootPart.CFrame = CFrame.new(savedsilencerpos)
             plr.Character.HumanoidRootPart.CFrame = CFrame.new(savedsilencerpos)
         elseif State == "AK-47" then
             plr = game:GetService "Players".LocalPlayer
-            local k = game.Workspace.Ignored.Shop["[AK47] - $2250"]
+            local k = game.Workspace.Ignored.Shop["[AK47] - $2318"]
             local savedsilencerpos = plr.Character.HumanoidRootPart.Position
             game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = k.Head.CFrame + Vector3.new(0, 3, 0)
             wait(0.2)
-            fireclickdetector(game.Workspace.Ignored.Shop["[AK47] - $2250"].ClickDetector)
-            fireclickdetector(game.Workspace.Ignored.Shop["[AK47] - $2250"].ClickDetector)
+            fireclickdetector(game.Workspace.Ignored.Shop["[AK47] - $2318"].ClickDetector)
+            fireclickdetector(game.Workspace.Ignored.Shop["[AK47] - $2318"].ClickDetector)
 
             plr.Character.HumanoidRootPart.CFrame = CFrame.new(savedsilencerpos)
             plr.Character.HumanoidRootPart.CFrame = CFrame.new(savedsilencerpos)
         elseif State == "LMG" then
             plr = game:GetService "Players".LocalPlayer
-            local k = game.Workspace.Ignored.Shop["[LMG] - $3750"]
+            local k = game.Workspace.Ignored.Shop["[LMG] - $3863"]
             local savedsilencerpos = plr.Character.HumanoidRootPart.Position
             game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = k.Head.CFrame + Vector3.new(0, 3, 0)
             wait(0.2)
-            fireclickdetector(game.Workspace.Ignored.Shop["[LMG] - $3750"].ClickDetector)
-            fireclickdetector(game.Workspace.Ignored.Shop["[LMG] - $3750"].ClickDetector)
+            fireclickdetector(game.Workspace.Ignored.Shop["[LMG] - $3863"].ClickDetector)
+            fireclickdetector(game.Workspace.Ignored.Shop["[LMG] - $3863"].ClickDetector)
 
             plr.Character.HumanoidRootPart.CFrame = CFrame.new(savedsilencerpos)
             plr.Character.HumanoidRootPart.CFrame = CFrame.new(savedsilencerpos)
         elseif State == "Glock" then
             plr = game:GetService "Players".LocalPlayer
-            local k = game.Workspace.Ignored.Shop["[Glock] - $500"]
+            local k = game.Workspace.Ignored.Shop["[Glock] - $515"]
             local savedsilencerpos = plr.Character.HumanoidRootPart.Position
             game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = k.Head.CFrame + Vector3.new(0, 3, 0)
             wait(0.2)
-            fireclickdetector(game.Workspace.Ignored.Shop["[Glock] - $500"].ClickDetector)
-            fireclickdetector(game.Workspace.Ignored.Shop["[Glock] - $500"].ClickDetector)
+            fireclickdetector(game.Workspace.Ignored.Shop["[Glock] - $515"].ClickDetector)
+            fireclickdetector(game.Workspace.Ignored.Shop["[Glock] - $515"].ClickDetector)
 
             plr.Character.HumanoidRootPart.CFrame = CFrame.new(savedsilencerpos)
             plr.Character.HumanoidRootPart.CFrame = CFrame.new(savedsilencerpos)
         elseif State == "Silencer" then
             plr = game:GetService "Players".LocalPlayer
-            local k = game.Workspace.Ignored.Shop["[Silencer] - $550"]
+            local k = game.Workspace.Ignored.Shop["[Silencer] - $567"]
             local savedsilencerpos = plr.Character.HumanoidRootPart.Position
             game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = k.Head.CFrame + Vector3.new(0, 3, 0)
             wait(0.2)
-            fireclickdetector(game.Workspace.Ignored.Shop["[Silencer] - $550"].ClickDetector)
-            fireclickdetector(game.Workspace.Ignored.Shop["[Silencer] - $550"].ClickDetector)
+            fireclickdetector(game.Workspace.Ignored.Shop["[Silencer] - $567"].ClickDetector)
+            fireclickdetector(game.Workspace.Ignored.Shop["[Silencer] - $567"].ClickDetector)
 
             plr.Character.HumanoidRootPart.CFrame = CFrame.new(savedsilencerpos)
             plr.Character.HumanoidRootPart.CFrame = CFrame.new(savedsilencerpos)
         elseif State == "Rifle" then
             plr = game:GetService "Players".LocalPlayer
-            local k = game.Workspace.Ignored.Shop["[Rifle] - $1550"]
+            local k = game.Workspace.Ignored.Shop["[Rifle] - $1597"]
             local savedsilencerpos = plr.Character.HumanoidRootPart.Position
             game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = k.Head.CFrame + Vector3.new(0, 3, 0)
             wait(0.2)
-            fireclickdetector(game.Workspace.Ignored.Shop["[Rifle] - $1550"].ClickDetector)
-            fireclickdetector(game.Workspace.Ignored.Shop["[Rifle] - $1550"].ClickDetector)
+            fireclickdetector(game.Workspace.Ignored.Shop["[Rifle] - $1597"].ClickDetector)
+            fireclickdetector(game.Workspace.Ignored.Shop["[Rifle] - $1597"].ClickDetector)
 
             plr.Character.HumanoidRootPart.CFrame = CFrame.new(savedsilencerpos)
             plr.Character.HumanoidRootPart.CFrame = CFrame.new(savedsilencerpos)
         elseif State == "RPG" then
             plr = game:GetService "Players".LocalPlayer
-            local k = game.Workspace.Ignored.Shop["[RPG] - $6000"]
+            local k = game.Workspace.Ignored.Shop["[RPG] - $6180"]
             local savedsilencerpos = plr.Character.HumanoidRootPart.Position
             game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = k.Head.CFrame + Vector3.new(0, 3, 0)
             wait(0.2)
-            fireclickdetector(game.Workspace.Ignored.Shop["[RPG] - $6000"].ClickDetector)
-            fireclickdetector(game.Workspace.Ignored.Shop["[RPG] - $6000"].ClickDetector)
+            fireclickdetector(game.Workspace.Ignored.Shop["[RPG] - $6180"].ClickDetector)
+            fireclickdetector(game.Workspace.Ignored.Shop["[RPG] - $6180"].ClickDetector)
 
             plr.Character.HumanoidRootPart.CFrame = CFrame.new(savedsilencerpos)
             plr.Character.HumanoidRootPart.CFrame = CFrame.new(savedsilencerpos)
         elseif State == "Flamethrower" then
             plr = game:GetService "Players".LocalPlayer
-            local k = game.Workspace.Ignored.Shop["[Flamethrower] - $25000"]
+            local k = game.Workspace.Ignored.Shop["[Flamethrower] - $25750"]
             local savedsilencerpos = plr.Character.HumanoidRootPart.Position
             game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = k.Head.CFrame + Vector3.new(0, 3, 0)
             wait(0.2)
-            fireclickdetector(game.Workspace.Ignored.Shop["[Flamethrower] - $25000"].ClickDetector)
-            fireclickdetector(game.Workspace.Ignored.Shop["[Flamethrower] - $25000"].ClickDetector)
+            fireclickdetector(game.Workspace.Ignored.Shop["[Flamethrower] - $25750"].ClickDetector)
+            fireclickdetector(game.Workspace.Ignored.Shop["[Flamethrower] - $25750"].ClickDetector)
 
             plr.Character.HumanoidRootPart.CFrame = CFrame.new(savedsilencerpos)
             plr.Character.HumanoidRootPart.CFrame = CFrame.new(savedsilencerpos)
         elseif State == "Taser" then
             plr = game:GetService "Players".LocalPlayer
-            local k = game.Workspace.Ignored.Shop["[Taser] - $1250"]
+            local k = game.Workspace.Ignored.Shop["[Taser] - $1030"]
             local savedsilencerpos = plr.Character.HumanoidRootPart.Position
             game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = k.Head.CFrame + Vector3.new(0, 3, 0)
             wait(0.2)
-            fireclickdetector(game.Workspace.Ignored.Shop["[Taser] - $1250"].ClickDetector)
-            fireclickdetector(game.Workspace.Ignored.Shop["[Taser] - $1250"].ClickDetector)
+            fireclickdetector(game.Workspace.Ignored.Shop["[Taser] - $1030"].ClickDetector)
+            fireclickdetector(game.Workspace.Ignored.Shop["[Taser] - $1030"].ClickDetector)
 
             plr.Character.HumanoidRootPart.CFrame = CFrame.new(savedsilencerpos)
             plr.Character.HumanoidRootPart.CFrame = CFrame.new(savedsilencerpos)
@@ -5603,7 +5685,7 @@ end)
 AutoBuyPage.AddDropdown("Ammo", {"Revolver", "DB", "Shotgun", "SMG", "AK-47", "LMG", "Glock", "Silencer", "Rifle", "RPG", "Flamethrower",}, function(State)
         if State == "Revolver" then
             local plr = game:GetService "Players".LocalPlayer
-            local gunName = "12 [Revolver Ammo] - $75"
+            local gunName = "12 [Revolver Ammo] - $77"
             local k = game.Workspace.Ignored.Shop[gunName]
             local savedsilencerpos = plr.Character.HumanoidRootPart.Position
             game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = k.Head.CFrame + Vector3.new(0, 3, 0)
@@ -5614,111 +5696,111 @@ AutoBuyPage.AddDropdown("Ammo", {"Revolver", "DB", "Shotgun", "SMG", "AK-47", "L
             plr.Character.HumanoidRootPart.CFrame = CFrame.new(savedsilencerpos)
         elseif State == "DB" then
             local plr = game:GetService "Players".LocalPlayer
-            local k = game.Workspace.Ignored.Shop["18 [Double-Barrel SG Ammo] - $60"]
+            local k = game.Workspace.Ignored.Shop["18 [Double-Barrel SG Ammo] - $62"]
             local savedsilencerpos = plr.Character.HumanoidRootPart.Position
             game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = k.Head.CFrame + Vector3.new(0, 3, 0)
             wait(0.2)
-            fireclickdetector(game.Workspace.Ignored.Shop["18 [Double-Barrel SG Ammo] - $60"].ClickDetector)
-            fireclickdetector(game.Workspace.Ignored.Shop["18 [Double-Barrel SG Ammo] - $60"].ClickDetector)
+            fireclickdetector(game.Workspace.Ignored.Shop["18 [Double-Barrel SG Ammo] - $62"].ClickDetector)
+            fireclickdetector(game.Workspace.Ignored.Shop["18 [Double-Barrel SG Ammo] - $62"].ClickDetector)
 
             plr.Character.HumanoidRootPart.CFrame = CFrame.new(savedsilencerpos)
             plr.Character.HumanoidRootPart.CFrame = CFrame.new(savedsilencerpos)
         elseif State == "Shotgun" then
             local plr = game:GetService "Players".LocalPlayer
-            local k = game.Workspace.Ignored.Shop["20 [Shotgun Ammo] - $60"]
+            local k = game.Workspace.Ignored.Shop["20 [Shotgun Ammo] - $62"]
             local savedsilencerpos = plr.Character.HumanoidRootPart.Position
             game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = k.Head.CFrame + Vector3.new(0, 3, 0)
             wait(0.2)
-            fireclickdetector(game.Workspace.Ignored.Shop["20 [Shotgun Ammo] - $60"].ClickDetector)
-            fireclickdetector(game.Workspace.Ignored.Shop["20 [Shotgun Ammo] - $60"].ClickDetector)
+            fireclickdetector(game.Workspace.Ignored.Shop["20 [Shotgun Ammo] - $62"].ClickDetector)
+            fireclickdetector(game.Workspace.Ignored.Shop["20 [Shotgun Ammo] - $62"].ClickDetector)
 
             plr.Character.HumanoidRootPart.CFrame = CFrame.new(savedsilencerpos)
             plr.Character.HumanoidRootPart.CFrame = CFrame.new(savedsilencerpos)
         elseif State == "SMG" then
             plr = game:GetService "Players".LocalPlayer
-            local k = game.Workspace.Ignored.Shop["80 [SMG Ammo] - $60"]
+            local k = game.Workspace.Ignored.Shop["80 [SMG Ammo] - $62"]
             local savedsilencerpos = plr.Character.HumanoidRootPart.Position
             game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = k.Head.CFrame + Vector3.new(0, 3, 0)
             wait(0.2)
-            fireclickdetector(game.Workspace.Ignored.Shop["80 [SMG Ammo] - $60"].ClickDetector)
-            fireclickdetector(game.Workspace.Ignored.Shop["80 [SMG Ammo] - $60"].ClickDetector)
+            fireclickdetector(game.Workspace.Ignored.Shop["80 [SMG Ammo] - $62"].ClickDetector)
+            fireclickdetector(game.Workspace.Ignored.Shop["80 [SMG Ammo] - $62"].ClickDetector)
 
             plr.Character.HumanoidRootPart.CFrame = CFrame.new(savedsilencerpos)
             plr.Character.HumanoidRootPart.CFrame = CFrame.new(savedsilencerpos)
         elseif State == "AK-47" then
             plr = game:GetService "Players".LocalPlayer
-            local k = game.Workspace.Ignored.Shop["90 [AK47 Ammo] - $80"]
+            local k = game.Workspace.Ignored.Shop["90 [AK47 Ammo] - $82"]
             local savedsilencerpos = plr.Character.HumanoidRootPart.Position
             game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = k.Head.CFrame + Vector3.new(0, 3, 0)
             wait(0.2)
-            fireclickdetector(game.Workspace.Ignored.Shop["90 [AK47 Ammo] - $80"].ClickDetector)
-            fireclickdetector(game.Workspace.Ignored.Shop["90 [AK47 Ammo] - $80"].ClickDetector)
+            fireclickdetector(game.Workspace.Ignored.Shop["90 [AK47 Ammo] - $82"].ClickDetector)
+            fireclickdetector(game.Workspace.Ignored.Shop["90 [AK47 Ammo] - $82"].ClickDetector)
 
             plr.Character.HumanoidRootPart.CFrame = CFrame.new(savedsilencerpos)
             plr.Character.HumanoidRootPart.CFrame = CFrame.new(savedsilencerpos)
         elseif State == "LMG" then
             local plr = game:GetService "Players".LocalPlayer
-            local k = game.Workspace.Ignored.Shop["200 [LMG Ammo] - $300"]
+            local k = game.Workspace.Ignored.Shop["200 [LMG Ammo] - $309"]
             local savedsilencerpos = plr.Character.HumanoidRootPart.Position
             game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = k.Head.CFrame + Vector3.new(0, 3, 0)
             wait(0.2)
-            fireclickdetector(game.Workspace.Ignored.Shop["200 [LMG Ammo] - $300"].ClickDetector)
-            fireclickdetector(game.Workspace.Ignored.Shop["200 [LMG Ammo] - $300"].ClickDetector)
+            fireclickdetector(game.Workspace.Ignored.Shop["200 [LMG Ammo] - $309"].ClickDetector)
+            fireclickdetector(game.Workspace.Ignored.Shop["200 [LMG Ammo] - $309"].ClickDetector)
 
             plr.Character.HumanoidRootPart.CFrame = CFrame.new(savedsilencerpos)
             plr.Character.HumanoidRootPart.CFrame = CFrame.new(savedsilencerpos)
         elseif State == "Glock" then
             local plr = game:GetService "Players".LocalPlayer
-            local k = game.Workspace.Ignored.Shop["25 [Glock Ammo] - $60"]
+            local k = game.Workspace.Ignored.Shop["25 [Glock Ammo] - $62"]
             local savedsilencerpos = plr.Character.HumanoidRootPart.Position
             game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = k.Head.CFrame + Vector3.new(0, 3, 0)
             wait(0.2)
-            fireclickdetector(game.Workspace.Ignored.Shop["25 [Glock Ammo] - $60"].ClickDetector)
-            fireclickdetector(game.Workspace.Ignored.Shop["25 [Glock Ammo] - $60"].ClickDetector)
+            fireclickdetector(game.Workspace.Ignored.Shop["25 [Glock Ammo] - $62"].ClickDetector)
+            fireclickdetector(game.Workspace.Ignored.Shop["25 [Glock Ammo] - $62"].ClickDetector)
 
             plr.Character.HumanoidRootPart.CFrame = CFrame.new(savedsilencerpos)
             plr.Character.HumanoidRootPart.CFrame = CFrame.new(savedsilencerpos)
         elseif State == "Silencer" then
             local plr = game:GetService "Players".LocalPlayer
-            local k = game.Workspace.Ignored.Shop["25 [Silencer Ammo] - $50"]
+            local k = game.Workspace.Ignored.Shop["25 [Silencer Ammo] - $52"]
             local savedsilencerpos = plr.Character.HumanoidRootPart.Position
             game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = k.Head.CFrame + Vector3.new(0, 3, 0)
             wait(0.2)
-            fireclickdetector(game.Workspace.Ignored.Shop["25 [Silencer Ammo] - $50"].ClickDetector)
-            fireclickdetector(game.Workspace.Ignored.Shop["25 [Silencer Ammo] - $50"].ClickDetector)
+            fireclickdetector(game.Workspace.Ignored.Shop["25 [Silencer Ammo] - $52"].ClickDetector)
+            fireclickdetector(game.Workspace.Ignored.Shop["25 [Silencer Ammo] - $52"].ClickDetector)
 
             plr.Character.HumanoidRootPart.CFrame = CFrame.new(savedsilencerpos)
             plr.Character.HumanoidRootPart.CFrame = CFrame.new(savedsilencerpos)
         elseif State == "Rifle" then
             local plr = game:GetService "Players".LocalPlayer
-            local k = game.Workspace.Ignored.Shop["5 [Rifle Ammo] - $250"]
+            local k = game.Workspace.Ignored.Shop["5 [Rifle Ammo] - $258"]
             local savedsilencerpos = plr.Character.HumanoidRootPart.Position
             game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = k.Head.CFrame + Vector3.new(0, 3, 0)
             wait(0.2)
-            fireclickdetector(game.Workspace.Ignored.Shop["5 [Rifle Ammo] - $250"].ClickDetector)
-            fireclickdetector(game.Workspace.Ignored.Shop["5 [Rifle Ammo] - $250"].ClickDetector)
+            fireclickdetector(game.Workspace.Ignored.Shop["5 [Rifle Ammo] - $258"].ClickDetector)
+            fireclickdetector(game.Workspace.Ignored.Shop["5 [Rifle Ammo] - $258"].ClickDetector)
 
             plr.Character.HumanoidRootPart.CFrame = CFrame.new(savedsilencerpos)
             plr.Character.HumanoidRootPart.CFrame = CFrame.new(savedsilencerpos)
         elseif State == "RPG" then
             local plr = game:GetService "Players".LocalPlayer
-            local k = game.Workspace.Ignored.Shop["5 [RPG Ammo] - $1000"]
+            local k = game.Workspace.Ignored.Shop["5 [RPG Ammo] - $1030"]
             local savedsilencerpos = plr.Character.HumanoidRootPart.Position
             game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = k.Head.CFrame + Vector3.new(0, 3, 0)
             wait(0.2)
-            fireclickdetector(game.Workspace.Ignored.Shop["5 [RPG Ammo] - $1000"].ClickDetector)
-            fireclickdetector(game.Workspace.Ignored.Shop["5 [RPG Ammo] - $1000"].ClickDetector)
+            fireclickdetector(game.Workspace.Ignored.Shop["5 [RPG Ammo] - $1030"].ClickDetector)
+            fireclickdetector(game.Workspace.Ignored.Shop["5 [RPG Ammo] - $1030"].ClickDetector)
 
             plr.Character.HumanoidRootPart.CFrame = CFrame.new(savedsilencerpos)
             plr.Character.HumanoidRootPart.CFrame = CFrame.new(savedsilencerpos)
         elseif State == "Flamethrower" then
             local plr = game:GetService "Players".LocalPlayer
-            local k = game.Workspace.Ignored.Shop["140 [Flamethrower Ammo] - $1550"]
+            local k = game.Workspace.Ignored.Shop["140 [Flamethrower Ammo] - $1597"]
             local savedsilencerpos = plr.Character.HumanoidRootPart.Position
             game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = k.Head.CFrame + Vector3.new(0, 3, 0)
             wait(0.2)
-            fireclickdetector(game.Workspace.Ignored.Shop["140 [Flamethrower Ammo] - $1550"].ClickDetector)
-            fireclickdetector(game.Workspace.Ignored.Shop["140 [Flamethrower Ammo] - $1550"].ClickDetector)
+            fireclickdetector(game.Workspace.Ignored.Shop["140 [Flamethrower Ammo] - $1597"].ClickDetector)
+            fireclickdetector(game.Workspace.Ignored.Shop["140 [Flamethrower Ammo] - $1597"].ClickDetector)
 
             plr.Character.HumanoidRootPart.CFrame = CFrame.new(savedsilencerpos)
             plr.Character.HumanoidRootPart.CFrame = CFrame.new(savedsilencerpos)
@@ -5727,67 +5809,67 @@ end)
 AutoBuyPage.AddDropdown("Melee", {"Knife", "Bat", "Shovel", "Pitchfork", "Stopsign", "Sledgehammer",}, function(State)
 if State == "Knife" then
 	local plr = game:GetService "Players".LocalPlayer
-	local k = game.Workspace.Ignored.Shop["[Knife] - $150"]
+	local k = game.Workspace.Ignored.Shop["[Knife] - $155"]
 	local savedsilencerpos = plr.Character.HumanoidRootPart.Position
 	game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = k.Head.CFrame + Vector3.new(0, 3, 0)
 	wait(0.2)
-	fireclickdetector(game.Workspace.Ignored.Shop["[Knife] - $150"].ClickDetector)
-	fireclickdetector(game.Workspace.Ignored.Shop["[Knife] - $150"].ClickDetector)
+	fireclickdetector(game.Workspace.Ignored.Shop["[Knife] - $155"].ClickDetector)
+	fireclickdetector(game.Workspace.Ignored.Shop["[Knife] - $155"].ClickDetector)
 
 	plr.Character.HumanoidRootPart.CFrame = CFrame.new(savedsilencerpos)
 	plr.Character.HumanoidRootPart.CFrame = CFrame.new(savedsilencerpos)
 elseif State == "Bat" then
 	local plr = game:GetService "Players".LocalPlayer
-	local k = game.Workspace.Ignored.Shop["[Bat] - $250"]
+	local k = game.Workspace.Ignored.Shop["[Bat] - $283"]
 	local savedsilencerpos = plr.Character.HumanoidRootPart.Position
 	game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = k.Head.CFrame + Vector3.new(0, 3, 0)
 	wait(0.2)
-	fireclickdetector(game.Workspace.Ignored.Shop["[Bat] - $250"].ClickDetector)
-	fireclickdetector(game.Workspace.Ignored.Shop["[Bat] - $250"].ClickDetector)
+	fireclickdetector(game.Workspace.Ignored.Shop["[Bat] - $283"].ClickDetector)
+	fireclickdetector(game.Workspace.Ignored.Shop["[Bat] - $283"].ClickDetector)
 
 	plr.Character.HumanoidRootPart.CFrame = CFrame.new(savedsilencerpos)
 	plr.Character.HumanoidRootPart.CFrame = CFrame.new(savedsilencerpos)
 elseif State == "Shovel" then
 	local plr = game:GetService "Players".LocalPlayer
-	local k = game.Workspace.Ignored.Shop["[Shovel] - $320"]
+	local k = game.Workspace.Ignored.Shop["[Shovel] - $330"]
 	local savedsilencerpos = plr.Character.HumanoidRootPart.Position
 	game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = k.Head.CFrame + Vector3.new(0, 3, 0)
 	wait(0.2)
-	fireclickdetector(game.Workspace.Ignored.Shop["[Shovel] - $320"].ClickDetector)
-	fireclickdetector(game.Workspace.Ignored.Shop["[Shovel] - $320"].ClickDetector)
+	fireclickdetector(game.Workspace.Ignored.Shop["[Shovel] - $330"].ClickDetector)
+	fireclickdetector(game.Workspace.Ignored.Shop["[Shovel] - $330"].ClickDetector)
 
 	plr.Character.HumanoidRootPart.CFrame = CFrame.new(savedsilencerpos)
 	plr.Character.HumanoidRootPart.CFrame = CFrame.new(savedsilencerpos)
 elseif State == "Pitchfork" then
 	local plr = game:GetService "Players".LocalPlayer
-	local k = game.Workspace.Ignored.Shop["[Pitchfork] - $320"]
+	local k = game.Workspace.Ignored.Shop["[Pitchfork] - $330"]
 	local savedsilencerpos = plr.Character.HumanoidRootPart.Position
 	game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = k.Head.CFrame + Vector3.new(0, 3, 0)
 	wait(0.2)
-	fireclickdetector(game.Workspace.Ignored.Shop["[Pitchfork] - $320"].ClickDetector)
-	fireclickdetector(game.Workspace.Ignored.Shop["[Pitchfork] - $320"].ClickDetector)
+	fireclickdetector(game.Workspace.Ignored.Shop["[Pitchfork] - $330"].ClickDetector)
+	fireclickdetector(game.Workspace.Ignored.Shop["[Pitchfork] - $330"].ClickDetector)
 
 	plr.Character.HumanoidRootPart.CFrame = CFrame.new(savedsilencerpos)
 	plr.Character.HumanoidRootPart.CFrame = CFrame.new(savedsilencerpos)
 elseif State == "Stopsign" then
 	local plr = game:GetService "Players".LocalPlayer
-	local k = game.Workspace.Ignored.Shop["[StopSign] - $300"]
+	local k = game.Workspace.Ignored.Shop["[StopSign] - $309"]
 	local savedsilencerpos = plr.Character.HumanoidRootPart.Position
 	game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = k.Head.CFrame + Vector3.new(0, 3, 0)
 	wait(0.2)
-	fireclickdetector(game.Workspace.Ignored.Shop["[StopSign] - $300"].ClickDetector)
-	fireclickdetector(game.Workspace.Ignored.Shop["[StopSign] - $300"].ClickDetector)
+	fireclickdetector(game.Workspace.Ignored.Shop["[StopSign] - $309"].ClickDetector)
+	fireclickdetector(game.Workspace.Ignored.Shop["[StopSign] - $309"].ClickDetector)
 
 	plr.Character.HumanoidRootPart.CFrame = CFrame.new(savedsilencerpos)
 	plr.Character.HumanoidRootPart.CFrame = CFrame.new(savedsilencerpos)
 elseif State == "Sledgehammer" then
 	local plr = game:GetService "Players".LocalPlayer
-	local k = game.Workspace.Ignored.Shop["[SledgeHammer] - $350"]
+	local k = game.Workspace.Ignored.Shop["[SledgeHammer] - $361"]
 	local savedsilencerpos = plr.Character.HumanoidRootPart.Position
 	game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = k.Head.CFrame + Vector3.new(0, 3, 0)
 	wait(0.2)
-	fireclickdetector(game.Workspace.Ignored.Shop["[SledgeHammer] - $350"].ClickDetector)
-	fireclickdetector(game.Workspace.Ignored.Shop["[SledgeHammer] - $350"].ClickDetector)
+	fireclickdetector(game.Workspace.Ignored.Shop["[SledgeHammer] - $361"].ClickDetector)
+	fireclickdetector(game.Workspace.Ignored.Shop["[SledgeHammer] - $361"].ClickDetector)
 
 	plr.Character.HumanoidRootPart.CFrame = CFrame.new(savedsilencerpos)
 	plr.Character.HumanoidRootPart.CFrame = CFrame.new(savedsilencerpos)
